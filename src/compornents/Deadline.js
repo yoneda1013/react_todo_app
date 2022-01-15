@@ -10,7 +10,7 @@ export const Deadline = () => {
     <div className='deadline'>
       <label>
       <p>deadline</p>
-      <DatePicker selected={deadlineDate} onChange ={(date) =>setDeadlineDate(date)}/>
+      <DatePicker className='DatePicker' selected={deadlineDate} onChange ={(date) =>setDeadlineDate(date)}/>
       </label>
     </div>
     );

@@ -8,6 +8,10 @@ p{
   font-size: 15px;
 }
 
+li{
+  list-style: none;
+}
+
 
 /* Header */
 .button {
@@ -19,7 +23,7 @@ p{
   padding       : 12px 13px;   
   background    : #000066;     
   color         : #ffffff;     
-  line-height   : 1em;         
+  line-height   : 0.5em;         
   transition    : .3s;         
   border        : 2px solid #000066;    
   margin-left: 10px;
@@ -57,8 +61,45 @@ p{
 .deadline{
   text-align: center;
 }
+.DatePicker{
+  display: inline-block;
+}
 
 /* ItemList */
 p{
   display: inline-block;
+}
+.ItemList{
+  display: flex;
+  justify-content: space-between;
+  margin: 5% 20% 0 20%;
+}
+.CheckList ul{
+  padding: 0;
+}
+.MemoList input{
+  height: 30vh;
+  width: 30vh;
+}
+
+/* SaveBtn */
+.SaveBtn{
+  display       : inline-block;
+  border-radius : 5%;          
+  font-size     : 14pt;           
+  cursor        : pointer;     
+  padding       : 12px 13px;   
+  background    : #000066;     
+  color         : #ffffff;     
+  line-height   : 0.5em;         
+  transition    : .3s;         
+  border        : 2px solid #000066;    
+  margin-left: 10px;
+}
+.SaveBtn:hover{
+  color         : #000066;     
+  background    : #ffffff; 
+}
+.SaveBtnContainer{
+  text-align: right;
 }

@@ -3,7 +3,6 @@ import { useState,useEffect } from 'react';
 import { db } from "../firebase/firebase.js";
 import { collection, getDocs, onSnapshot, querySnapshot } from '../firebase/firestore';
 
-
 export const Title =({}) =>{
     const [ projectTitles, setProjectTitles ] = useState([]);
 

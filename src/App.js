@@ -11,9 +11,14 @@ import { db } from "./firebase/firebase.js"
 import { collection, getDocs, QuerySnapshot } from 'firebase/firestore';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-
 export const App =() =>{
-  // const [ projectNames, setProjectNames] = useState([]);
+  const [ projects, setProjects ] = useState([]);
+  //firestoreのdbから取得したデータをprojectsに保存する。
+  const projectsCollectionRef = collection( db, 'projects')
+  //dbのコレクションを参照。
+  useEffect(() =>{
+
+  }, []);
 
   // useEffect(() => {
   //   const projectCollectionRef = collection(db, 'projectName');
@@ -31,6 +36,7 @@ export const App =() =>{
 
   return (
   <>
+  {/* <Home/> */}
   <AuthProvider>
     <BrowserRouter>
     <Routes>

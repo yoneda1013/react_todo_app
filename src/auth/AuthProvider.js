@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {auth} from "../firebase/firebase";
+import { useNavigate } from 'react-router-dom';
 
 //認証に必要なものの集約
 
@@ -9,12 +10,13 @@ const AuthProvider = ( { children }) => {
     const [currentUser, setCurrentUser] =useState(null);
 
 //認証情報の更新
-    const signup = async ( email, password, history ) =>{
+    const signup = async ( email, password ) =>{
         //try 例外が発生する可能性のある処理
         try{
-            await auth.createUserWithEmailAndPassword( email, password);
+            const navigate = useNavigate();
+            await auth.createUserWithEmailAndPassword( email, password );
             auth.onAuthStateChanged( user => setCurrentUser(user));
-            history.push("/");
+            navigate('/');
         }
         //catch 例外が発生した場合の処理
         catch( error ) {
@@ -23,11 +25,13 @@ const AuthProvider = ( { children }) => {
     }
 
 //ログイン
-const login = async ( email, password, history ) =>{
+const login = async ( email, password ) =>{
     try{
+        const navigate = useNavigate();
         await auth.signInWithEmailAndPassword( email,password );
         auth.onAuthStateChanged( user => setCurrentUser( user ));
-        history.push("/");
+        navigate('/');
+        // history.push("/");
     } catch( error ){
         // alert( error );
         console.log( error );

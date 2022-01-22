@@ -1,5 +1,7 @@
 import React from 'react';
 import {useState} from 'react';
+import { db } from "../firebase/firebase.js"
+import { collection, getDocs, QuerySnapshot } from 'firebase/firestore';
 
 export const ItemList =({}) =>{
     const[ colorModeText,setColorModeText ]  = useState('RGB/CMYK');
@@ -12,6 +14,7 @@ export const ItemList =({}) =>{
     const onChangeDataTypeText = (event) => setDataTypeText(event.target.value);
     const [imgTypeText, setImgTypeText] = useState('');
     const onChangeImgTypeText = (event) => setImgTypeText(event.target.value);
+
 
     return(
         <>
@@ -105,7 +108,7 @@ export const ItemList =({}) =>{
             type='checkbox'
             value='データ形式'
             />
-            <p>孤立店</p>
+            <p>孤立点</p>
             </label>   
             </li>
             <li>

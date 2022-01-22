@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
-import { Route } from "react-router-dom";
+import { Route, Navigate, Outlet} from "react-router-dom";
 import { AuthContext } from "./AuthProvider";
 import { Login } from "./Login";
 
-const PrivateRoute = ({ component, ...rest}) => {
-    const { currentUser } = useContext(AuthContext);
-    const Component = currentUser ? component : Login;
 
-    return<Route {...rest} component={Component} />;
+//AuthContextから渡されたcurrentUserがセットされていれば、app.jsの/に。（Outlet）
+const PrivateRoute = ({ component, ...rest }) => {
+    const { currentUser } = useContext(AuthContext);
+    return currentUser ? <Outlet /> : <Navigate to ="/login"></Navigate>
 };
 
 export { PrivateRoute }

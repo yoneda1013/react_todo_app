@@ -19,6 +19,7 @@ const SignUpButton = styled(Button)({
 
 const SignUp = ({ history }) => {
     const { signup } =useContext(AuthContext);
+//AuthContextからsingup関数を受け取る
 
     const handleSubmit = event =>{
         event.preventDefault();
@@ -43,7 +44,6 @@ const SignUp = ({ history }) => {
         <Link to="/login">SignInへ戻る</Link>
         </div>
     )
-
 }
 
 export default SignUp;

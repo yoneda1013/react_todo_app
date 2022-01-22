@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Header } from './Header';
-import { Title } from './Title';
+// import { Title } from './Title';
 import { Deadline } from './Deadline';
 import { ItemList } from './ItemList';
 import { SaveBtn } from './SaveBtn';
@@ -11,7 +11,7 @@ export const Home = ({}) => {
     return(
         <>
         <Header/>
-        <Title/>
+        {/* <Title/> */}
         <Deadline/>
         <ItemList/>
         <SaveBtn/>

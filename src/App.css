@@ -34,6 +34,7 @@ li{
 }
 .headerList{
   text-align: right;
+  padding: 20px;
 }
 
 /* Main */
@@ -41,7 +42,7 @@ li{
 .titleInput{
   position: relative;
 	width: 80%;
-	margin: 40px 3%;
+	margin: 3%;
   font: 15px/24px sans-serif;
 	box-sizing: border-box;
 	padding: 0.3em;
@@ -63,6 +64,7 @@ li{
 }
 .DatePicker{
   display: inline-block;
+  
 }
 
 /* ItemList */
@@ -72,7 +74,7 @@ p{
 .ItemList{
   display: flex;
   justify-content: space-between;
-  margin: 5% 20% 0 20%;
+  margin: 5% 15% 0 15%;
 }
 .CheckList ul{
   padding: 0;
@@ -102,4 +104,5 @@ p{
 }
 .SaveBtnContainer{
   text-align: right;
+  padding-right: 40px;
 }

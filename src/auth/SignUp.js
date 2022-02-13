@@ -5,7 +5,7 @@ import { styled } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
 const SignUpButton = styled(Button)({
-    background: '#f16272',
+    background: '#3636B3',
     fontSize: '1.8rem',
     border: 0,
     borderRadius: 3,
@@ -13,7 +13,7 @@ const SignUpButton = styled(Button)({
     padding: '10px 40px',
     marginTop: '30px',
     '&:hover': {
-      backgroundColor: '#ee3e52',
+      backgroundColor: '#000066',
     },
   });
 
@@ -28,21 +28,27 @@ const SignUp = ({ history }) => {
     };
 
     return(
-        <div>
+      <div className="wrapper">
+        <div className="auth-container">
         <h1>Sign Up</h1>
+        <p>登録がまだの方は下記フォームに必要事項を入力してください。</p>
         <form onSubmit={handleSubmit}>
-          <div>
-            <label>E-mail Address</label>
+          <div className="auth-form">
+            <span>E-mail Address</span>
             <input name="email" type="email" placeholder="email@gmail.com" />
           </div>
-          <div>
-            <label>Password</label>
+          <div className="auth-form">
+            <span>Password</span>
             <input name="password" type="password" placeholder="Password"/>
           </div>
-            <SignUpButton type="submit">SIGN UP</SignUpButton>
+          <div className="auth-btn">
+          <SignUpButton type="submit">SIGN UP</SignUpButton>
+          </div>
         </form>
-        <Link to="/login">SignInへ戻る</Link>
+          <Link to="/login" className="auth-link">SignInへ戻る</Link>
         </div>
+      </div>
+        
     )
 }
 

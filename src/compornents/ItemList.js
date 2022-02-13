@@ -3,51 +3,33 @@ import {useState} from 'react';
 import { db } from "../firebase/firebase.js"
 import { collection, getDocs, QuerySnapshot } from 'firebase/firestore';
 
-export const ItemList =({}) =>{
-    const[ colorModeText,setColorModeText ]  = useState('RGB/CMYK');
-    const [cmykText, setCmykText] = useState('');
-    const onChangeCmykText = (event) => setCmykText(event.target.value);
+export const ItemList =({cmykText, onChangeCmykText, tonboText, onChangeTonboText, dataTypeText, onChangeDataTypeText, imgTypeText, onChangeImgTypeText, cmykInput, tonboInput, dataTypeInput, imgTypeInput, checkInput}) =>{
+
     const input = document.querySelector('input');
-    const [tonboText, setTonboText] = useState('');
-    const onChangeTonboText = (event) => setTonboText(event.target.value);
-    const [dataTypeText, setDataTypeText] = useState('');
-    const onChangeDataTypeText = (event) => setDataTypeText(event.target.value);
-    const [imgTypeText, setImgTypeText] = useState('');
-    const onChangeImgTypeText = (event) => setImgTypeText(event.target.value);
-
-
+    console.log(cmykText);
+    //ここがundefined
     return(
         <>
         <div className='ItemList'>
-
         <div className='CheckList'>
-        <h2>Check List</h2>
+        <h2>入稿前チェックリスト</h2>
         <ul>
             <li>
             <label>
+            <input type='checkbox' value='カラーモード' checked={cmykInput} />
+            カラーモード
+            </label>
+            <div className='CheckListInput'>
             <input
-            type='checkbox'
-            value='カラーモード'
-            />
-            <p>カラーモード</p>
-            </label>        
-            <input 
-            placeholder="RGB/CMYK" 
+            placeholder="RGB/CMYK"
             value={cmykText} 
-            disabled ={ (event) =>{
-                if(event.key === 'Enter'){
-                    return 'true'
-                }}
-            }
             onChange={onChangeCmykText} 
             onKeyPress={ (event) => 
                 {if(event.key == 'Enter'){
                     alert(`カラーモードは${cmykText}です`)
-                    const validCmylText = () =>{
-                    input.disabled = true;
-                    }    
                 }}}
             />
+            </div>
             </li>
             <li>
             <label>
@@ -55,8 +37,9 @@ export const ItemList =({}) =>{
             type='checkbox'
             value='トンボ形式'
             />
-            <p>トンボ形式</p>
-            </label>        
+            トンボ形式
+            </label>
+            <div className='CheckListInput'>
             <input 
             placeholder="アリ / ナシ" 
             value={tonboText} 
@@ -71,19 +54,20 @@ export const ItemList =({}) =>{
                     alert(`カラーモードは${cmykText}です`)
                     const validtonboText = () =>{
                     input.disabled = true;
-                    }    
+                    }
                 }}}
             />
+            </div>
             </li>
-
             <li>
             <label>
             <input
             type='checkbox'
             value='データ形式'
             />
-            <p>データ形式</p>
-            </label>        
+            データ形式
+            </label>
+            <div className='CheckListInput'>
             <input 
             placeholder="ai / PDF / psd" 
             value={dataTypeText} 
@@ -101,6 +85,7 @@ export const ItemList =({}) =>{
                     }    
                 }}}
             />
+            </div>  
             </li>
             <li>
             <label>
@@ -108,8 +93,8 @@ export const ItemList =({}) =>{
             type='checkbox'
             value='データ形式'
             />
-            <p>孤立点</p>
-            </label>   
+            孤立点
+            </label>
             </li>
             <li>
             <label>
@@ -117,8 +102,9 @@ export const ItemList =({}) =>{
             type='checkbox'
             value='画像'
             />
-            <p>画像</p>
-            </label>        
+            画像
+            </label>
+            <div className='CheckListInput'>
             <input 
             placeholder="リンク / 埋め込み" 
             value={imgTypeText} 
@@ -136,13 +122,14 @@ export const ItemList =({}) =>{
                     }    
                 }}}
             />
+            </div>        
             </li>
         </ul>    
         </div>
 
         <div className='MemoList'>
-        <h2>Memo</h2>
-        <input type="text"></input>
+        <h2>備考</h2>
+        <textarea name="memo" cols="30" row="5" type="text"></textarea>
         </div>
         </div>
         </>

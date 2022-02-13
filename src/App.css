@@ -1,7 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&family=PT+Sans&family=PT+Serif&family=Roboto&display=swap');
 
 html{
   background-color: #F4F4F4;
   font-size: 62.5%;
+}
+
+body{
+  font-family: 'Roboto', sans-serif;
 }
 
 p{
@@ -12,20 +17,72 @@ li{
   list-style: none;
 }
 
+h2{
+  margin-bottom: 2vh;
+}
+
+/* Auth */
+.wrapper{
+  margin-top: 10vh;
+}
+
+.auth-container{
+  display: flex;
+  flex-direction: column;
+  padding: 5vh;
+  margin: 10em 0;
+  width: 40vh;
+  color: #2c2c2f;
+  background: #ffffff;
+  margin: 0 auto;
+}
+
+.auth-container h1{
+  text-align: center;
+  font-size: 2rem;
+}
+
+.auth-container p{
+  text-align: center;
+  font-size: 1rem;
+  color: #aaaaaa;
+  margin: 0 0 1vh 0;
+}
+
+.auth-form{
+  text-align: left;
+  padding-top: 5vh ;
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-form input{
+  height: 4vh;
+  margin-top: 1vh;
+}
+
+.auth-btn{
+  text-align: center;
+  padding: 5vh 0; 
+}
+
+.auth-link{
+  text-align: center;
+}
 
 /* Header */
 .button {
   display       : inline-block;
   border-radius : 5%;          
-  font-size     : 14pt;        
+  font-size     : 10pt;        
   text-align    : center;      
   cursor        : pointer;     
-  padding       : 12px 13px;   
-  background    : #000066;     
+  padding       : 10px;   
+  background    : #3636B3;     
   color         : #ffffff;     
   line-height   : 0.5em;         
   transition    : .3s;         
-  border        : 2px solid #000066;    
+  border        : 2px solid #3636B3;    
   margin-left: 10px;
 }
 .button:hover {
@@ -33,25 +90,32 @@ li{
   background    : #ffffff;     
 }
 .headerList{
-  text-align: right;
   padding: 20px;
+}
+.headerList h1{
+  text-align: center;
 }
 
 /* Main */
 
+/* Title */
+
 .titleInput{
-  position: relative;
-	width: 80%;
-	margin: 3%;
-  font: 15px/24px sans-serif;
+  /* position: relative; */
+	width: 70%;
+	margin: 3vh 15%;
+  font: 15px/30px;
 	box-sizing: border-box;
 	padding: 0.3em;
 	transition: 0.3s;
 	letter-spacing: 1px;
-	color: #aaaaaa;
 	border: none;
 	border-bottom: 2px solid #1b2538;
 	background: transparent;
+}
+
+.containerTitleInput{
+  margin: 0 auto;
 }
 
 .labelTitleInput input[type='text']:focus {
@@ -59,13 +123,15 @@ li{
 	outline: none;
 }
 
+/* Deadline */
 .deadline{
   text-align: center;
 }
 .DatePicker{
-  display: inline-block;
-  
+  display: inline-block; 
+  margin: 0 auto;
 }
+
 
 /* ItemList */
 p{
@@ -76,13 +142,33 @@ p{
   justify-content: space-between;
   margin: 5% 15% 0 15%;
 }
+.CheckList{
+  width: 30vh;
+}
 .CheckList ul{
   padding: 0;
 }
-.MemoList input{
+.CheckList li{
+  margin-bottom: 2vh;
+  height: 4vh; 
+}
+.CheckList label{
+  display: inline-block;
+  font-size: 1.1rem;
+}
+.MemoList textarea{
   height: 30vh;
   width: 30vh;
 }
+.CheckListInput{
+  display: inline-block;
+}
+.CheckListInput input{
+  width: 15vh;
+  margin-left: 2vh;
+  height: 22px;
+}
+
 
 /* SaveBtn */
 .SaveBtn{
@@ -91,11 +177,11 @@ p{
   font-size     : 14pt;           
   cursor        : pointer;     
   padding       : 12px 13px;   
-  background    : #000066;     
-  color         : #ffffff;     
+  background    : #3636B3;     
+  color         : #ffffff; 
   line-height   : 0.5em;         
   transition    : .3s;         
-  border        : 2px solid #000066;    
+  border        : 2px solid #3636B3;    
   margin-left: 10px;
 }
 .SaveBtn:hover{
@@ -104,5 +190,17 @@ p{
 }
 .SaveBtnContainer{
   text-align: right;
-  padding-right: 40px;
+  padding-right: 20px;
+  margin-top: 5vh;
+}
+
+/* responsive */
+@media screen and (min-width: 768px){
+  .wrapper{
+    min-height: 100vh;
+  }
+
+  .ItemList{
+    flex-direction: column;
+  }
 }

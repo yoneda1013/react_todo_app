@@ -8,10 +8,8 @@ export const Deadline = () => {
     
     return (
     <div className='deadline'>
-      <label>
-      <p>deadline</p>
+      <label>入稿締切</label>
       <DatePicker className='DatePicker' selected={deadlineDate} onChange ={(date) =>setDeadlineDate(date)}/>
-      </label>
     </div>
     );
   }

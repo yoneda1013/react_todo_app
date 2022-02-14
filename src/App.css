@@ -139,18 +139,18 @@ p{
 }
 .ItemList{
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin: 5% 15% 0 15%;
 }
 .CheckList{
-  width: 30vh;
+  width: 90vh;
 }
 .CheckList ul{
   padding: 0;
 }
 .CheckList li{
   margin-bottom: 2vh;
-  height: 4vh; 
+  height: 5vh; 
 }
 .CheckList label{
   display: inline-block;
@@ -171,23 +171,7 @@ p{
 
 
 /* SaveBtn */
-.SaveBtn{
-  display       : inline-block;
-  border-radius : 5%;          
-  font-size     : 14pt;           
-  cursor        : pointer;     
-  padding       : 12px 13px;   
-  background    : #3636B3;     
-  color         : #ffffff; 
-  line-height   : 0.5em;         
-  transition    : .3s;         
-  border        : 2px solid #3636B3;    
-  margin-left: 10px;
-}
-.SaveBtn:hover{
-  color         : #000066;     
-  background    : #ffffff; 
-}
+
 .SaveBtnContainer{
   text-align: right;
   padding-right: 20px;
@@ -195,7 +179,7 @@ p{
 }
 
 /* responsive */
-@media screen and (min-width: 768px){
+/* @media screen and (min-width: 768px){
   .wrapper{
     min-height: 100vh;
   }
@@ -203,4 +187,4 @@ p{
   .ItemList{
     flex-direction: column;
   }
-}
+} */

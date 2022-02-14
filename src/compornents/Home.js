@@ -22,33 +22,33 @@ export const Home = ({}) => {
   //Titleに文字を入力
   const onChangeTitle = ( event ) => setTitle(event.target.value);
   const onClickAdd = () =>{
-    alert(title)
+    alert("保存が完了しました！")
     console.log(db.collection('projects'));
     db.collection('projects').doc(docId).set({
       uid: currentUser.uid,
-      title, cmykText, tonboText, dataTypeText,imgTypeText
+      title, cmykText, tonboText, dataTypeText,imgTypeText,cmykInput
     })
     // const addTitle = [firebasのtitle]
     };
 
-    const [ cmykText, setCmykText ] = useState('');
-    const onChangeCmykText = (event) => setCmykText(event.target.value);
-    const [ tonboText, setTonboText ] = useState('');
-    const onChangeTonboText = (event) => setTonboText(event.target.value);
-    const [ dataTypeText, setDataTypeText ] = useState('');
-    const onChangeDataTypeText = (event) => setDataTypeText(event.target.value);
-    const [ imgTypeText, setImgTypeText ] = useState('');
-    const onChangeImgTypeText = (event) => setImgTypeText(event.target.value);
-    const [ cmykInput, setcmykInput ] =useState('');
-    const [ tonboInput, setTonboInput ] =useState('');
-    const [ dataTypeInput, setDataTypeInput ] =useState('');
-    const [ imgTypeInput, setImgTypeInput ] =useState('');
-    const checkInput = (cmykInput, tonboInput, dataTypeInput,imgTypeInput) =>{
-      if (cmykInput, tonboInput, dataTypeInput,imgTypeInput) {
-        alert('チェック完了です。入稿してください。');
-      }
-    }
-    
+  const onClickDelete = () =>{
+    db.collection('projects').doc(docId).delete();
+  };
+
+  const [ cmykText, setCmykText ] = useState('');
+  const onChangeCmykText = (event) => setCmykText(event.target.value);
+  const [ tonboText, setTonboText ] = useState('');
+  const onChangeTonboText = (event) => setTonboText(event.target.value);
+  const [ dataTypeText, setDataTypeText ] = useState('');
+  const onChangeDataTypeText = (event) => setDataTypeText(event.target.value);
+  const [ imgTypeText, setImgTypeText ] = useState('');
+  const onChangeImgTypeText = (event) => setImgTypeText(event.target.value);
+  const [ cmykInput, setCmykInput ] =useState(false);
+  const [ tonboInput, setTonboInput ] =useState('');
+  const [ dataTypeInput, setDataTypeInput ] =useState('');
+  const [ imgTypeInput, setImgTypeInput ] =useState('');
+
+  const onClickCheck = (event) => setCmykInput(event.target.value);
     
   useEffect(() =>{
   const projectsCollectionRef = collection(db, 'projects');
@@ -84,10 +84,11 @@ export const Home = ({}) => {
         tonboInput={tonboInput}
         dataTypeInput={dataTypeInput}
         imgTypeInput={imgTypeInput}
-        checkInput={checkInput}
+        onClickCheck={onClickCheck}
         />
         <SaveBtn
         onClickAdd={onClickAdd}
+        onClickDelete={onClickDelete}
         />
         </wrapper>
         </>

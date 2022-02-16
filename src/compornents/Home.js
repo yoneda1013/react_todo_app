@@ -6,7 +6,6 @@ import { ItemList } from './ItemList';
 import { SaveBtn } from './SaveBtn';
 import { AuthContext } from '../auth/AuthProvider';
 import { collection, DocumentSnapshot, getDoc, getDocs, setDoc, QuerySnapshot, doc } from 'firebase/firestore';
-import firebase from "firebase/app";
 import "firebase/firestore";
 import { db } from "../firebase/firebase";
 
@@ -52,10 +51,10 @@ export const Home = ({}) => {
     
   useEffect(() =>{
   const projectsCollectionRef = collection(db, 'projects');
-  console.log(projectsCollectionRef);
+  // console.log(projectsCollectionRef);
   //dbのコレクションを参照。
   getDocs(projectsCollectionRef).then((querySnapShot) =>{
-    console.log(querySnapShot);
+    // console.log(querySnapShot);
     //querySnapShotの中にあるdocsは配列。forEachで展開してdocを取り出す。doc.data()でdocのなかでネストになっているdataを取り出す。
     querySnapShot.docs.forEach((doc) => console.log(doc.data()));
     //getDocsでコレクションの取得 querySnapShotのdocはarray
@@ -66,9 +65,8 @@ export const Home = ({}) => {
     
     return(
         <>
-        <wrapper>
-        <Header
-        projects = {projects}/>
+        
+        <Header/>
         <Title
         title={title}
         onChangeTitle={onChangeTitle}
@@ -90,7 +88,7 @@ export const Home = ({}) => {
         onClickAdd={onClickAdd}
         onClickDelete={onClickDelete}
         />
-        </wrapper>
+        
         </>
     )}
 

@@ -38,9 +38,15 @@ const AuthProvider = ( { children }) => {
         }
     }
 
+const [authChecked, setAuthChecked] =useState(false);
+
 //関数の実行タイミングをReactのレンダリング後まで遅らせるhook
 useEffect(() =>{
     auth.onAuthStateChanged( setCurrentUser );
+    if(currentUser){
+        setCurrentUser(currentUser);
+    }
+    setAuthChecked(true);
 }, []);
 
 return(

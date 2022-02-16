@@ -6,7 +6,7 @@ import { collection, getDocs, QuerySnapshot } from 'firebase/firestore';
 export const ItemList =({cmykText, onChangeCmykText, tonboText, onChangeTonboText, dataTypeText, onChangeDataTypeText, imgTypeText, onChangeImgTypeText, cmykInput, tonboInput, dataTypeInput, imgTypeInput, checkInput, onClickCheck}) =>{
 
     const input = document.querySelector('input');
-    console.log(cmykText);
+    // console.log(cmykText);
     //ここがundefined
     return(
         <>
@@ -16,7 +16,10 @@ export const ItemList =({cmykText, onChangeCmykText, tonboText, onChangeTonboTex
         <ul>
             <li>
                 <label>
-                <input type='checkbox' value={cmykInput} checked={cmykInput}/>
+                <input type='checkbox' 
+                value={cmykInput} 
+                // checked={cmykInput}
+                />
                 カラーモード
                 </label>
                 <div className='CheckListInput'>

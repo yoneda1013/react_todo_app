@@ -14,7 +14,7 @@ export const Title =({ title, onChangeTitle }) =>{
         <p>
         </p>
         <form>
-        <label for="projects" className='labelTitleInput'>
+        <label htmlFor="projects" className='labelTitleInput'>
         <div className='conrainerTitleInput'>
         <input name="projects"
         type= "text"

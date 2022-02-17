@@ -1,32 +1,32 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&family=PT+Sans&family=PT+Serif&family=Roboto&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP&family=PT+Sans&family=PT+Serif&family=Roboto&display=swap");
 
-html{
-  background-color: #F4F4F4;
+html {
+  background-color: #f4f4f4;
   font-size: 62.5%;
 }
 
-body{
-  font-family: 'Roboto', sans-serif;
+body {
+  font-family: "Roboto", sans-serif;
 }
 
-p{
+p {
   font-size: 15px;
 }
 
-li{
+li {
   list-style: none;
 }
 
-h2{
+h2 {
   margin-bottom: 2vh;
 }
 
 /* Auth */
-.wrapper{
+.wrapper {
   margin-top: 10vh;
 }
 
-.auth-container{
+.auth-container {
   display: flex;
   flex-direction: column;
   padding: 5vh;
@@ -37,45 +37,45 @@ h2{
   margin: 0 auto;
 }
 
-.auth-container h1{
+.auth-container h1 {
   text-align: center;
   font-size: 2rem;
 }
 
-.auth-container p{
+.auth-container p {
   text-align: center;
   font-size: 1rem;
   color: #aaaaaa;
   margin: 0 0 1vh 0;
 }
 
-.auth-form{
+.auth-form {
   text-align: left;
-  padding-top: 5vh ;
+  padding-top: 5vh;
   display: flex;
   flex-direction: column;
 }
 
-.auth-form input{
+.auth-form input {
   height: 4vh;
   margin-top: 1vh;
 }
 
-.auth-btn{
+.auth-btn {
   text-align: center;
-  padding: 5vh 0; 
+  padding: 5vh 0;
 }
 
-.auth-link{
+.auth-link {
   text-align: center;
 }
 
 /* Header */
 
-.headerList{
+.headerList {
   padding: 20px;
 }
-.headerList h1{
+.headerList h1 {
   text-align: center;
 }
 
@@ -83,79 +83,77 @@ h2{
 
 /* Title */
 
-.titleInput{
+.titleInput {
   /* position: relative; */
-	width: 70%;
-	margin: 3vh 15%;
+  width: 70%;
+  margin: 3vh 15%;
   font: 15px/30px;
-	box-sizing: border-box;
-	padding: 0.3em;
-	transition: 0.3s;
-	letter-spacing: 1px;
-	border: none;
-	border-bottom: 2px solid #1b2538;
-	background: transparent;
+  box-sizing: border-box;
+  padding: 0.3em;
+  transition: 0.3s;
+  letter-spacing: 1px;
+  border: none;
+  border-bottom: 2px solid #1b2538;
+  background: transparent;
 }
 
-.containerTitleInput{
+.containerTitleInput {
   margin: 0 auto;
 }
 
-.labelTitleInput input[type='text']:focus {
-	border-bottom: 2px solid #000066;
-	outline: none;
+.labelTitleInput input[type="text"]:focus {
+  border-bottom: 2px solid #000066;
+  outline: none;
 }
 
 /* Deadline */
-.deadline{
+.deadline {
   text-align: center;
 }
-.DatePicker{
-  display: inline-block; 
+.DatePicker {
+  display: inline-block;
   margin: 0 auto;
 }
 
-
 /* ItemList */
-p{
+p {
   display: inline-block;
 }
-.ItemList{
+.ItemList {
   display: flex;
   justify-content: center;
   margin: 5% 15% 0 15%;
 }
-.CheckList{
+.CheckList {
   width: 90vh;
 }
-.CheckList ul{
+.CheckList ul {
   padding: 0;
 }
-.CheckList li{
+.CheckList li {
   margin-bottom: 2vh;
-  height: 5vh; 
+  height: 5vh;
 }
-.CheckList label{
+.CheckList label {
   display: inline-block;
   font-size: 1.1rem;
 }
-.MemoList textarea{
+.MemoList textarea {
   height: 30vh;
   width: 30vh;
 }
-.CheckListInput{
+.CheckListInput {
   display: inline-block;
 }
-.CheckListInput input{
+.CheckListInput input {
   width: 15vh;
   margin-left: 2vh;
   height: 22px;
 }
 
-
 /* SaveBtn */
 
-.SaveBtnContainer{
+.SaveBtnContainer {
   text-align: right;
   padding-right: 20px;
   margin-top: 5vh;

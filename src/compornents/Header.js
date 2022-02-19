@@ -5,11 +5,10 @@ import { auth } from "../firebase/firebase";
 
 export const Header =() => {
 
-    //ここまでは配列の値が渡ってきている
     return (
         <>
         <div className="headerList">
-        {/* ここからprojectsの配列が渡せていないのが問題 */}
+
         
         <Button
           size="small"

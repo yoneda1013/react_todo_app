@@ -137,7 +137,7 @@ p{
 }
 .CheckList label{
   display: inline-block;
-  font-size: 1.1rem;
+  vertical-align: center;
 }
 .MemoList textarea{
   height: 30vh;
@@ -151,7 +151,10 @@ p{
   margin-left: 2vh;
   height: 22px;
 }
-
+label span{
+  
+  font-size: 1.4rem;
+}
 
 /* SaveBtn */
 

@@ -30,7 +30,11 @@ export const Home = ({projects,
   // const [projects, setProjects] = useState([]);
   // const [title, setTitle] = useState("");
   // //ここでtitleとfirebaseのtitleを繋げて変数
+
   const { currentUser } = useContext(AuthContext);
+
+  // const { currentUser } = useContext(AuthContext);
+
 
   // const docId = Math.random().toString(32).substring(2);
   // //dicIdをこちらで作成する
@@ -108,4 +112,6 @@ export const Home = ({projects,
       <SaveBtn onClickAdd={onClickAdd} />
     </>
   );
+
 };
+

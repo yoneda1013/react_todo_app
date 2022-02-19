@@ -1,5 +1,11 @@
 import React from "react";
 
+import { useState, useEffect } from "react";
+import { db } from "../firebase/firebase.js";
+import { collection, getDocs, QuerySnapshot } from "firebase/firestore";
+import { Title } from "./Title.js";
+
+
 export const Form = ({
   cmykText,
   onChangeCmykText,
@@ -45,6 +51,7 @@ export const Form = ({
                   checked={cmykBool}
                   onClick={onCheckCmyk}
                 />
+
                 <span>カラーモード</span>
               </label>
               <div className="CheckListInput">
@@ -62,6 +69,7 @@ export const Form = ({
                   checked={tonboBool}
                   onClick={onCheckTonbo}
                 />
+
                 <span>トンボ形式</span>
               </label>
               <div className="CheckListInput">
@@ -79,7 +87,9 @@ export const Form = ({
                   checked={dataTypeBool}
                   onClick={onCheckDataType}
                 />
+
                 <span>データ形式</span>
+
               </label>
               <div className="CheckListInput">
                 <input
@@ -96,7 +106,9 @@ export const Form = ({
                   checked={imgTypeBool}
                   onClick={onCheckImgTypeBool}
                 />
+
                 <span>画像</span>
+
               </label>
               <div className="CheckListInput">
                 <input
@@ -113,7 +125,9 @@ export const Form = ({
                   checked={koritsuBool}
                   onClick={onCheckKoritsu}
                 />
+
                 <span>孤立点</span>
+
               </label>
             </li>
           </ul>

@@ -12,6 +12,9 @@ import { db } from "./firebase/firebase";
 import { collection, getDocs, QuerySnapshot } from "firebase/firestore";
 import { Route, Routes } from "react-router-dom";
 
+
+import DatePicker, { CalendarContainer } from "react-datepicker";
+
 import "react-datepicker/dist/react-datepicker.css";
 
 export const App = () => {
@@ -24,7 +27,11 @@ export const App = () => {
 
   const [title, setTitle] = useState("");
   //ここでtitleとfirebaseのtitleを繋げて変数
+
   // const { currentUser } = useContext(AuthContext);
+
+  const { currentUser } = useContext(AuthContext);
+
 
   const docId = Math.random().toString(32).substring(2);
 
@@ -68,9 +75,13 @@ export const App = () => {
       dataTypeBool,
       imgTypeBool,
       koritsuBool,
-      deadlineDate,
+
+      deadlineDate
     });
   };
+
+
+
 
   useEffect(() => {
     const projectsCollectionRef = collection(db, "projects");
@@ -89,6 +100,7 @@ export const App = () => {
 
   return (
     <>
+
       <AuthProvider>
         {/* <BrowserRouter> */}
 
@@ -143,6 +155,7 @@ export const App = () => {
 
         {/* </BrowserRouter> */}
       </AuthProvider>
+
     </>
   );
 };

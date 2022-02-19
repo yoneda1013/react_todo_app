@@ -32,7 +32,10 @@ const AuthProvider = ({ children }) => {
       navigate("/");
       // history.push("/");
     } catch (error) {
+
       alert( error );
+
+
       console.log(error);
     }
   };
@@ -55,4 +58,6 @@ const AuthProvider = ({ children }) => {
   );
 };
 
+
 export { AuthContext, AuthProvider };
+

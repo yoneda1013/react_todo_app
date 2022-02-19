@@ -10,6 +10,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { db } from "../firebase/firebase";
 import { AuthContext } from "../auth/AuthProvider";
+
 import { collection, getDocs } from "firebase/firestore";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
@@ -35,6 +36,7 @@ export const List = ({ projects, setProjects, docId }) => {
       //forEachは戻り値がないので,useStateで定義したprojectsに保存するにはmapを使用する。idをdoc.data()とマージ。これでprojectsというarrのなかでfirestoreの値が取得。
     });
   }, []);
+
 
   return (
     <>

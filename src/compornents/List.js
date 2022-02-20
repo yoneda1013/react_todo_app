@@ -16,6 +16,7 @@ import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 
 export const List = ({ projects, setProjects, docId }) => {
+  const navigate = useNavigate();
   // console.log(projects);
   // console.log(Object.keys(projects));
   //projectsはObj
@@ -72,6 +73,7 @@ export const List = ({ projects, setProjects, docId }) => {
                     style={{ margin: "5px", fontSize: "8px", padding: "0" }}
                     component={Link}
                     to="/"
+                    onClick={() => navigate(`/${index}`)}
                     //indexを/に渡したい。そうすればkey={index}をできる
                   >
                     詳細ページへ

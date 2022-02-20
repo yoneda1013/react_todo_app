@@ -28,18 +28,13 @@ export const Form = ({
   projects,
 }) => {
   const input = document.querySelector("input");
+  const params = useParams();
+  console.log(projects[params.id])
   // console.log(cmykText);
   //ここがundefined
  
   return (
     <>    
-    {projects.map((row,index) =>{
-      <ul key={index}>
-        <li>
-          {projects.title}
-        </li>
-      </ul>
-    })}
       <div className="ItemList">
         <div className="CheckList">
           <h2>入稿前チェックリスト</h2>

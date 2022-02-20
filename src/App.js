@@ -12,7 +12,6 @@ import { db } from "./firebase/firebase";
 import { collection, getDocs, QuerySnapshot } from "firebase/firestore";
 import { Route, Routes } from "react-router-dom";
 
-
 import DatePicker, { CalendarContainer } from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -31,7 +30,6 @@ export const App = () => {
   // const { currentUser } = useContext(AuthContext);
 
   const { currentUser } = useContext(AuthContext);
-
 
   const docId = Math.random().toString(32).substring(2);
 
@@ -76,12 +74,9 @@ export const App = () => {
       imgTypeBool,
       koritsuBool,
 
-      deadlineDate
+      deadlineDate,
     });
   };
-
-
-
 
   useEffect(() => {
     const projectsCollectionRef = collection(db, "projects");
@@ -100,7 +95,6 @@ export const App = () => {
 
   return (
     <>
-
       <AuthProvider>
         {/* <BrowserRouter> */}
 
@@ -113,7 +107,6 @@ export const App = () => {
                 <Home
                   projects={projects}
                   setProjects={setProjects}
-                  projects={projects}
                   title={title}
                   onChangeCmykText={onChangeCmykText}
                   onChangeTonboText={onChangeTonboText}
@@ -129,7 +122,6 @@ export const App = () => {
                   onCheckDataType={onCheckDataType}
                   onCheckImgTypeBool={onCheckImgTypeBool}
                   onCheckKoritsu={onCheckKoritsu}
-                  title={title}
                   onChangeTitle={onChangeTitle}
                   onClickAdd={onClickAdd}
                   deadlineDate={deadlineDate}
@@ -149,13 +141,41 @@ export const App = () => {
               }
             />
           </Route>
+          <Route
+            path=":id"
+            element={
+              <Home
+                projects={projects}
+                setProjects={setProjects}
+                title={title}
+                onChangeCmykText={onChangeCmykText}
+                onChangeTonboText={onChangeTonboText}
+                onChangeDataTypeText={onChangeDataTypeText}
+                onChangeImgTypeText={onChangeImgTypeText}
+                cmykBool={cmykBool}
+                tonboBool={tonboBool}
+                dataTypeBool={dataTypeBool}
+                imgTypeBool={imgTypeBool}
+                koritsuBool={koritsuBool}
+                onCheckCmyk={onCheckCmyk}
+                onCheckTonbo={onCheckTonbo}
+                onCheckDataType={onCheckDataType}
+                onCheckImgTypeBool={onCheckImgTypeBool}
+                onCheckKoritsu={onCheckKoritsu}
+                onChangeTitle={onChangeTitle}
+                onClickAdd={onClickAdd}
+                deadlineDate={deadlineDate}
+                setDeadlineDate={setDeadlineDate}
+              />
+            }
+          />
+
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
         </Routes>
 
         {/* </BrowserRouter> */}
       </AuthProvider>
-
     </>
   );
 };

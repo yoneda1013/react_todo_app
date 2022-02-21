@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { db } from "../firebase/firebase.js";
 import { collection, getDocs, QuerySnapshot } from "firebase/firestore";
 import { Title } from "./Title.js";
-
+import { useParams } from "react-router-dom";
 
 export const Form = ({
   cmykText,
@@ -29,26 +29,30 @@ export const Form = ({
 }) => {
   const input = document.querySelector("input");
   const params = useParams();
-  console.log(projects[params.id])
-  // console.log(cmykText);
-  //ここがundefined
- 
+  console.log(projects[params.id]);
+  //projects[params.id]がundefinedの時は新規作成。projects[params.id]がtrueの時はmap。
+  // console.log(projects[params.id].title)
   return (
-    <>    
+    <>
+      <div></div>
       <div className="ItemList">
         <div className="CheckList">
           <h2>入稿前チェックリスト</h2>
           <ul>
             <li>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={cmykBool}
-                  onClick={onCheckCmyk}
-                />
+              {projects[params.id] && (
+                <>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={cmykBool}
+                      onClick={onCheckCmyk}
+                    />
+                    <span>カラーモード</span>
+                  </label>
+                </>
+              )}
 
-                <span>カラーモード</span>
-              </label>
               <div className="CheckListInput">
                 <input
                   placeholder="RGB/CMYK"
@@ -84,7 +88,6 @@ export const Form = ({
                 />
 
                 <span>データ形式</span>
-
               </label>
               <div className="CheckListInput">
                 <input
@@ -103,7 +106,6 @@ export const Form = ({
                 />
 
                 <span>画像</span>
-
               </label>
               <div className="CheckListInput">
                 <input
@@ -122,7 +124,6 @@ export const Form = ({
                 />
 
                 <span>孤立点</span>
-
               </label>
             </li>
           </ul>

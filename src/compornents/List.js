@@ -14,6 +14,7 @@ import { AuthContext } from "../auth/AuthProvider";
 import { collection, getDocs } from "firebase/firestore";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const List = ({ projects, setProjects, docId }) => {
   const navigate = useNavigate();
@@ -71,8 +72,6 @@ export const List = ({ projects, setProjects, docId }) => {
                     size="small"
                     variant="contained"
                     style={{ margin: "5px", fontSize: "8px", padding: "0" }}
-                    component={Link}
-                    to="/"
                     onClick={() => navigate(`/${index}`)}
                     //indexを/に渡したい。そうすればkey={index}をできる
                   >

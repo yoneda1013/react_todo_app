@@ -73,7 +73,6 @@ export const App = () => {
       dataTypeBool,
       imgTypeBool,
       koritsuBool,
-
       deadlineDate,
     });
   };
@@ -104,6 +103,8 @@ export const App = () => {
             <Route
               path="/"
               element={
+
+                /*project[params.id]がfalseなら*/
                 <Home
                   projects={projects}
                   setProjects={setProjects}
@@ -141,6 +142,7 @@ export const App = () => {
               }
             />
           </Route>
+          {/* project[params.id]がtrueなら */}
           <Route
             path=":id"
             element={

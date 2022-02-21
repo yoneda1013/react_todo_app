@@ -17,7 +17,7 @@ export const Header =() => {
           to="/list"
           style={{ margin: "5px", fontSize: "20px", padding: "0" }}
         >
-        ←
+        back
         </Button>
         <Button
           size="small"

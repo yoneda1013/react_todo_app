@@ -26,32 +26,35 @@ export const Form = ({
   onCheckImgTypeBool,
   onCheckKoritsu,
   projects,
+  projectsParams,
+  setProjectsParams,
+  deadlineDate,
 }) => {
   const input = document.querySelector("input");
   const params = useParams();
-  console.log(projects[params.id]);
+  const paramsId = projects[params.id];
+  // useEffect(() => {
+  //   setProjectsParams(paramsId);
+  // }, []);
+
+  //projects[params.id]をapp.jsで使いたい useEffect？？
   //projects[params.id]がundefinedの時は新規作成。projects[params.id]がtrueの時はmap。
   // console.log(projects[params.id].title)
   return (
     <>
-      <div></div>
       <div className="ItemList">
         <div className="CheckList">
           <h2>入稿前チェックリスト</h2>
           <ul>
             <li>
-              {projects[params.id] && (
-                <>
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={cmykBool}
-                      onClick={onCheckCmyk}
-                    />
-                    <span>カラーモード</span>
-                  </label>
-                </>
-              )}
+              <label>
+                <input
+                  type="checkbox"
+                  checked={cmykBool}
+                  onClick={onCheckCmyk}
+                />
+                <span>カラーモード</span>
+              </label>
 
               <div className="CheckListInput">
                 <input

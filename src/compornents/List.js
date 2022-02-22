@@ -16,7 +16,7 @@ import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-export const List = ({ projects, setProjects, docId }) => {
+export const List = ({ projects, setProjects, docId, deadlineDate }) => {
   const navigate = useNavigate();
   // console.log(projects);
   // console.log(Object.keys(projects));
@@ -25,6 +25,27 @@ export const List = ({ projects, setProjects, docId }) => {
   //   db.collection("projects").doc(index).delete();
   //   // ↑ここがdocIdではない。docIdはただ単にIdをつくるだけの関数
   // };
+
+  const getStringFromDate = (deadlineDate) =>{
+    var year_str = deadlineDate.getFullYear();
+    var month_str = 1 + deadlineDate.getMonth();
+    var day_str = deadlineDate.getDate();
+    var hour_str = deadlineDate.getHours();
+    var minute_str = deadlineDate.getMinutes();
+    var second_str = deadlineDate.getSeconds();
+
+    var format_str = "YYYY-MM-DD hh:mm:ss";
+    var format_str = format_str.replace(/YYYY/g, year_str);
+    var format_str = format_str.replace(/MM/g, year_str);
+    var format_str = format_str.replace(/DD/g, year_str);
+    var format_str = format_str.replace(/hh/g, year_str);
+    var format_str = format_str.replace(/mm/g, year_str);
+    var format_str = format_str.replace(/ss/g, year_str);
+    return format_str;
+  }
+
+  console.log(deadlineDate.getStringFromDate);
+  
   useEffect(() => {
     const projectsCollectionRef = collection(db, "projects");
     // console.log(projectsCollectionRef);
@@ -65,8 +86,8 @@ export const List = ({ projects, setProjects, docId }) => {
             {projects.map((row, index) => (
               <TableRow key={index}>
                 <TableCell>{row.title}</TableCell>
-                <TableCell>{row.id}</TableCell>
-                {/* <TableCell>{row.deadlineDate}</TableCell> */}
+                <TableCell>{row.cmykBool}</TableCell>
+                {/* <TableCell>{row.deadlineDate}</TableCell> 　deadlineDateをstringにしたい*/}
                 <TableCell>
                   <Button
                     size="small"

@@ -8,31 +8,16 @@ import SignUp from "./auth/SignUp";
 import { PrivateRoute } from "./auth/PrivateRoute";
 import { List } from "./compornents/List";
 import { db } from "./firebase/firebase";
-
-import { collection, getDocs, QuerySnapshot } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { Route, Routes } from "react-router-dom";
-
-import DatePicker, { CalendarContainer } from "react-datepicker";
-
+import { useParams } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 
 export const App = () => {
   const [projects, setProjects] = useState([]);
-
-  // const List: VFC = () =>{
-  //   const { listId } = useParams<listId? :string>();
-  //   return <h2>List:{listId}</h2>
-  // }
-
   const [title, setTitle] = useState("");
-  //ここでtitleとfirebaseのtitleを繋げて変数
-
-  // const { currentUser } = useContext(AuthContext);
-
   const { currentUser } = useContext(AuthContext);
-
   const docId = Math.random().toString(32).substring(2);
-
   const [cmykText, setCmykText] = useState("");
   const onChangeCmykText = (event) => setCmykText(event.target.value);
   const [tonboText, setTonboText] = useState("");
@@ -46,17 +31,16 @@ export const App = () => {
   const [dataTypeBool, setDataTypeBool] = useState(false);
   const [imgTypeBool, setImgTypeBool] = useState(false);
   const [koritsuBool, setKoritsuBool] = useState(false);
-
   const [deadlineDate, setDeadlineDate] = useState(new Date());
-
+  const [projectsParams, setProjectsParams] = useState(false);
   // const onClickCheck = (event) => setCmykInput(event.target.value);
-
   const onCheckCmyk = (event) => setCmykBool(!cmykBool);
   const onCheckTonbo = (event) => setTonboBool(!tonboBool);
   const onCheckDataType = (event) => setDataTypeBool(!dataTypeBool);
   const onCheckImgTypeBool = (event) => setImgTypeBool(!imgTypeBool);
   const onCheckKoritsu = (event) => setKoritsuBool(!koritsuBool);
   const onChangeTitle = (event) => setTitle(event.target.value);
+  const params = useParams();
 
   const onClickAdd = () => {
     alert("保存が完了しました！");
@@ -91,7 +75,8 @@ export const App = () => {
       );
     });
   }, []);
-
+  
+  console.log(projectsParams)
   return (
     <>
       <AuthProvider>
@@ -103,7 +88,6 @@ export const App = () => {
             <Route
               path="/"
               element={
-
                 /*project[params.id]がfalseなら*/
                 <Home
                   projects={projects}
@@ -127,6 +111,7 @@ export const App = () => {
                   onClickAdd={onClickAdd}
                   deadlineDate={deadlineDate}
                   setDeadlineDate={setDeadlineDate}
+                  setProjectsParams={setProjectsParams}
                 />
               }
             />
@@ -138,6 +123,7 @@ export const App = () => {
                   projects={projects}
                   setProjects={setProjects}
                   docId={docId}
+                  deadlineDate={deadlineDate}
                 />
               }
             />
@@ -168,6 +154,8 @@ export const App = () => {
                 onClickAdd={onClickAdd}
                 deadlineDate={deadlineDate}
                 setDeadlineDate={setDeadlineDate}
+                projectsParams={projectsParams}
+                setProjectsParams={setProjectsParams}
               />
             }
           />

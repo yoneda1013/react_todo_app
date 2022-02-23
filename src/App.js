@@ -12,6 +12,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { Route, Routes } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
+import moment from 'moment';
 
 export const App = () => {
   const [projects, setProjects] = useState([]);
@@ -31,7 +32,8 @@ export const App = () => {
   const [dataTypeBool, setDataTypeBool] = useState(false);
   const [imgTypeBool, setImgTypeBool] = useState(false);
   const [koritsuBool, setKoritsuBool] = useState(false);
-  const [deadlineDate, setDeadlineDate] = useState(new Date());
+  const initialDate = new Date();
+  const [deadlineDate, setDeadlineDate] = useState(initialDate);
   const [projectsParams, setProjectsParams] = useState(false);
   // const onClickCheck = (event) => setCmykInput(event.target.value);
   const onCheckCmyk = (event) => setCmykBool(!cmykBool);
@@ -41,6 +43,8 @@ export const App = () => {
   const onCheckKoritsu = (event) => setKoritsuBool(!koritsuBool);
   const onChangeTitle = (event) => setTitle(event.target.value);
   const params = useParams();
+  const parseAsMoment = (dateTimeStr) => {
+    return moment.utc(dateTimeStr, 'YYYY-MM-DD').utcOffset(9)}
 
   const onClickAdd = () => {
     alert("保存が完了しました！");
@@ -57,9 +61,11 @@ export const App = () => {
       dataTypeBool,
       imgTypeBool,
       koritsuBool,
-      deadlineDate,
+      deadlineDate : parseAsMoment(deadlineDate).format("YYYY/MM/DD"),
     });
   };
+  // console.log(parseAsMoment(deadlineDate).format("YYYY/MM/DD"))
+
 
   useEffect(() => {
     const projectsCollectionRef = collection(db, "projects");
@@ -75,17 +81,19 @@ export const App = () => {
       );
     });
   }, []);
+  const test = true;
   
-  console.log(projectsParams)
+
   return (
     <>
       <AuthProvider>
         {/* <BrowserRouter> */}
-
+        {projectsParams && "true"}
         <Routes>
           {/* <Route path="/" element ={<PrivateRoute><Home/></PrivateRoute>} /> */}
           <Route path="/" element={<PrivateRoute />}>
-            <Route
+             {test ? <>
+              <Route
               path="/"
               element={
                 /*project[params.id]がfalseなら*/
@@ -114,21 +122,8 @@ export const App = () => {
                   setProjectsParams={setProjectsParams}
                 />
               }
-            />
-
-            <Route
-              path="/list"
-              element={
-                <List
-                  projects={projects}
-                  setProjects={setProjects}
-                  docId={docId}
-                  deadlineDate={deadlineDate}
-                />
-              }
-            />
-          </Route>
-          {/* project[params.id]がtrueなら */}
+            /></>
+          :
           <Route
             path=":id"
             element={
@@ -159,6 +154,53 @@ export const App = () => {
               />
             }
           />
+          } 
+  
+            <Route
+              path="/list"
+              element={
+                <List
+                  projects={projects}
+                  setProjects={setProjects}
+                  docId={docId}
+                  deadlineDate={deadlineDate}
+                  setProjectsParams={setProjectsParams}
+                  projectsParams={projectsParams}
+                />
+              }
+            />
+          </Route>
+          {/* project[params.id]がtrueなら */}
+          {/* <Route
+            path=":id"
+            element={
+              <Home
+                projects={projects}
+                setProjects={setProjects}
+                title={title}
+                onChangeCmykText={onChangeCmykText}
+                onChangeTonboText={onChangeTonboText}
+                onChangeDataTypeText={onChangeDataTypeText}
+                onChangeImgTypeText={onChangeImgTypeText}
+                cmykBool={cmykBool}
+                tonboBool={tonboBool}
+                dataTypeBool={dataTypeBool}
+                imgTypeBool={imgTypeBool}
+                koritsuBool={koritsuBool}
+                onCheckCmyk={onCheckCmyk}
+                onCheckTonbo={onCheckTonbo}
+                onCheckDataType={onCheckDataType}
+                onCheckImgTypeBool={onCheckImgTypeBool}
+                onCheckKoritsu={onCheckKoritsu}
+                onChangeTitle={onChangeTitle}
+                onClickAdd={onClickAdd}
+                deadlineDate={deadlineDate}
+                setDeadlineDate={setDeadlineDate}
+                projectsParams={projectsParams}
+                setProjectsParams={setProjectsParams}
+              />
+            }
+          /> */}
 
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />

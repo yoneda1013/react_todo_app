@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import { Link } from "react-router-dom";
 import { auth } from "../firebase/firebase";
 
-export const Header =() => {
+export const Header =(setProjectsParams, projectsParams) => {
 
     return (
         <>
@@ -16,6 +16,7 @@ export const Header =() => {
           component={Link}
           to="/list"
           style={{ margin: "5px", fontSize: "20px", padding: "0" }}
+          // onClick={()=>setProjectsParams(!projectsParams)}
         >
         back
         </Button>

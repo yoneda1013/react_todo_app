@@ -1,15 +1,16 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Header } from "./Header";
 import { Title } from "./Title";
-import { Deadline } from "./Deadline";
+// import { Deadline } from "./Deadline";
 import { Form } from "./Form";
 import { SaveBtn } from "./SaveBtn";
 import { AuthContext } from "../auth/AuthProvider";
 import "firebase/firestore";
 import { db } from "../firebase/firebase";
 
-// const [inputTitle, setInputTitle] = useState('');
-export const Home = ({projects,
+
+export const Home = ({
+  projects,
   title,
   onChangeCmykText,
   onChangeTonboText,
@@ -26,15 +27,16 @@ export const Home = ({projects,
   onCheckImgTypeInput,
   onCheckKoritsu,
   onChangeTitle,
-  onClickAdd}) => {
-  // const [projects, setProjects] = useState([]);
-  // const [title, setTitle] = useState("");
-  // //ここでtitleとfirebaseのtitleを繋げて変数
+  onClickAdd,
+  deadlineDate,
+  setDeadlineDate,
+  setProjectsParams,
+  projectsParams
+}) => {
 
   const { currentUser } = useContext(AuthContext);
 
   // const { currentUser } = useContext(AuthContext);
-
 
   // const docId = Math.random().toString(32).substring(2);
   // //dicIdをこちらで作成する
@@ -84,13 +86,18 @@ export const Home = ({projects,
   // const onCheckImgTypeInput = (event) => setImgTypeInput(!imgTypeInput);
   // const onCheckKoritsu = (event) => setKoritsuInput(!koritsuInput);
 
-
   return (
     <>
-      <Header />
+      <Header 
+      setProjectsParams={setProjectsParams}
+      projectsParams={projectsParams}
+      />
       <Title title={title} onChangeTitle={onChangeTitle} />
       {/* <Title 変数名 ={}で変数を渡す/> */}
-      <Deadline />
+      {/* <Deadline 
+      deadlineDate={deadlineDate}
+      setDeadlineDate={setDeadlineDate}
+      /> */}
       <Form
         projects={projects}
         title={title}
@@ -108,10 +115,11 @@ export const Home = ({projects,
         onCheckDataType={onCheckDataType}
         onCheckImgTypeInput={onCheckImgTypeInput}
         onCheckKoritsu={onCheckKoritsu}
+        deadlineDate={deadlineDate}
+        setDeadlineDate={setDeadlineDate}
+        
       />
       <SaveBtn onClickAdd={onClickAdd} />
     </>
   );
-
 };
-

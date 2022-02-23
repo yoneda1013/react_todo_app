@@ -11,47 +11,34 @@ import TableRow from "@material-ui/core/TableRow";
 import { db } from "../firebase/firebase";
 import { AuthContext } from "../auth/AuthProvider";
 
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, deleteDoc } from "firebase/firestore";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-export const List = ({ projects, setProjects, docId, deadlineDate }) => {
+export const List = ({ projects, setProjects, docId, deadlineDate,setProjectsParams, projectsParams }) => {
   const navigate = useNavigate();
-  // console.log(projects);
-  // console.log(Object.keys(projects));
-  //projectsはObj
-  // const onClickDelete = () => {
-  //   db.collection("projects").doc(index).delete();
-  //   // ↑ここがdocIdではない。docIdはただ単にIdをつくるだけの関数
-  // };
+  
 
   const getStringFromDate = (deadlineDate) =>{
     var year_str = deadlineDate.getFullYear();
     var month_str = 1 + deadlineDate.getMonth();
     var day_str = deadlineDate.getDate();
     var hour_str = deadlineDate.getHours();
-    var minute_str = deadlineDate.getMinutes();
-    var second_str = deadlineDate.getSeconds();
-
-    var format_str = "YYYY-MM-DD hh:mm:ss";
+    var format_str = "YYYY年MM月DD日 hh時";
     var format_str = format_str.replace(/YYYY/g, year_str);
-    var format_str = format_str.replace(/MM/g, year_str);
-    var format_str = format_str.replace(/DD/g, year_str);
-    var format_str = format_str.replace(/hh/g, year_str);
-    var format_str = format_str.replace(/mm/g, year_str);
-    var format_str = format_str.replace(/ss/g, year_str);
+    var format_str = format_str.replace(/MM/g, month_str);
+    var format_str = format_str.replace(/DD/g, day_str);
+    var format_str = format_str.replace(/hh/g, hour_str);
     return format_str;
-  }
+  };
 
-  console.log(deadlineDate.getStringFromDate);
-  
   useEffect(() => {
     const projectsCollectionRef = collection(db, "projects");
     // console.log(projectsCollectionRef);
     //dbのコレクションを参照。
     getDocs(projectsCollectionRef).then((querySnapShot) => {
-      // console.log(querySnapShot);
+      console.log(querySnapShot);
       //querySnapShotの中にあるdocsは配列。forEachで展開してdocを取り出す。doc.data()でdocのなかでネストになっているdataを取り出す。
       //   querySnapShot.docs.forEach((doc) => console.log(doc.data()));
       //getDocsでコレクションの取得 querySnapShotのdocはarray
@@ -59,7 +46,6 @@ export const List = ({ projects, setProjects, docId, deadlineDate }) => {
       //forEachは戻り値がないので,useStateで定義したprojectsに保存するにはmapを使用する。idをdoc.data()とマージ。これでprojectsというarrのなかでfirestoreの値が取得。
     });
   }, []);
-
 
   return (
     <>
@@ -86,15 +72,18 @@ export const List = ({ projects, setProjects, docId, deadlineDate }) => {
             {projects.map((row, index) => (
               <TableRow key={index}>
                 <TableCell>{row.title}</TableCell>
-                <TableCell>{row.cmykBool}</TableCell>
-                {/* <TableCell>{row.deadlineDate}</TableCell> 　deadlineDateをstringにしたい*/}
+                {/* <TableCell>{row.cmykBool}</TableCell> */}
+                {/* <TableCell>{row.deadlineDate.toDate().toString()}</TableCell>  */}
+                {/* <TableCell>{row.deadlineDate.unix(projects.createdAt.seconds).format('MM/DD')}</TableCell> */}
+                {/* <TableCell>{row.deadlineDate}</TableCell> */}
                 <TableCell>
                   <Button
                     size="small"
                     variant="contained"
                     style={{ margin: "5px", fontSize: "8px", padding: "0" }}
-                    onClick={() => navigate(`/${index}`)}
-                    //indexを/に渡したい。そうすればkey={index}をできる
+                    onClick={() => {
+                      navigate(`/${index}`);
+                      setProjectsParams(!projectsParams);}}
                   >
                     詳細ページへ
                   </Button>
@@ -104,7 +93,7 @@ export const List = ({ projects, setProjects, docId, deadlineDate }) => {
                     size="small"
                     variant="contained"
                     style={{ margin: "5px", fontSize: "8px", padding: "0" }}
-                    // onClick={db.collection("projects").doc(row.id).delete()}
+                    // onClick={db.collection("projects").doc(db, "projects", row.id).deleteDoc()}
                     //↑collection丸ごと消えてしまうから該当のドキュメントのみ消したい
                   >
                     削除

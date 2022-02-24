@@ -2,7 +2,7 @@
 
 html {
   background-color: #f4f4f4;
-  font-size: 62.5%;
+  font-size: 10px;
 }
 
 body {
@@ -10,7 +10,7 @@ body {
 }
 
 p {
-  font-size: 15px;
+  font-size: 1.5rem;
 }
 
 li {
@@ -26,6 +26,11 @@ h2 {
   margin-top: 10vh;
 }
 
+:root{
+  --font--size--h1:2rem;
+  --font--size--p:1.4rem;
+}
+
 .auth-container {
   display: flex;
   flex-direction: column;
@@ -39,12 +44,12 @@ h2 {
 
 .auth-container h1 {
   text-align: center;
-  font-size: 2rem;
+  font-size: var(--font--size--h1);
 }
 
 .auth-container p {
   text-align: center;
-  font-size: 1rem;
+  font-size: var(--font--size--p);
   color: #aaaaaa;
   margin: 0 0 1vh 0;
 }
@@ -73,7 +78,7 @@ h2 {
 /* Header */
 
 .headerList {
-  padding: 20px;
+  padding: 5vh 0 0 5vh;
 }
 .headerList h1 {
   text-align: center;

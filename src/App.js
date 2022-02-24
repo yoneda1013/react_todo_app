@@ -92,6 +92,36 @@ export const App = () => {
         <Routes>
           {/* <Route path="/" element ={<PrivateRoute><Home/></PrivateRoute>} /> */}
           <Route path="/" element={<PrivateRoute />}>
+          <Route
+              path="/"
+              element={
+                /*project[params.id]がfalseなら*/
+                <Home
+                  projects={projects}
+                  setProjects={setProjects}
+                  title={title}
+                  onChangeCmykText={onChangeCmykText}
+                  onChangeTonboText={onChangeTonboText}
+                  onChangeDataTypeText={onChangeDataTypeText}
+                  onChangeImgTypeText={onChangeImgTypeText}
+                  cmykBool={cmykBool}
+                  tonboBool={tonboBool}
+                  dataTypeBool={dataTypeBool}
+                  imgTypeBool={imgTypeBool}
+                  koritsuBool={koritsuBool}
+                  onCheckCmyk={onCheckCmyk}
+                  onCheckTonbo={onCheckTonbo}
+                  onCheckDataType={onCheckDataType}
+                  onCheckImgTypeBool={onCheckImgTypeBool}
+                  onCheckKoritsu={onCheckKoritsu}
+                  onChangeTitle={onChangeTitle}
+                  onClickAdd={onClickAdd}
+                  deadlineDate={deadlineDate}
+                  setDeadlineDate={setDeadlineDate}
+                  setProjectsParams={setProjectsParams}
+                />
+              }
+            />
              {test ? <>
               <Route
               path="/"

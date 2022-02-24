@@ -47,7 +47,7 @@ export const Form = ({
           <h2>入稿前チェックリスト</h2>
           <ul>
             <li>
-              <label>
+              <label className="checkBox">
                 <input
                   type="checkbox"
                   checked={cmykBool}
@@ -58,6 +58,7 @@ export const Form = ({
 
               <div className="CheckListInput">
                 <input
+                type="text"
                   placeholder="RGB/CMYK"
                   value={cmykText}
                   onChange={onChangeCmykText}
@@ -76,6 +77,7 @@ export const Form = ({
               </label>
               <div className="CheckListInput">
                 <input
+                type="text"
                   placeholder="アリ / ナシ"
                   value={tonboText}
                   onChange={onChangeTonboText}
@@ -94,6 +96,7 @@ export const Form = ({
               </label>
               <div className="CheckListInput">
                 <input
+                type="text"
                   placeholder="ai / PDF / psd"
                   value={dataTypeText}
                   onChange={onChangeDataTypeText}
@@ -112,6 +115,7 @@ export const Form = ({
               </label>
               <div className="CheckListInput">
                 <input
+                type="text"
                   placeholder="リンク / 埋め込み"
                   value={imgTypeText}
                   onChange={onChangeImgTypeText}
@@ -132,7 +136,7 @@ export const Form = ({
           </ul>
         </div>
 
-        <div className="MemoList">
+        <div className="URL">
           <h2>入稿所URL</h2>
           <textarea name="url" cols="30" row="5" type="text"></textarea>
         </div>

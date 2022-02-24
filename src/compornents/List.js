@@ -16,11 +16,17 @@ import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-export const List = ({ projects, setProjects, docId, deadlineDate,setProjectsParams, projectsParams }) => {
+export const List = ({
+  projects,
+  setProjects,
+  docId,
+  deadlineDate,
+  setProjectsParams,
+  projectsParams,
+}) => {
   const navigate = useNavigate();
-  
 
-  const getStringFromDate = (deadlineDate) =>{
+  const getStringFromDate = (deadlineDate) => {
     var year_str = deadlineDate.getFullYear();
     var month_str = 1 + deadlineDate.getMonth();
     var day_str = deadlineDate.getDate();
@@ -52,7 +58,16 @@ export const List = ({ projects, setProjects, docId, deadlineDate,setProjectsPar
       <Button
         size="small"
         variant="contained"
-        style={{ margin: "5px", fontSize: "8px", padding: "0" }}
+        style={{
+          margin: "2vh",
+          fontSize: "14px",
+          padding: "0.5vh",
+          color: "#FFFFFF",
+          background: "#3636B3",
+          "&:hover": {
+            backgroundColor: "#000066",
+          },
+        }}
         component={Link}
         to="/"
       >
@@ -61,17 +76,18 @@ export const List = ({ projects, setProjects, docId, deadlineDate,setProjectsPar
       <TableContainer>
         <Table>
           <TableHead>
-            <TableRow>
+            <TableRow className="ListRow">
               <TableCell>案件名</TableCell>
               <TableCell>入稿日</TableCell>
               <TableCell>詳細ページ</TableCell>
               <TableCell>削除</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody className="ListBody">
             {projects.map((row, index) => (
               <TableRow key={index}>
                 <TableCell>{row.title}</TableCell>
+                <TableCell>{row.id}</TableCell>
                 {/* <TableCell>{row.cmykBool}</TableCell> */}
                 {/* <TableCell>{row.deadlineDate.toDate().toString()}</TableCell>  */}
                 {/* <TableCell>{row.deadlineDate.unix(projects.createdAt.seconds).format('MM/DD')}</TableCell> */}
@@ -80,10 +96,20 @@ export const List = ({ projects, setProjects, docId, deadlineDate,setProjectsPar
                   <Button
                     size="small"
                     variant="contained"
-                    style={{ margin: "5px", fontSize: "8px", padding: "0" }}
+                    style={{
+                      margin: "5px",
+                      fontSize: "12px",
+                      padding: "0.3vh",
+                      color: "#FFFFFF",
+                      background: "#3636B3",
+                      "&:hover": {
+                        backgroundColor: "#000066",
+                      },
+                    }}
                     onClick={() => {
                       navigate(`/${index}`);
-                      setProjectsParams(!projectsParams);}}
+                      setProjectsParams(!projectsParams);
+                    }}
                   >
                     詳細ページへ
                   </Button>
@@ -92,7 +118,16 @@ export const List = ({ projects, setProjects, docId, deadlineDate,setProjectsPar
                   <Button
                     size="small"
                     variant="contained"
-                    style={{ margin: "5px", fontSize: "8px", padding: "0" }}
+                    style={{
+                      margin: "5px",
+                      fontSize: "12px",
+                      padding: "0.3vh",
+                      color: "#FFFFFF",
+                      background: "#3636B3",
+                      "&:hover": {
+                        backgroundColor: "#000066",
+                      },
+                    }}
                     // onClick={db.collection("projects").doc(db, "projects", row.id).deleteDoc()}
                     //↑collection丸ごと消えてしまうから該当のドキュメントのみ消したい
                   >

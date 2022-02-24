@@ -10,7 +10,7 @@ body {
 }
 
 p {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
 }
 
 li {
@@ -21,14 +21,18 @@ h2 {
   margin-bottom: 2vh;
 }
 
+:root {
+  --font--size--h1: 2.4rem;
+  --font--size--h2: 1.8rem;
+  --font--size--p: 1.4rem;
+  --cl--back: #f4f4f4;
+  --cl--blue: #000066;
+  --cl--gray: #e8e7e7;
+}
+
 /* Auth */
 .wrapper {
   margin-top: 10vh;
-}
-
-:root{
-  --font--size--h1:2rem;
-  --font--size--p:1.4rem;
 }
 
 .auth-container {
@@ -50,8 +54,8 @@ h2 {
 .auth-container p {
   text-align: center;
   font-size: var(--font--size--p);
-  color: #aaaaaa;
-  margin: 0 0 1vh 0;
+  color: #ffffff;
+  margin: 1.5vh 0 1vh 0;
 }
 
 .auth-form {
@@ -64,6 +68,8 @@ h2 {
 .auth-form input {
   height: 4vh;
   margin-top: 1vh;
+  padding: 0.5vh;
+  background-color: var(--cl--gray);
 }
 
 .auth-btn {
@@ -77,11 +83,13 @@ h2 {
 
 /* Header */
 
-.headerList {
-  padding: 5vh 0 0 5vh;
-}
 .headerList h1 {
   text-align: center;
+  font-size: var(--font--size--h1);
+  margin-bottom: 1.5vh;
+}
+.headerBtn {
+  margin: 10vh 0 0 10vh;
 }
 
 /* Main */
@@ -92,21 +100,15 @@ h2 {
   /* position: relative; */
   width: 70%;
   margin: 3vh 15%;
-  font: 15px/30px;
+  font-size: var(--font--size--h2);
   box-sizing: border-box;
-  padding: 0.3em;
+  padding: 0.6em;
   transition: 0.3s;
   letter-spacing: 1px;
-  border: none;
-  border-bottom: 2px solid #1b2538;
-  background: transparent;
+  background-color: var(--cl--gray);
 }
 
-.containerTitleInput {
-  margin: 0 auto;
-}
-
-.labelTitleInput input[type="text"]:focus {
+input[type="text"]:focus {
   border-bottom: 2px solid #000066;
   outline: none;
 }
@@ -121,47 +123,62 @@ h2 {
 }
 
 /* ItemList */
-p {
-  display: inline-block;
-}
 .ItemList {
   display: flex;
   justify-content: center;
   margin: 5% 15% 0 15%;
 }
 .CheckList {
-  width: 90vh;
+  width: 130vh;
 }
 .CheckList ul {
   padding: 0;
 }
 .CheckList li {
-  margin-bottom: 2vh;
+  margin-bottom: 0.5vh;
   height: 5vh;
 }
 .CheckList label {
   display: inline-block;
-  vertical-align: center;
 }
-.MemoList textarea {
-  height: 30vh;
+.URL textarea {
+  height: 25vh;
   width: 30vh;
+  background-color: var(--cl--gray);
 }
 .CheckListInput {
   display: inline-block;
 }
 .CheckListInput input {
-  width: 15vh;
+  font-size: var(--font--size--p);
+  box-sizing: border-box;
+  padding: 0.5vh;
+  transition: 0.3s;
+  letter-spacing: 1px;
+  background-color: var(--cl--gray);
+  width: 17vh;
   margin-left: 2vh;
   height: 22px;
 }
 
-label span{
-  
-  font-size: 1.4rem;
+.CheckListInput input[type="text"]:focus {
+  border-bottom: 2px solid #000066;
+  outline: none;
+}
+label span {
+  margin-left: 1vh;
+  font-size: var(--font--size--p);
 }
 
+/* URL */
 
+/* list */
+.ListRow th{
+  font-size: var(--font--size--p);
+}
+.ListBody td{
+  font-size: var(--font--size--p);
+}
 
 /* SaveBtn */
 
@@ -169,6 +186,7 @@ label span{
   text-align: right;
   padding-right: 20px;
   margin-top: 5vh;
+  margin-right: 10%;
 }
 
 /* responsive */

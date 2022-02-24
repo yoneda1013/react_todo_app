@@ -34,7 +34,7 @@ const SignUp = ({ history }) => {
         <p>登録がまだの方は下記フォームに必要事項を入力してください。</p>
         <form onSubmit={handleSubmit}>
           <div className="auth-form">
-            <span>E-mail Address</span>
+            <span>E-mail</span>
             <input name="email" type="email" placeholder="email@gmail.com" />
           </div>
           <div className="auth-form">

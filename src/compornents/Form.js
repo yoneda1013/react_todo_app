@@ -58,7 +58,7 @@ export const Form = ({
 
               <div className="CheckListInput">
                 <input
-                type="text"
+                  type="text"
                   placeholder="RGB/CMYK"
                   value={cmykText}
                   onChange={onChangeCmykText}
@@ -77,7 +77,7 @@ export const Form = ({
               </label>
               <div className="CheckListInput">
                 <input
-                type="text"
+                  type="text"
                   placeholder="アリ / ナシ"
                   value={tonboText}
                   onChange={onChangeTonboText}
@@ -96,7 +96,7 @@ export const Form = ({
               </label>
               <div className="CheckListInput">
                 <input
-                type="text"
+                  type="text"
                   placeholder="ai / PDF / psd"
                   value={dataTypeText}
                   onChange={onChangeDataTypeText}
@@ -115,7 +115,7 @@ export const Form = ({
               </label>
               <div className="CheckListInput">
                 <input
-                type="text"
+                  type="text"
                   placeholder="リンク / 埋め込み"
                   value={imgTypeText}
                   onChange={onChangeImgTypeText}

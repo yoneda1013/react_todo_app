@@ -125,11 +125,8 @@ input[type="text"]:focus {
 /* ItemList */
 .ItemList {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   margin: 5% 15% 0 15%;
-}
-.CheckList {
-  width: 130vh;
 }
 .CheckList ul {
   padding: 0;
@@ -137,6 +134,8 @@ input[type="text"]:focus {
 .CheckList li {
   margin-bottom: 0.5vh;
   height: 5vh;
+  display: flex;
+  justify-content: space-between;
 }
 .CheckList label {
   display: inline-block;
@@ -170,13 +169,11 @@ label span {
   font-size: var(--font--size--p);
 }
 
-/* URL */
-
 /* list */
-.ListRow th{
+.ListRow th {
   font-size: var(--font--size--p);
 }
-.ListBody td{
+.ListBody td {
   font-size: var(--font--size--p);
 }
 

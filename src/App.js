@@ -32,8 +32,8 @@ export const App = () => {
   const [dataTypeBool, setDataTypeBool] = useState(false);
   const [imgTypeBool, setImgTypeBool] = useState(false);
   const [koritsuBool, setKoritsuBool] = useState(false);
-  const initialDate = new Date();
-  const [deadlineDate, setDeadlineDate] = useState(initialDate);
+
+  const [deadlineDate, setDeadlineDate] = useState(new Date());
   const [projectsParams, setProjectsParams] = useState(false);
   // const onClickCheck = (event) => setCmykInput(event.target.value);
   const onCheckCmyk = (event) => setCmykBool(!cmykBool);
@@ -43,8 +43,9 @@ export const App = () => {
   const onCheckKoritsu = (event) => setKoritsuBool(!koritsuBool);
   const onChangeTitle = (event) => setTitle(event.target.value);
   const params = useParams();
-  const parseAsMoment = (dateTimeStr) => {
-    return moment.utc(dateTimeStr, 'YYYY-MM-DD').utcOffset(9)}
+  const parseAsMoment = (deadlineDate) => {
+    return moment.utc(deadlineDate, 'YYYY-MM-DD').utcOffset(9);}
+    //momentのせいで現在時刻になってしまっている
 
   const onClickAdd = () => {
     alert("保存が完了しました！");

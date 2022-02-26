@@ -115,18 +115,29 @@ input[type="text"]:focus {
 
 /* Deadline */
 .deadline {
-  text-align: center;
+  margin: 3.5vh 15% 0 15%; 
+  display: flex;
 }
+.deadline label{
+  width: 7%;
+}
+
 .DatePicker {
-  display: inline-block;
+  justify-content: center;
   margin: 0 auto;
+  background-color: var(--cl--gray);
+  padding: 1vh;
+  font-size: var(--font--size--p);
 }
 
 /* ItemList */
 .ItemList {
   display: flex;
   justify-content: space-between;
-  margin: 5% 15% 0 15%;
+  margin: 4vh 15% 0 15%;
+}
+.CheckList{
+  width: 40%;
 }
 .CheckList ul {
   padding: 0;
@@ -140,10 +151,14 @@ input[type="text"]:focus {
 .CheckList label {
   display: inline-block;
 }
+.URL{
+  width: 50%;
+}
 .URL textarea {
   height: 25vh;
-  width: 30vh;
+  width: 100%;
   background-color: var(--cl--gray);
+  padding: 2vh;
 }
 .CheckListInput {
   display: inline-block;
@@ -155,7 +170,7 @@ input[type="text"]:focus {
   transition: 0.3s;
   letter-spacing: 1px;
   background-color: var(--cl--gray);
-  width: 17vh;
+  width: 100%;
   margin-left: 2vh;
   height: 22px;
 }
@@ -164,8 +179,11 @@ input[type="text"]:focus {
   border-bottom: 2px solid #000066;
   outline: none;
 }
-label span {
-  margin-left: 1vh;
+
+
+
+label,span {
+  margin: 0 1vh;
   font-size: var(--font--size--p);
 }
 

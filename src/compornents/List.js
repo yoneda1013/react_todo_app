@@ -87,7 +87,7 @@ export const List = ({
             {projects.map((row, index) => (
               <TableRow key={index}>
                 <TableCell>{row.title}</TableCell>
-                <TableCell>{row.id}</TableCell>
+                <TableCell>{row.deadlineDate}</TableCell>
                 {/* <TableCell>{row.cmykBool}</TableCell> */}
                 {/* <TableCell>{row.deadlineDate.toDate().toString()}</TableCell>  */}
                 {/* <TableCell>{row.deadlineDate.unix(projects.createdAt.seconds).format('MM/DD')}</TableCell> */}

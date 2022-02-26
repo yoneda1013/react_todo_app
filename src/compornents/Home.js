@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Header } from "./Header";
 import { Title } from "./Title";
-// import { Deadline } from "./Deadline";
+import { Deadline } from "./Deadline";
 import { Form } from "./Form";
 import { SaveBtn } from "./SaveBtn";
 import { AuthContext } from "../auth/AuthProvider";
@@ -93,11 +93,10 @@ export const Home = ({
       projectsParams={projectsParams}
       />
       <Title title={title} onChangeTitle={onChangeTitle} />
-      {/* <Title 変数名 ={}で変数を渡す/> */}
-      {/* <Deadline 
+      <Deadline 
       deadlineDate={deadlineDate}
       setDeadlineDate={setDeadlineDate}
-      /> */}
+      />
       <Form
         projects={projects}
         title={title}

@@ -7,7 +7,8 @@ import { SaveBtn } from "./SaveBtn";
 import { AuthContext } from "../auth/AuthProvider";
 import "firebase/firestore";
 import { db } from "../firebase/firebase";
-
+import DatePicker, { CalendarContainer } from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export const Home = ({
   projects,
@@ -30,12 +31,18 @@ export const Home = ({
   onClickAdd,
   deadlineDate,
   setDeadlineDate,
-  setProjectsParams,
-  projectsParams
+  urlText,
+  onChangeUrlText,
+  cmykText,
+  tonboText,
+  dataTypeText,
+  imgTypeText
 }) => {
-
   const { currentUser } = useContext(AuthContext);
 
+  const handleChange = (deadlineDate) =>{
+    setDeadlineDate(deadlineDate)
+  }
   // const { currentUser } = useContext(AuthContext);
 
   // const docId = Math.random().toString(32).substring(2);
@@ -88,15 +95,23 @@ export const Home = ({
 
   return (
     <>
-      <Header 
-      setProjectsParams={setProjectsParams}
-      projectsParams={projectsParams}
-      />
+      <Header />
       <Title title={title} onChangeTitle={onChangeTitle} />
-      <Deadline 
-      deadlineDate={deadlineDate}
-      setDeadlineDate={setDeadlineDate}
-      />
+      <div className="deadline">
+        <label>入稿締切</label>
+        <DatePicker
+          className="DatePicker"
+          value={
+            new Date(deadlineDate)
+            // parseAsMoment(deadlineDate).format("YYYY/MM/DD")
+          }
+          selected={deadlineDate}
+          onChange={(deadlineDate) => setDeadlineDate(deadlineDate)}
+        />
+      </div>
+      {/* datepickerはコンポーネントを分けるとinvalid timeのエラーが出てしまうので、Homeへ移動にした */}
+      {/* <Deadline deadlineDate={deadlineDate} setDeadlineDate={setDeadlineDate} /> */}
+      {/* RangeError: invalid dateの原因は多分↑ */}
       <Form
         projects={projects}
         title={title}
@@ -116,7 +131,12 @@ export const Home = ({
         onCheckKoritsu={onCheckKoritsu}
         deadlineDate={deadlineDate}
         setDeadlineDate={setDeadlineDate}
-        
+        urlText={urlText}
+        onChangeUrlText={onChangeUrlText}
+        cmykText={cmykText}
+        tonboText={tonboText}
+        dataTypeText={dataTypeText}
+        imgTypeText={imgTypeText}
       />
       <SaveBtn onClickAdd={onClickAdd} />
     </>

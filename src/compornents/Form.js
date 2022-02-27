@@ -26,20 +26,17 @@ export const Form = ({
   onCheckImgTypeBool,
   onCheckKoritsu,
   projects,
-  projectsParams,
-  setProjectsParams,
   deadlineDate,
+  urlText,
+  onChangeUrlText
 }) => {
   const input = document.querySelector("input");
   const params = useParams();
-  const paramsId = projects[params.id];
   // useEffect(() => {
   //   setProjectsParams(paramsId);
   // }, []);
+  
 
-  //projects[params.id]をapp.jsで使いたい useEffect？？
-  //projects[params.id]がundefinedの時は新規作成。projects[params.id]がtrueの時はmap。
-  // console.log(projects[params.id].title)
   return (
     <>
       <div className="ItemList">
@@ -138,7 +135,8 @@ export const Form = ({
 
         <div className="URL">
           <h2>入稿所URL</h2>
-          <textarea name="url" cols="30" row="5" type="text"></textarea>
+          <textarea type="text" placeholder="URL" value={urlText} onChange={onChangeUrlText}
+          />
         </div>
       </div>
     </>

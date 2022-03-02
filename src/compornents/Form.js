@@ -6,6 +6,7 @@ import { collection, getDocs, QuerySnapshot } from "firebase/firestore";
 import { Title } from "./Title.js";
 import { useParams } from "react-router-dom";
 
+
 export const Form = ({
   cmykText,
   onChangeCmykText,

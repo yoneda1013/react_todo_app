@@ -55,9 +55,6 @@ export const Edit = ({
   const [date, setDate] = useState(initialDateState);
   const onChangeDate = (event) => setDate(event.target.value);
   //dateはstring。Datepickerに入れる用にobjectにする必要あり
-  //   console.log(deadlineDate);
-  //   console.log(new Date(date));
-  //   console.log(typeof new Date(date));
 
   const initialCmykBoolState = projects[index].cmykBool;
   const [editCmykBool, setEditCmykBool] = useState(initialCmykBoolState);

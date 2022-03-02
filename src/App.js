@@ -39,7 +39,6 @@ export const App = () => {
 
   const [deadlineDate, setDeadlineDate] = useState(new Date());
 
-  // const onClickCheck = (event) => setCmykInput(event.target.value);
   const onCheckCmyk = (event) => setCmykBool(!cmykBool);
   const onCheckTonbo = (event) => setTonboBool(!tonboBool);
   const onCheckDataType = (event) => setDataTypeBool(!dataTypeBool);
@@ -47,17 +46,7 @@ export const App = () => {
   const onCheckKoritsu = (event) => setKoritsuBool(!koritsuBool);
   const onChangeTitle = (event) => setTitle(event.target.value);
   const params = useParams();
-  // const parseAsMoment = (deadlineDate) => {
-  //   return moment.utc(deadlineDate, "YYYY-MM-DD").utcOffset(9);
-  // };
-  // const parseDate =(deadlineDate)=> {
-  //   return deadlineDate.toString();
-  // }
-  //momentのせいで現在時刻になってしまっている
-//  console.log(deadlineDate);
-//  console.log(typeof(deadlineDate));
- //これをstringにしたい。
-  // console.log(typeof(deadlineDate));
+  
   const onClickAdd = () => {
     alert("保存が完了しました！");
     console.log(db.collection("projects"));
@@ -78,20 +67,19 @@ export const App = () => {
         imgTypeBool,
         koritsuBool,
         deadlineDate,
-        // :parseDate(deadlineDate).format("YYYY/MM/DD"),
       });
-  };
-  // console.log(parseAsMoment(deadlineDate).format("YYYY/MM/DD"))
+      setTitle("");
+      setCmykText("");
+      setTonboText("");
+      setDataTypeText("");
+      setImgTypeText("");
+      setUrlText("");
+      setDeadlineDate(new Date());
+  }; 
 
   useEffect(() => {
     const projectsCollectionRef = collection(db, "projects");
-    // console.log(projectsCollectionRef);
-    //dbのコレクションを参照。
     getDocs(projectsCollectionRef).then((querySnapShot) => {
-      // console.log(querySnapShot);
-      //querySnapShotの中にあるdocsは配列。forEachで展開してdocを取り出す。doc.data()でdocのなかでネストになっているdataを取り出す。
-      // querySnapShot.docs.forEach((doc) => console.log(doc.data()));
-      //getDocsでコレクションの取得 querySnapShotのdocはarray
       setProjects(
         querySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
       );

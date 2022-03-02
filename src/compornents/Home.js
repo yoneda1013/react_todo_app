@@ -43,56 +43,7 @@ export const Home = ({
   const handleChange = (deadlineDate) =>{
     setDeadlineDate(deadlineDate)
   }
-  // const { currentUser } = useContext(AuthContext);
-
-  // const docId = Math.random().toString(32).substring(2);
-  // //dicIdをこちらで作成する
-  // //Titleに文字を入力
-  // const onChangeTitle = (event) => setTitle(event.target.value);
-  // const onClickAdd = () => {
-  //   alert("保存が完了しました！");
-  //   console.log(db.collection("projects"));
-  //   db.collection("projects").doc(docId).set({
-  //     uid: currentUser.uid,
-  //     title,
-  //     cmykText,
-  //     tonboText,
-  //     dataTypeText,
-  //     imgTypeText,
-  //     cmykInput,
-  //     tonboInput,
-  //     dataTypeInput,
-  //     imgTypeInput,
-  //     koritsuInput,
-  //   });
-  // };
-
-  // const onClickDelete = () => {
-  //   db.collection("projects").doc(docId).delete();
-  // };
-
-  // const [cmykText, setCmykText] = useState("");
-  // const onChangeCmykText = (event) => setCmykText(event.target.value);
-  // const [tonboText, setTonboText] = useState("");
-  // const onChangeTonboText = (event) => setTonboText(event.target.value);
-  // const [dataTypeText, setDataTypeText] = useState("");
-  // const onChangeDataTypeText = (event) => setDataTypeText(event.target.value);
-  // const [imgTypeText, setImgTypeText] = useState("");
-  // const onChangeImgTypeText = (event) => setImgTypeText(event.target.value);
-  // const [cmykInput, setCmykInput] = useState(false);
-  // const [tonboInput, setTonboInput] = useState(false);
-  // const [dataTypeInput, setDataTypeInput] = useState(false);
-  // const [imgTypeInput, setImgTypeInput] = useState(false);
-  // const [koritsuInput, setKoritsuInput] = useState(false);
-
-  // // const onClickCheck = (event) => setCmykInput(event.target.value);
-
-  // const onCheckCmyk = (event) => setCmykInput(!cmykInput);
-  // const onCheckTonbo = (event) => setTonboInput(!tonboInput);
-  // const onCheckDataType = (event) => setDataTypeInput(!dataTypeInput);
-  // const onCheckImgTypeInput = (event) => setImgTypeInput(!imgTypeInput);
-  // const onCheckKoritsu = (event) => setKoritsuInput(!koritsuInput);
-
+ 
   return (
     <>
       <Header />
@@ -110,8 +61,6 @@ export const Home = ({
         />
       </div>
       {/* datepickerはコンポーネントを分けるとinvalid timeのエラーが出てしまうので、Homeへ移動にした */}
-      {/* <Deadline deadlineDate={deadlineDate} setDeadlineDate={setDeadlineDate} /> */}
-      {/* RangeError: invalid dateの原因は多分↑ */}
       <Form
         projects={projects}
         title={title}

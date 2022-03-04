@@ -24,13 +24,13 @@ export const List = ({
   useEffect(() => {
     const projectsCollectionRef = collection(db, "projects");
     getDocs(projectsCollectionRef).then((querySnapShot) => {
+      console.log("List getDocs");
       setProjects(
         querySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
       );
     });
-    
     }, 
-    // [projects]
+    [setProjects]
     );
   
 

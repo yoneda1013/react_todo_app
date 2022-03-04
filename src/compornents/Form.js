@@ -26,16 +26,12 @@ export const Form = ({
   onCheckDataType,
   onCheckImgTypeBool,
   onCheckKoritsu,
-  projects,
-  deadlineDate,
   urlText,
   onChangeUrlText
 }) => {
   const input = document.querySelector("input");
   const params = useParams();
-  // useEffect(() => {
-  //   setProjectsParams(paramsId);
-  // }, []);
+
   
 
   return (

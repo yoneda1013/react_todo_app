@@ -11,36 +11,9 @@ import DatePicker, { CalendarContainer } from "react-datepicker";
 import Button from "@material-ui/core/Button";
 
 export const Edit = ({
-  title,
   projects,
-  onChangeCmykText,
-  onChangeTonboText,
-  onChangeDataTypeText,
-  onChangeImgTypeText,
-  cmykInput,
-  tonboInput,
-  dataTypeInput,
-  imgTypeInput,
-  koritsuInput,
-  onCheckCmyk,
-  onCheckTonbo,
-  onCheckDataType,
-  onCheckImgTypeInput,
-  onCheckKoritsu,
-  //   onChangeTitle,
-  onClickAdd,
   deadlineDate,
   setDeadlineDate,
-  cmykBool,
-  cmykText,
-  tonboBool,
-  tonboText,
-  dataTypeBool,
-  dataTypeText,
-  imgTypeText,
-  imgTypeBool,
-  koritsuBool,
-  onCheckImgTypeBool
 }) => {
   //pathからindexを引っ張って来る
   const pathname = window.location.pathname;
@@ -50,6 +23,7 @@ export const Edit = ({
   const initialTitleState = projects[index].title;
   const [editTitle, setEditTitle] = useState(initialTitleState);
   const onChangeEditTitle = (event) => setEditTitle(event.target.value);
+  console.log(projects[index].title);
 
   const initialDateState = projects[index].deadlineDate;
   const [date, setDate] = useState(initialDateState);
@@ -132,7 +106,6 @@ export const Edit = ({
         imgTypeBool:(editImgTypeBool),
         koritsuBool:(editKoritsuBool),
         deadlineDate,
-        // :parseDate(deadlineDate).format("YYYY/MM/DD"),
       });
   };
 

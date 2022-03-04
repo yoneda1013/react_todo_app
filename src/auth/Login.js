@@ -26,6 +26,10 @@ const Login = ({ history }) => {
     login(email.value, password.value, history);
   };
 
+    const OnClickGuestButton = (event) => {
+      event.preventDefault();
+      login("guest@example.com", "guest1", history);};
+  
   return (
     <div className="wrapper">
       <div className="auth-container">
@@ -49,6 +53,9 @@ const Login = ({ history }) => {
         <Link to="/signup" className="auth-link">
           SignUp
         </Link>
+        <Button onClick={OnClickGuestButton}>
+          ゲストユーザーとしてログイン
+        </Button>
       </div>
     </div>
   );

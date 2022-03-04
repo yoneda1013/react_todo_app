@@ -1,6 +1,4 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import { db } from "../firebase/firebase.js";
 
 export const Title = ({ title, onChangeTitle }) => {
   return (

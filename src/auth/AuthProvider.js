@@ -17,7 +17,7 @@ const AuthProvider = ({ children }) => {
     //try 例外が発生する可能性のある処理
     try {
       const {user} = await auth.createUserWithEmailAndPassword(email, password);
-      serCurrentUser(user);
+      setCurrentUser(user);
       setAuthChecked(true);
       // auth.onAuthStateChanged((user) => setCurrentUser(user));
       navigate("/");

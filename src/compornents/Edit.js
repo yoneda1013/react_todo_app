@@ -114,12 +114,6 @@ export const Edit = ({
   const onChangeEditUrlText = (event) =>
   setEditUrlText(event.target.value);
 
-// console.log(projects[index].id);
-// console.log(projects[index].title);
-// console.log(editTitle);
-// editTitleの内容をprojects[index].titleの項目上で更新させたい
-// const userRef = db.collection('projects').doc(projects[index].id);
-// console.log(userRef);
   const onClickChange = () => {
     alert("変更が完了しました！");
     db.collection("projects")
@@ -127,7 +121,6 @@ export const Edit = ({
       .update({
         // uid: currentUser.uid,
         title: (editTitle),
-        //変数は()でくくる
         cmykText: (editCmykText),
         tonboText:(editCmykBool),
         dataTypeText:(editDataTypeText),

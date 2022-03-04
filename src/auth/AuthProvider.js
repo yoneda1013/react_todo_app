@@ -8,6 +8,7 @@ const AuthContext = React.createContext();
 //Contextによって、データをpropを通してではない方法で渡す。
 const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
+  const [authChecked, setAuthChecked] = useState(false);
   const navigate = useNavigate();
   //カスタムhookはcompornentのrender前に呼び出す
 
@@ -15,8 +16,10 @@ const AuthProvider = ({ children }) => {
   const signup = async (email, password) => {
     //try 例外が発生する可能性のある処理
     try {
-      await auth.createUserWithEmailAndPassword(email, password);
-      auth.onAuthStateChanged((user) => setCurrentUser(user));
+      const {user} = await auth.createUserWithEmailAndPassword(email, password);
+      serCurrentUser(user);
+      setAuthChecked(true);
+      // auth.onAuthStateChanged((user) => setCurrentUser(user));
       navigate("/");
     } catch (error) {
       //catch 例外が発生した場合の処理
@@ -27,37 +30,38 @@ const AuthProvider = ({ children }) => {
   //ログイン
   const login = async (email, password) => {
     try {
-      await auth.signInWithEmailAndPassword(email, password);
-      auth.onAuthStateChanged((user) => setCurrentUser(user));
+      const {user} =await auth.signInWithEmailAndPassword(email, password);
+      setCurrentUser(user);
+      setAuthChecked(true);
+      // auth.onAuthStateChanged((user) => setCurrentUser(user));
       navigate("/");
       // history.push("/");
     } catch (error) {
-
-      alert( error );
-
+      alert(error);
 
       console.log(error);
     }
   };
 
-  const [authChecked, setAuthChecked] = useState(false);
 
   //関数の実行タイミングをReactのレンダリング後まで遅らせるhook
   useEffect(() => {
-    auth.onAuthStateChanged(setCurrentUser);
-    if (currentUser) {
-      setCurrentUser(currentUser);
-    }
-    setAuthChecked(true);
+    auth.onAuthStateChanged((user) =>{
+      setCurrentUser(user);
+      setAuthChecked(true);
+    });
+    // auth.onAuthStateChanged(setCurrentUser);
+    // if (currentUser) {
+    //   setCurrentUser(currentUser);
+    // }
+    // setAuthChecked(true);
   }, []);
 
   return (
-    <AuthContext.Provider value={{ signup, login, currentUser }}>
+    <AuthContext.Provider value={{ signup, login, currentUser , authChecked }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-
 export { AuthContext, AuthProvider };
-

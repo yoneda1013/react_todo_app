@@ -2,8 +2,6 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { db } from "../firebase/firebase.js";
 
-// import { collection, getDocs, onSnapshot, querySnapshot } from '../firebase/firestore';
-
 export const Title = ({ title, onChangeTitle }) => {
   return (
     <>

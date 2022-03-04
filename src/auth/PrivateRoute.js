@@ -6,9 +6,17 @@ import { auth } from "../firebase/firebase";
 
 //AuthContextから渡されたcurrentUserがセットされていれば、app.jsの/に。（Outlet）
 const PrivateRoute = ({ component, ...rest }) => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, authChecked } = useContext(AuthContext);
 
-  return currentUser ? <Outlet /> : <Navigate to="/login"></Navigate>;
+  return authChecked ? (
+    currentUser ? (
+      <Outlet />
+    ) : (
+      <Navigate to="/login"></Navigate>
+    )
+  ) : (
+    <div>Loading...</div>
+  );
 };
 
 export { PrivateRoute };

@@ -207,20 +207,10 @@ label,span {
 .SaveBtnContainer {
   text-align: right;
   padding-right: 20px;
-  margin-top: 5vh;
+  margin-top: 2vh;
   margin-right: 10%;
 }
 
-/* responsive */
-/* @media screen and (min-width: 768px){
-  .wrapper{
-    min-height: 100vh;
-  }
-
-  .ItemList{
-    flex-direction: column;
-  }
-} */
 
 /* 一覧ページ */
 
@@ -231,3 +221,28 @@ label,span {
   padding-bottom: 4vh;
 }
 
+/* responsive */
+@media screen and (max-width: 1040px){
+  .CheckList li{
+    display: block;
+    margin-bottom: 3.5vh;
+  }
+  .CheckList li:last-child{
+   margin-bottom: 0;
+   height: 2vh;
+  }
+  .CheckListInput{
+    margin-bottom: 1vh;
+  }
+  .SaveBtnContainer{
+    margin-top: 0;
+  }
+  .deadline{
+    margin-top: 0;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 740px){
+
+}

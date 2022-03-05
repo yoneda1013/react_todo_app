@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP&family=PT+Sans&family=PT+Serif&family=Roboto&display=swap");
 
 html {
-  background-color: #f4f4f4;
+  background-color: #ffffff;
   font-size: 10px;
 }
 
@@ -86,10 +86,17 @@ h2 {
 .headerList h1 {
   text-align: center;
   font-size: var(--font--size--h1);
-  margin-bottom: 1.5vh;
+  padding-bottom: 1.5vh;
+  color: #ffffff;
+}
+.headerList{
+  background: -moz-linear-gradient(bottom, #A4A4E5, #FFF);
+  background: -webkit-linear-gradient(bottom, #A4A4E5, #FFF);
+  background: linear-gradient(to top, #A4A4E5,80%, #FFF);
 }
 .headerBtn {
-  margin: 10vh 0 0 10vh;
+  padding: 10vh 0 0 10vh;
+  
 }
 
 /* Main */
@@ -214,3 +221,13 @@ label,span {
     flex-direction: column;
   }
 } */
+
+/* 一覧ページ */
+
+.ListBtn{
+  background: -moz-linear-gradient(bottom, #A4A4E5, #FFF);
+  background: -webkit-linear-gradient(bottom, #A4A4E5, #FFF);
+  background: linear-gradient(to top, #A4A4E5,70%, #FFF);
+  padding-bottom: 4vh;
+}
+

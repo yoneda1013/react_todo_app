@@ -1,41 +1,111 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import DatePicker from "react-datepicker";
+import firebase from "firebase/compat/app";
 
-import { useState, useEffect } from "react";
-import { db } from "../firebase/firebase.js";
-import { collection, getDocs, QuerySnapshot } from "firebase/firestore";
-import { Title } from "./Title.js";
-import { useParams } from "react-router-dom";
+import { SaveBtn } from "./SaveBtn";
+import { Title } from "./Title";
+import { db } from "../firebase/firebase";
+import { AuthContext } from "../auth/AuthProvider";
 
+const initialFormData = {
+  title: "",
+  cmykText: "",
+  tonboText: "",
+  dataTypeText: "",
+  imgTypeText: "",
+  urlText: "",
+  deadlineDate: new Date(),
+  cmykBool: false,
+  tonboBool: false,
+  dataTypeBool: false,
+  imgTypeBool: false,
+  koritsuBool: false,
+  createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+};
 
-export const Form = ({
-  cmykText,
-  onChangeCmykText,
-  tonboText,
-  onChangeTonboText,
-  dataTypeText,
-  onChangeDataTypeText,
-  imgTypeText,
-  onChangeImgTypeText,
-  cmykBool,
-  tonboBool,
-  dataTypeBool,
-  imgTypeBool,
-  koritsuBool,
-  onCheckCmyk,
-  onCheckTonbo,
-  onCheckDataType,
-  onCheckImgTypeBool,
-  onCheckKoritsu,
-  urlText,
-  onChangeUrlText
-}) => {
-  const input = document.querySelector("input");
-  const params = useParams();
+export const Form = ({ project }) => {
+  const { currentUser } = useContext(AuthContext);
+  const [formState, setFormState] = useState(
+    project
+      ? {
+          title: project.title,
+          cmykText: project.cmykText,
+          tonboText: project.tonboText,
+          dataTypeText: project.dataTypeText,
+          imgTypeText: project.imgTypeText,
+          urlText: project.urlText,
+          deadlineDate: project.deadlineDate.toDate(),
+          cmykBool: project.cmykBool,
+          tonboBool: project.tonboBool,
+          dataTypeBool: project.dataTypeBool,
+          imgTypeBool: project.imgTypeBool,
+          koritsuBool: project.koritsuBool,
+          createdAt: project.createdAt.toDate(),
+        }
+      : initialFormData
+  );
 
-  
+  const isEdit = project !== undefined;
+
+  const handleTitleChange = (event) =>
+    setFormState((prev) => ({ ...prev, title: event.target.value }));
+
+  const handleDatePickerChange = (date) =>
+    setFormState((prev) => ({ ...prev, deadlineDate: date }));
+
+  const handleCmykCheckChange = () =>
+    setFormState((prev) => ({ ...prev, cmykBool: !prev.cmykBool }));
+
+  const handleCmykTextChange = (event) =>
+    setFormState((prev) => ({ ...prev, cmykText: event.target.value }));
+
+  const handleTonboCheckChange = () =>
+    setFormState((prev) => ({ ...prev, tonboBool: !prev.tonboBool }));
+
+  const handleTonboTextChange = (event) =>
+    setFormState((prev) => ({ ...prev, tonboText: event.target.value }));
+
+  const handleDataTypeChange = () =>
+    setFormState((prev) => ({ ...prev, dataTypeBool: !prev.dataTypeBool }));
+
+  const handleDataTypeTextChange = (event) =>
+    setFormState((prev) => ({ ...prev, dataTypeText: event.target.value }));
+
+  const handleImgTypeChange = () =>
+    setFormState((prev) => ({ ...prev, imgTypeBool: !prev.imgTypeBool }));
+
+  const handleImgTypeTextChange = (event) =>
+    setFormState((prev) => ({ ...prev, imgTypeText: event.target.value }));
+
+  const handleKoritsuCheckChange = () =>
+    setFormState((prev) => ({ ...prev, koritsuBool: !prev.koritsuBool }));
+
+  const handleUrlTextChange = (event) =>
+    setFormState((prev) => ({ ...prev, urlText: event.target.value }));
+
+  const onClickAdd = () => {
+    alert("保存が完了しました！");
+    const docRef = project
+      ? db.collection("projects").doc(project.id)
+      : db.collection("projects").doc();
+    docRef.set({
+      uid: currentUser.uid,
+      ...formState,
+    });
+  };
 
   return (
     <>
+      <Title title={formState.title} onChangeTitle={handleTitleChange} />
+      <div className="deadline">
+        <label>入稿締切</label>
+        <DatePicker
+          className="DatePicker"
+          value={formState.deadlineDate}
+          selected={formState.deadlineDate}
+          onChange={handleDatePickerChange}
+        />
+      </div>
       <div className="ItemList">
         <div className="CheckList">
           <h2>入稿前チェックリスト</h2>
@@ -44,8 +114,8 @@ export const Form = ({
               <label className="checkBox">
                 <input
                   type="checkbox"
-                  checked={cmykBool}
-                  onClick={onCheckCmyk}
+                  checked={formState.cmykBool}
+                  onChange={handleCmykCheckChange}
                 />
                 <span>カラーモード</span>
               </label>
@@ -54,8 +124,8 @@ export const Form = ({
                 <input
                   type="text"
                   placeholder="RGB/CMYK"
-                  value={cmykText}
-                  onChange={onChangeCmykText}
+                  value={formState.cmykText}
+                  onChange={handleCmykTextChange}
                 />
               </div>
             </li>
@@ -63,8 +133,8 @@ export const Form = ({
               <label>
                 <input
                   type="checkbox"
-                  checked={tonboBool}
-                  onClick={onCheckTonbo}
+                  checked={formState.tonboBool}
+                  onChange={handleTonboCheckChange}
                 />
 
                 <span>トンボ形式</span>
@@ -73,8 +143,8 @@ export const Form = ({
                 <input
                   type="text"
                   placeholder="アリ / ナシ"
-                  value={tonboText}
-                  onChange={onChangeTonboText}
+                  value={formState.tonboText}
+                  onChange={handleTonboTextChange}
                 />
               </div>
             </li>
@@ -82,18 +152,17 @@ export const Form = ({
               <label>
                 <input
                   type="checkbox"
-                  checked={dataTypeBool}
-                  onClick={onCheckDataType}
+                  checked={formState.dataTypeBool}
+                  onChange={handleDataTypeChange}
                 />
-
                 <span>データ形式</span>
               </label>
               <div className="CheckListInput">
                 <input
                   type="text"
                   placeholder="ai / PDF / psd"
-                  value={dataTypeText}
-                  onChange={onChangeDataTypeText}
+                  value={formState.dataTypeText}
+                  onChange={handleDataTypeTextChange}
                 />
               </div>
             </li>
@@ -101,8 +170,8 @@ export const Form = ({
               <label>
                 <input
                   type="checkbox"
-                  checked={imgTypeBool}
-                  onClick={onCheckImgTypeBool}
+                  checked={formState.imgTypeBool}
+                  onChange={handleImgTypeChange}
                 />
 
                 <span>画像</span>
@@ -111,8 +180,8 @@ export const Form = ({
                 <input
                   type="text"
                   placeholder="リンク / 埋め込み"
-                  value={imgTypeText}
-                  onChange={onChangeImgTypeText}
+                  value={formState.imgTypeText}
+                  onChange={handleImgTypeTextChange}
                 />
               </div>
             </li>
@@ -120,8 +189,8 @@ export const Form = ({
               <label>
                 <input
                   type="checkbox"
-                  checked={koritsuBool}
-                  onClick={onCheckKoritsu}
+                  checked={formState.koritsuBool}
+                  onChange={handleKoritsuCheckChange}
                 />
 
                 <span>孤立点</span>
@@ -132,10 +201,16 @@ export const Form = ({
 
         <div className="URL">
           <h2>入稿所URL</h2>
-          <textarea type="text" placeholder="URL" value={urlText} onChange={onChangeUrlText}
+          <textarea
+            type="text"
+            placeholder="URL"
+            value={formState.urlText}
+            onChange={handleUrlTextChange}
           />
         </div>
       </div>
+
+      <SaveBtn onClickAdd={onClickAdd}>{isEdit ? "変更保存" : "保存"}</SaveBtn>
     </>
   );
 };

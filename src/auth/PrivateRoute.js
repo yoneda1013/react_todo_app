@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Route, Navigate, Outlet } from "react-router-dom";
+import React, { useContext } from "react";
+import { Navigate, Outlet } from "react-router-dom";
 import { AuthContext } from "./AuthProvider";
-import { Login } from "./Login";
-import { auth } from "../firebase/firebase";
+import { ProjectProvider } from "../contexts/ProjectContext";
 
 //AuthContextから渡されたcurrentUserがセットされていれば、app.jsの/に。（Outlet）
 const PrivateRoute = ({ component, ...rest }) => {
@@ -10,7 +9,9 @@ const PrivateRoute = ({ component, ...rest }) => {
 
   return authChecked ? (
     currentUser ? (
-      <Outlet />
+      <ProjectProvider>
+        <Outlet />
+      </ProjectProvider>
     ) : (
       <Navigate to="/login"></Navigate>
     )

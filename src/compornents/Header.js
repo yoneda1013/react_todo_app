@@ -1,7 +1,6 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-import { auth } from "../firebase/firebase";
 
 export const Header = () => {
   return (
@@ -25,8 +24,6 @@ export const Header = () => {
                 backgroundColor: "#000066",
               },
             }}
-
-            // onClick={()=>setProjectsParams(!projectsParams)}
           >
             一覧へ
           </Button>

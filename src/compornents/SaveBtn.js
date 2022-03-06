@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 
-export const SaveBtn = ({ onClickAdd }) => {
+export const SaveBtn = ({ onClickAdd, children }) => {
   return (
     <div className="SaveBtnContainer">
       <Button
@@ -16,10 +16,10 @@ export const SaveBtn = ({ onClickAdd }) => {
           background: "#3636B3",
           "&:hover": {
             backgroundColor: "#000066",
-          }
+          },
         }}
       >
-        保存
+        {children}
       </Button>
     </div>
   );

@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   collection,
   onSnapshot,
   query,
   orderBy,
   limit,
+  where,
 } from "firebase/firestore";
-
+import { AuthContext } from "../auth/AuthProvider";
 import { db } from "../firebase/firebase";
 
 const ProjectContext = React.createContext();
@@ -14,11 +15,12 @@ const ProjectContext = React.createContext();
 const ProjectProvider = ({ children }) => {
   const [projects, setProjects] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-
+  const { currentUser } = useContext(AuthContext);
   useEffect(() => {
     const projectsCollectionRef = collection(db, "projects");
     const q = query(
       projectsCollectionRef,
+      where("uid", "==", currentUser.uid),
       orderBy("createdAt", "desc"),
       limit(10)
     );

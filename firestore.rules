@@ -1,9 +1,29 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
-      allow read;
-      allow write: if request.auth != null;
+    match /projects/{projectsID} {
+      function isAuthenticated(){
+        return request.auth != null;
+      }
+      function isUserAuthenticated(uid){
+      return isAuthenticated() && uid === request.auth.uid;
+      }
+      allow create: if isUserAuthenticated(uid) && (!('title' in request.resource.data)||(request.resource.data.title is string && request.resource.data.title.size()<= 30 )
+      &&('cmykText' in request.resource.data)||(request.resource.data.title is string && request.resource.data.title.size()<= 10 )
+      &&('dataTypeText' in request.resource.data)||(request.resource.data.title is string && request.resource.data.title.size()<= 10 )
+      &&('imgTypeText' in request.resource.data)||(request.resource.data.title is string && request.resource.data.title.size()<= 10 )
+      &&('tonboTypeText' in request.resource.data)||(request.resource.data.title is string && request.resource.data.title.size()<= 10 )
+      &&('urlText' in request.resource.data)||(request.resource.data.title is string && request.resource.data.title.size()<= 50 )
+      && (request.resource.data.createdAt == request.time);
+      allow read: if isUserAuthenticated(uid);
+      allow update: if isUserAuthenticated(uid) && (!('title' in request.resource.data)||(request.resource.data.title is string && request.resource.data.title.size()<= 30 )
+      &&('cmykText' in request.resource.data)||(request.resource.data.title is string && request.resource.data.title.size()<= 10 )
+      &&('dataTypeText' in request.resource.data)||(request.resource.data.title is string && request.resource.data.title.size()<= 10 )
+      &&('imgTypeText' in request.resource.data)||(request.resource.data.title is string && request.resource.data.title.size()<= 10 )
+      &&('tonboTypeText' in request.resource.data)||(request.resource.data.title is string && request.resource.data.title.size()<= 10 )
+      &&('urlText' in request.resource.data)||(request.resource.data.title is string && request.resource.data.title.size()<= 50 )
+      && (request.resource.data.createdAt == request.time); 
+      allow delete: if isUserAuthenticated(uid);
     }
   }
 }

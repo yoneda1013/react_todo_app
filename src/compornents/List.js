@@ -16,7 +16,6 @@ import { ProjectContext } from "../contexts/ProjectContext";
 export const List = () => {
   const { projects } = useContext(ProjectContext);
   const navigate = useNavigate();
-  console.log(projects);
   return (
     <>
       <div className="ListBtn">

@@ -84,15 +84,32 @@ export const Form = ({ project }) => {
     setFormState((prev) => ({ ...prev, urlText: event.target.value }));
 
   const onClickAdd = () => {
-    alert("保存が完了しました！");
-    const docRef = project
-      ? db.collection("projects").doc(project.id)
-      : db.collection("projects").doc();
-    docRef.set({
-      uid: currentUser.uid,
-      ...formState,
-    });
+    if (
+      30 < formState.title.length ||
+      formState.cmykText == "" ||
+      formState.tonboBool == "" ||
+      formState.dataTypeText == "" ||
+      formState.imgTypeText == ""
+    ) {
+      alert("正しい値を入力してください");
+    } else {
+      alert("保存が完了しました！");
+      const docRef = project
+        ? db.collection("projects").doc(project.id)
+        : db.collection("projects").doc();
+      docRef.set({
+        uid: currentUser.uid,
+        ...formState,
+      });
+    }
   };
+
+  // const submitItemHandler = (e) => {
+  //   e.preventDefault();
+  //   if (30 < formState.title.length || formState.cmykText == "")
+  //     alert("正しい値を入力してください");
+  // };
+  //validation 文字数 入力できる内容
 
   return (
     <>

@@ -45,15 +45,69 @@ export const Form = ({ project }) => {
       : initialFormData
   );
 
+  const [errorMessage, setErrorMessage] = useState({
+    title: "",
+    cmykText: "",
+    tonboText: "",
+    dataTypeText: "",
+    imgTypeText: "",
+    urlText: "",
+  });
+
+  const validationErrors = {
+    //Possible errors and their corresponding error messages.
+    userName: {
+      tooShort: "User Name should be atleast 6 characters",
+      patternMismatch: "User Name can only have alphabets",
+      valueMissing: "User Name is required",
+    },
+    email: {
+      typeMismatch: "Please enter a valid email",
+      patternMismatch: "Please enter a valid email",
+      valueMissing: "Email is required",
+    },
+    age: {
+      rangeUnderflow: "User under 18 cannot sign up",
+      valueMissing: "Age is required",
+    },
+    password: {
+      tooShort: "Password should be atlease 8 characters",
+      patternMismatch:
+        "Password should have atleast one uppercase character, one lowercase character and a number",
+      valueMissing: "Password is required",
+    },
+  };
+
+  const onBlurValidation = (event) => {
+    const validity = event.target.validity;
+    if (validity.valid !== true) {
+      for (let errorKey in validity) {
+        if (validity[errorKey]) {
+          setErrorMessage({
+            ...errorMessage,
+            [event.target.name]: validationErrors[event.target.name][errorKey],
+          });
+        }
+      }
+    } else {
+      setErrorMessage({
+        ...errorMessage,
+        [event.target.name]: "",
+      });
+    }
+  };
+
   const validationForm = () => {
     const errors = {};
-    if (!empData.title) {
+    if (!formState.title) {
       errors.title = "titleを入力してください";
-    } else if (empData.title.length > 30) {
+    } else if (formState.title.length > 30) {
       errors.title = "titleは30文字以内で入力してください";
+      console.log(errors.title);
     }
     return errors;
   };
+  // console.log(validationForm());
 
   const isEdit = project !== undefined;
 
@@ -127,6 +181,9 @@ export const Form = ({ project }) => {
         title={formState.title}
         onChangeTitle={handleTitleChange}
         validationForm={validationForm}
+        errorMessage={errorMessage}
+        onBlurValidation={onBlurValidation}
+        validationErrors={validationErrors}
       />
 
       <div className="deadline">

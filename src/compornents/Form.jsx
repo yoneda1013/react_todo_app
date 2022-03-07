@@ -45,6 +45,16 @@ export const Form = ({ project }) => {
       : initialFormData
   );
 
+  const validationForm = () => {
+    const errors = {};
+    if (!empData.title) {
+      errors.title = "titleを入力してください";
+    } else if (empData.title.length > 30) {
+      errors.title = "titleは30文字以内で入力してください";
+    }
+    return errors;
+  };
+
   const isEdit = project !== undefined;
 
   const handleTitleChange = (event) =>
@@ -113,7 +123,12 @@ export const Form = ({ project }) => {
 
   return (
     <>
-      <Title title={formState.title} onChangeTitle={handleTitleChange} />
+      <Title
+        title={formState.title}
+        onChangeTitle={handleTitleChange}
+        validationForm={validationForm}
+      />
+
       <div className="deadline">
         <label>入稿締切</label>
         <DatePicker

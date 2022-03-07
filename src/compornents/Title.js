@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Title = ({ title, onChangeTitle }) => {
+export const Title = ({ title, onChangeTitle, validationForm }) => {
   return (
     <div>
       <p></p>
@@ -15,6 +15,7 @@ export const Title = ({ title, onChangeTitle }) => {
               placeholder="案件名を入力"
               className="titleInput"
             />
+            {validationForm.formState.title && <p>{errors.title}</p>}
           </div>
         </label>
       </form>

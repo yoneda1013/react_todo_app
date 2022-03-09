@@ -11,9 +11,9 @@ service cloud.firestore {
       function forReadAuthenticated(){
       return isAuthenticated() && request.auth.uid == resource.data.uid;
       }
-
-      //uidの引数を指定するために、writeはrequest.resource.data.uid、readはresource.data.uidを引数として渡す。
-      allow create: if forWriteAuthenticated(request.resource.data.uid) && (!('title' in request.resource.data)||(request.resource.data.title is string && request.resource.data.title.size()<= 30 )
+      allow create: if forWriteAuthenticated(request.resource.data.uid) 
+      && request.resource.data.keys().hasOnly([title, cmykText,dataTypeText, imgTypeText, tonboTypeText, urlText, cmykBool, dataTypeBool, imgTypeBool, koritsuBool,tonboBool, deadlineDate])
+      && (!('title' in request.resource.data)||(request.resource.data.title is string && request.resource.data.title.size()<= 30 )
       &&('cmykText' in request.resource.data)||(request.resource.data.title is string && request.resource.data.title.size()<= 10 )
       &&('dataTypeText' in request.resource.data)||(request.resource.data.title is string && request.resource.data.title.size()<= 10 )
       &&('imgTypeText' in request.resource.data)||(request.resource.data.title is string && request.resource.data.title.size()<= 10 )

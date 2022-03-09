@@ -45,58 +45,6 @@ export const Form = ({ project }) => {
       : initialFormData
   );
 
-  const [errorMessage, setErrorMessage] = useState({
-    title: "",
-    cmykText: "",
-    tonboText: "",
-    dataTypeText: "",
-    imgTypeText: "",
-    urlText: "",
-  });
-
-  const validationErrors = {
-    //Possible errors and their corresponding error messages.
-    userName: {
-      tooShort: "User Name should be atleast 6 characters",
-      patternMismatch: "User Name can only have alphabets",
-      valueMissing: "User Name is required",
-    },
-    email: {
-      typeMismatch: "Please enter a valid email",
-      patternMismatch: "Please enter a valid email",
-      valueMissing: "Email is required",
-    },
-    age: {
-      rangeUnderflow: "User under 18 cannot sign up",
-      valueMissing: "Age is required",
-    },
-    password: {
-      tooShort: "Password should be atlease 8 characters",
-      patternMismatch:
-        "Password should have atleast one uppercase character, one lowercase character and a number",
-      valueMissing: "Password is required",
-    },
-  };
-
-  const onBlurValidation = (event) => {
-    const validity = event.target.validity;
-    if (validity.valid !== true) {
-      for (let errorKey in validity) {
-        if (validity[errorKey]) {
-          setErrorMessage({
-            ...errorMessage,
-            [event.target.name]: validationErrors[event.target.name][errorKey],
-          });
-        }
-      }
-    } else {
-      setErrorMessage({
-        ...errorMessage,
-        [event.target.name]: "",
-      });
-    }
-  };
-
   const validationForm = () => {
     const errors = {};
     if (!formState.title) {
@@ -168,23 +116,14 @@ export const Form = ({ project }) => {
     }
   };
 
-  // const submitItemHandler = (e) => {
-  //   e.preventDefault();
-  //   if (30 < formState.title.length || formState.cmykText == "")
-  //     alert("正しい値を入力してください");
-  // };
-  //validation 文字数 入力できる内容
+  const onBlurFunction = (event) => {
+    formState.cmykText !== "RGB" || true;
+  };
+  console.log(onBlurFunction);
 
   return (
     <>
-      <Title
-        title={formState.title}
-        onChangeTitle={handleTitleChange}
-        validationForm={validationForm}
-        errorMessage={errorMessage}
-        onBlurValidation={onBlurValidation}
-        validationErrors={validationErrors}
-      />
+      <Title title={formState.title} onChangeTitle={handleTitleChange} />
 
       <div className="deadline">
         <label>入稿締切</label>
@@ -215,7 +154,11 @@ export const Form = ({ project }) => {
                   placeholder="RGB/CMYK"
                   value={formState.cmykText}
                   onChange={handleCmykTextChange}
+                  onBlur={onBlurFunction}
                 />
+                {onBlurFunction.a && (
+                  <span>カラーモードを入力してください</span>
+                )}
               </div>
             </li>
             <li>
@@ -225,7 +168,6 @@ export const Form = ({ project }) => {
                   checked={formState.tonboBool}
                   onChange={handleTonboCheckChange}
                 />
-
                 <span>トンボ形式</span>
               </label>
               <div className="CheckListInput">

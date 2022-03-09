@@ -1,13 +1,6 @@
 import React from "react";
 
-export const Title = ({
-  title,
-  onChangeTitle,
-  validationForm,
-  errorMessage,
-  onBlurValidation,
-  validationErrors,
-}) => {
+export const Title = ({ title, onChangeTitle }) => {
   return (
     <div>
       <p></p>
@@ -21,10 +14,10 @@ export const Title = ({
               onChange={onChangeTitle}
               placeholder="案件名を入力"
               className="titleInput"
-              onBlur={onBlurValidation}
             />
-            {/* {console.log(validationForm.formState.title)} */}
-            {validationForm.title && <p>{errorMessage.title}</p>}
+            {title.length > 30 && (
+              <span>タイトルは30字以内で入力してください</span>
+            )}
           </div>
         </label>
       </form>

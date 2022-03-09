@@ -89,14 +89,13 @@ h2 {
   padding-bottom: 1.5vh;
   color: #ffffff;
 }
-.headerList{
-  background: -moz-linear-gradient(bottom, #A4A4E5, #FFF);
-  background: -webkit-linear-gradient(bottom, #A4A4E5, #FFF);
-  background: linear-gradient(to top, #A4A4E5,80%, #FFF);
+.headerList {
+  background: -moz-linear-gradient(bottom, #a4a4e5, #fff);
+  background: -webkit-linear-gradient(bottom, #a4a4e5, #fff);
+  background: linear-gradient(to top, #a4a4e5, 80%, #fff);
 }
 .headerBtn {
   padding: 10vh 0 0 10vh;
-  
 }
 
 /* Main */
@@ -122,10 +121,10 @@ input[type="text"]:focus {
 
 /* Deadline */
 .deadline {
-  margin: 3.5vh 15% 0 15%; 
+  margin: 3.5vh 15% 0 15%;
   display: flex;
 }
-.deadline label{
+.deadline label {
   width: 7%;
 }
 
@@ -138,27 +137,37 @@ input[type="text"]:focus {
 }
 
 /* ItemList */
+.ErrorMessage span {
+  font-size: 1rem;
+  margin-right: 0;
+  text-align: right;
+  display: block;
+  color: red;
+}
 .ItemList {
   display: flex;
   justify-content: space-between;
   margin: 4vh 15% 0 15%;
 }
-.CheckList{
+.CheckList {
   width: 40%;
 }
 .CheckList ul {
   padding: 0;
 }
-.CheckList li {
-  margin-bottom: 0.5vh;
-  height: 5vh;
+.CheckListItem {
+  margin-bottom: 0.1vh;
+  height: 3vh;
   display: flex;
   justify-content: space-between;
+}
+.CheckList li {
+  height: 7vh;
 }
 .CheckList label {
   display: inline-block;
 }
-.URL{
+.URL {
   width: 50%;
 }
 .URL textarea {
@@ -187,9 +196,8 @@ input[type="text"]:focus {
   outline: none;
 }
 
-
-
-label,span {
+label,
+span {
   margin: 0 1vh;
   font-size: var(--font--size--p);
 }
@@ -211,38 +219,36 @@ label,span {
   margin-right: 10%;
 }
 
-
 /* 一覧ページ */
 
-.ListBtn{
-  background: -moz-linear-gradient(bottom, #A4A4E5, #FFF);
-  background: -webkit-linear-gradient(bottom, #A4A4E5, #FFF);
-  background: linear-gradient(to top, #A4A4E5,70%, #FFF);
+.ListBtn {
+  background: -moz-linear-gradient(bottom, #a4a4e5, #fff);
+  background: -webkit-linear-gradient(bottom, #a4a4e5, #fff);
+  background: linear-gradient(to top, #a4a4e5, 70%, #fff);
   padding-bottom: 4vh;
 }
 
 /* responsive */
-@media screen and (max-width: 1040px){
-  .CheckList li{
+@media screen and (max-width: 1040px) {
+  .CheckList li {
     display: block;
     margin-bottom: 3.5vh;
   }
-  .CheckList li:last-child{
-   margin-bottom: 0;
-   height: 2vh;
+  .CheckList li:last-child {
+    margin-bottom: 0;
+    height: 2vh;
   }
-  .CheckListInput{
+  .CheckListInput {
     margin-bottom: 1vh;
   }
-  .SaveBtnContainer{
+  .SaveBtnContainer {
     margin-top: 0;
   }
-  .deadline{
+  .deadline {
     margin-top: 0;
     display: block;
   }
 }
 
-@media screen and (max-width: 740px){
-
+@media screen and (max-width: 740px) {
 }

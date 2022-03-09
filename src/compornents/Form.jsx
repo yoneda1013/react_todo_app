@@ -144,31 +144,37 @@ export const Form = ({ project }) => {
           <h2>入稿前チェックリスト</h2>
           <ul>
             <li>
-              <label className="checkBox">
-                <input
-                  type="checkbox"
-                  checked={formState.cmykBool}
-                  onChange={handleCmykCheckChange}
-                />
-                <span>カラーモード</span>
-              </label>
+              <div className="CheckListItem">
+                <label className="checkBox">
+                  <input
+                    type="checkbox"
+                    checked={formState.cmykBool}
+                    onChange={handleCmykCheckChange}
+                  />
+                  <span>カラーモード</span>
+                </label>
 
-              <div className="CheckListInput">
-                <input
-                  type="text"
-                  placeholder="RGB/CMYK"
-                  value={formState.cmykText}
-                  onChange={handleCmykTextChange}
-                  onBlur={blurCmykHandler}
-                />
-                {formState.cmykTextTouched && formState.cmykTextHasError && (
-                  <span>カラーモードを入力してください</span>
-                )}
-                {/* touchedがtrueかつhasErrorがtrueの時にspanが出現する */}
-                {/* {console.log(formState.touched)} */}
-                {/* {console.log(formState.cmykTextHasError)} */}
+                <div className="CheckListInput Input">
+                  <input
+                    type="text"
+                    placeholder="RGB/CMYK"
+                    value={formState.cmykText}
+                    onChange={handleCmykTextChange}
+                    onBlur={blurCmykHandler}
+                  />
+
+                  {/* touchedがtrueかつhasErrorがtrueの時にspanが出現する */}
+                  {/* {console.log(formState.touched)} */}
+                  {/* {console.log(formState.cmykTextHasError)} */}
+                </div>
               </div>
+              {formState.cmykTextTouched && formState.cmykTextHasError && (
+                <div className="ErrorMessage">
+                  <span>カラーモードを入力してください</span>
+                </div>
+              )}
             </li>
+
             <li>
               <label>
                 <input
@@ -178,7 +184,7 @@ export const Form = ({ project }) => {
                 />
                 <span>トンボ形式</span>
               </label>
-              <div className="CheckListInput">
+              <div className="CheckListInput Input">
                 <input
                   type="text"
                   placeholder="アリ / ナシ"
@@ -196,7 +202,7 @@ export const Form = ({ project }) => {
                 />
                 <span>データ形式</span>
               </label>
-              <div className="CheckListInput">
+              <div className="CheckListInput Input">
                 <input
                   type="text"
                   placeholder="ai / PDF / psd"
@@ -215,7 +221,7 @@ export const Form = ({ project }) => {
 
                 <span>画像</span>
               </label>
-              <div className="CheckListInput">
+              <div className="CheckListInput Input">
                 <input
                   type="text"
                   placeholder="リンク / 埋め込み"
@@ -238,7 +244,7 @@ export const Form = ({ project }) => {
           </ul>
         </div>
 
-        <div className="URL">
+        <div className="URL Input">
           <h2>入稿所URL</h2>
           <textarea
             type="text"

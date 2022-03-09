@@ -20,6 +20,8 @@ const initialFormData = {
   dataTypeBool: false,
   imgTypeBool: false,
   koritsuBool: false,
+  cmykTextHasError: false,
+  cmykTextTouched: false,
   createdAt: firebase.firestore.FieldValue.serverTimestamp(),
 };
 
@@ -41,21 +43,11 @@ export const Form = ({ project }) => {
           imgTypeBool: project.imgTypeBool,
           koritsuBool: project.koritsuBool,
           createdAt: project.createdAt.toDate(),
+          cmykTextHasError: false,
+          cmykTextTouched: false,
         }
       : initialFormData
   );
-
-  const validationForm = () => {
-    const errors = {};
-    if (!formState.title) {
-      errors.title = "titleを入力してください";
-    } else if (formState.title.length > 30) {
-      errors.title = "titleは30文字以内で入力してください";
-      console.log(errors.title);
-    }
-    return errors;
-  };
-  // console.log(validationForm());
 
   const isEdit = project !== undefined;
 
@@ -68,8 +60,26 @@ export const Form = ({ project }) => {
   const handleCmykCheckChange = () =>
     setFormState((prev) => ({ ...prev, cmykBool: !prev.cmykBool }));
 
-  const handleCmykTextChange = (event) =>
-    setFormState((prev) => ({ ...prev, cmykText: event.target.value }));
+  const handleCmykTextChange = (event) => {
+    let cmykTextHasError = false;
+    if (event.target.value != "RGB" && event.target.value != "CMYK") {
+      cmykTextHasError = true;
+    } else {
+      cmykTextHasError = false;
+    }
+    setFormState((prev) => ({
+      ...prev,
+      cmykText: event.target.value,
+      cmykTextHasError,
+    }));
+  };
+
+  const blurCmykHandler = () => {
+    setFormState((prev) => ({
+      ...prev,
+      cmykTextTouched: true,
+    }));
+  };
 
   const handleTonboCheckChange = () =>
     setFormState((prev) => ({ ...prev, tonboBool: !prev.tonboBool }));
@@ -116,11 +126,6 @@ export const Form = ({ project }) => {
     }
   };
 
-  const onBlurFunction = (event) => {
-    formState.cmykText !== "RGB" || true;
-  };
-  console.log(onBlurFunction);
-
   return (
     <>
       <Title title={formState.title} onChangeTitle={handleTitleChange} />
@@ -154,11 +159,14 @@ export const Form = ({ project }) => {
                   placeholder="RGB/CMYK"
                   value={formState.cmykText}
                   onChange={handleCmykTextChange}
-                  onBlur={onBlurFunction}
+                  onBlur={blurCmykHandler}
                 />
-                {onBlurFunction.a && (
+                {formState.cmykTextTouched && formState.cmykTextHasError && (
                   <span>カラーモードを入力してください</span>
                 )}
+                {/* touchedがtrueかつhasErrorがtrueの時にspanが出現する */}
+                {/* {console.log(formState.touched)} */}
+                {/* {console.log(formState.cmykTextHasError)} */}
               </div>
             </li>
             <li>

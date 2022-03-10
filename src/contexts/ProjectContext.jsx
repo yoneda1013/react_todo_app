@@ -6,6 +6,7 @@ import {
   orderBy,
   limit,
   where,
+  getDocs,
 } from "firebase/firestore";
 import { AuthContext } from "../auth/AuthProvider";
 import { db } from "../firebase/firebase";
@@ -24,6 +25,18 @@ const ProjectProvider = ({ children }) => {
       orderBy("createdAt", "desc"),
       limit(10)
     );
+    // getDocs(
+    //   query(
+    //     projectsCollectionRef,
+    //     where("uid", "==", currentUser.uid),
+    //     orderBy("createdAt", "desc"),
+    //     limit(10)
+    //   ).then((querySnapShot) => {
+    //     setProjects(
+    //       querySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+    //     );
+    //   })
+    // );
     const unsubscribe = onSnapshot(q, {
       next: (querySnapShot) => {
         const projects = querySnapShot.docs.reduce(

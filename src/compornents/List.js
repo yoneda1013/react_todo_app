@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -7,15 +7,19 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { db } from "../firebase/firebase";
 import { auth } from "../firebase/firebase";
+import { withStyles } from "@material-ui/core/styles";
 
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { ProjectContext } from "../contexts/ProjectContext";
+import Pagination from "@material-ui/lab/Pagination";
 
 export const List = () => {
   const { projects } = useContext(ProjectContext);
   const navigate = useNavigate();
+  const [page, setPage] = useState(1);
+
   return (
     <>
       <div className="ListBtn">
@@ -154,6 +158,7 @@ export const List = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <Pagination count={5} page={page} variant="outlined" />
     </>
   );
 };

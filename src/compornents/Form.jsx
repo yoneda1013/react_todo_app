@@ -22,6 +22,14 @@ const initialFormData = {
   koritsuBool: false,
   cmykTextHasError: false,
   cmykTextTouched: false,
+  tonboTextHasError: false,
+  tonboTextTouched: false,
+  dataTypeTextHasError: false,
+  dataTypeTextTouched: false,
+  imgTypeTextHasError: false,
+  imTypeTextTouched: false,
+  urlTextHasError: false,
+  urlTextTouched: false,
   createdAt: firebase.firestore.FieldValue.serverTimestamp(),
 };
 
@@ -45,6 +53,14 @@ export const Form = ({ project }) => {
           createdAt: project.createdAt.toDate(),
           cmykTextHasError: false,
           cmykTextTouched: false,
+          tonboTextHasError: false,
+          tonboTextTouched: false,
+          dataTypeTextHasError: false,
+          dataTypeTextTouched: false,
+          imgTypeTextHasError: false,
+          imTypeTextTouched: false,
+          urlTextHasError: false,
+          urlTextTouched: false,
         }
       : initialFormData
   );
@@ -84,26 +100,90 @@ export const Form = ({ project }) => {
   const handleTonboCheckChange = () =>
     setFormState((prev) => ({ ...prev, tonboBool: !prev.tonboBool }));
 
-  const handleTonboTextChange = (event) =>
-    setFormState((prev) => ({ ...prev, tonboText: event.target.value }));
+  const handleTonboTextChange = (event) => {
+    let tonboTextHasError = false;
+    if (event.target.value != "アリ" && event.target.value != "ナシ") {
+      tonboTextHasError = true;
+    } else {
+      tonboTextHasError = false;
+    }
+    setFormState((prev) => ({
+      ...prev,
+      tonboText: event.target.value,
+      tonboTextHasError,
+    }));
+  };
+
+  const blurTonboHandler = () => {
+    setFormState((prev) => ({ ...prev, tonboTextTouched: true }));
+  };
 
   const handleDataTypeChange = () =>
     setFormState((prev) => ({ ...prev, dataTypeBool: !prev.dataTypeBool }));
 
-  const handleDataTypeTextChange = (event) =>
-    setFormState((prev) => ({ ...prev, dataTypeText: event.target.value }));
+  const handleDataTypeTextChange = (event) => {
+    let dataTypeTextHasError = false;
+    if (
+      event.target.value != "ai" &&
+      event.target.value != "PDF" &&
+      event.target.value != "psd"
+    ) {
+      dataTypeTextHasError = true;
+    } else {
+      dataTypeTextHasError = false;
+    }
+    setFormState((prev) => ({
+      ...prev,
+      dataTypeText: event.target.value,
+      dataTypeTextHasError,
+    }));
+  };
+  const blurDataTypeHandler = () => {
+    setFormState((prev) => ({ ...prev, dataTypeTextTouched: true }));
+  };
 
   const handleImgTypeChange = () =>
     setFormState((prev) => ({ ...prev, imgTypeBool: !prev.imgTypeBool }));
 
-  const handleImgTypeTextChange = (event) =>
-    setFormState((prev) => ({ ...prev, imgTypeText: event.target.value }));
+  const handleImgTypeTextChange = (event) => {
+    let imgTypeTextHasError = false;
+    if (event.target.value != "リンク" && event.target.value != "埋め込み") {
+      imgTypeTextHasError = true;
+    } else {
+      imgTypeTextHasError = false;
+    }
+    setFormState((prev) => ({
+      ...prev,
+      imgTypeText: event.target.value,
+      imgTypeTextHasError,
+    }));
+  };
+  const blurImgTypeHandler = () => {
+    setFormState((prev) => ({ ...prev, imgTypeTextTouched: true }));
+  };
 
   const handleKoritsuCheckChange = () =>
     setFormState((prev) => ({ ...prev, koritsuBool: !prev.koritsuBool }));
 
-  const handleUrlTextChange = (event) =>
-    setFormState((prev) => ({ ...prev, urlText: event.target.value }));
+  const handleUrlTextChange = (event) => {
+    let urlTextHasError = false;
+    if (
+      event.target.value !=
+      "^(?:(?:http(?:s)?|ftp)://)(?:\\S+(?::(?:\\S)*)?@)?(?:(?:[a-z0-9\u00a1-\uffff](?:-)*)*(?:[a-z0-9\u00a1-\uffff])+)(?:\\.(?:[a-z0-9\u00a1-\uffff](?:-)*)*(?:[a-z0-9\u00a1-\uffff])+)*(?:\\.(?:[a-z0-9\u00a1-\uffff]){2,})(?::(?:\\d){2,5})?(?:/(?:\\S)*)?$"
+    ) {
+      urlTextHasError = true;
+    } else {
+      urlTextHasError = false;
+    }
+    setFormState((prev) => ({
+      ...prev,
+      urlText: event.target.value,
+      urlTextHasError,
+    }));
+  };
+  const urlTextTypeHandler = () => {
+    setFormState((prev) => ({ ...prev, urlTextTouched: true }));
+  };
 
   const onClickAdd = () => {
     if (
@@ -162,10 +242,6 @@ export const Form = ({ project }) => {
                     onChange={handleCmykTextChange}
                     onBlur={blurCmykHandler}
                   />
-
-                  {/* touchedがtrueかつhasErrorがtrueの時にspanが出現する */}
-                  {/* {console.log(formState.touched)} */}
-                  {/* {console.log(formState.cmykTextHasError)} */}
                 </div>
               </div>
               {formState.cmykTextTouched && formState.cmykTextHasError && (
@@ -176,60 +252,87 @@ export const Form = ({ project }) => {
             </li>
 
             <li>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={formState.tonboBool}
-                  onChange={handleTonboCheckChange}
-                />
-                <span>トンボ形式</span>
-              </label>
-              <div className="CheckListInput Input">
-                <input
-                  type="text"
-                  placeholder="アリ / ナシ"
-                  value={formState.tonboText}
-                  onChange={handleTonboTextChange}
-                />
+              <div className="CheckListItem">
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={formState.tonboBool}
+                    onChange={handleTonboCheckChange}
+                  />
+                  <span>トンボ形式</span>
+                </label>
+                <div className="CheckListInput Input">
+                  <input
+                    type="text"
+                    placeholder="アリ / ナシ"
+                    value={formState.tonboText}
+                    onChange={handleTonboTextChange}
+                    onBlur={blurTonboHandler}
+                  />
+                </div>
               </div>
+              {formState.tonboTextTouched && formState.tonboTextHasError && (
+                <div className="ErrorMessage">
+                  <span>トンボの有無を入力してください</span>
+                </div>
+              )}
             </li>
-            <li>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={formState.dataTypeBool}
-                  onChange={handleDataTypeChange}
-                />
-                <span>データ形式</span>
-              </label>
-              <div className="CheckListInput Input">
-                <input
-                  type="text"
-                  placeholder="ai / PDF / psd"
-                  value={formState.dataTypeText}
-                  onChange={handleDataTypeTextChange}
-                />
-              </div>
-            </li>
-            <li>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={formState.imgTypeBool}
-                  onChange={handleImgTypeChange}
-                />
 
-                <span>画像</span>
-              </label>
-              <div className="CheckListInput Input">
-                <input
-                  type="text"
-                  placeholder="リンク / 埋め込み"
-                  value={formState.imgTypeText}
-                  onChange={handleImgTypeTextChange}
-                />
+            <li>
+              <div className="CheckListItem">
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={formState.dataTypeBool}
+                    onChange={handleDataTypeChange}
+                  />
+                  <span>データ形式</span>
+                </label>
+                <div className="CheckListInput Input">
+                  <input
+                    type="text"
+                    placeholder="ai / PDF / psd"
+                    value={formState.dataTypeText}
+                    onChange={handleDataTypeTextChange}
+                    onBlur={blurDataTypeHandler}
+                  />
+                </div>
               </div>
+              {formState.dataTypeTextTouched && formState.dataTypeTextHasError && (
+                <div className="ErrorMessage">
+                  <span>指定の拡張子を入力してください</span>
+                </div>
+              )}
             </li>
+
+            <li>
+              <div className="CheckListItem">
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={formState.imgTypeBool}
+                    onChange={handleImgTypeChange}
+                  />
+
+                  <span>画像</span>
+                </label>
+                <div className="CheckListInput Input">
+                  <input
+                    type="text"
+                    placeholder="リンク / 埋め込み"
+                    value={formState.imgTypeText}
+                    onChange={handleImgTypeTextChange}
+                    onBlur={blurImgTypeHandler}
+                  />
+                </div>
+              </div>
+              {formState.imgTypeTextTouched && formState.imgTypeTextHasError && (
+                <div className="ErrorMessage">
+                  <span>画像の扱いを入力してください</span>
+                </div>
+              )}
+            </li>
+
             <li>
               <label>
                 <input
@@ -251,7 +354,13 @@ export const Form = ({ project }) => {
             placeholder="URL"
             value={formState.urlText}
             onChange={handleUrlTextChange}
+            onBlur={urlTextTypeHandler}
           />
+          {formState.urlTextTouched && formState.urlTextHasError && (
+            <div className="ErrorMessage">
+              <span>正しいURLを入力してください</span>
+            </div>
+          )}
         </div>
       </div>
 

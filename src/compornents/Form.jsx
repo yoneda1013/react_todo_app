@@ -64,7 +64,6 @@ export const Form = ({ project }) => {
         }
       : initialFormData
   );
-  
 
   const isEdit = project !== undefined;
 
@@ -188,11 +187,12 @@ export const Form = ({ project }) => {
 
   const onClickAdd = () => {
     if (
-      30 < formState.title.length ||
-      formState.cmykText == "" ||
-      formState.tonboBool == "" ||
-      formState.dataTypeText == "" ||
-      formState.imgTypeText == ""
+      30 < formState.title.length
+      // ||
+      // formState.cmykText == "" ||
+      // formState.tonboBool == "" ||
+      // formState.dataTypeText == "" ||
+      // formState.imgTypeText == ""
     ) {
       alert("正しい値を入力してください");
     } else {

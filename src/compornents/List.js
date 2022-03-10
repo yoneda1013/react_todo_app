@@ -8,6 +8,7 @@ import TableRow from "@material-ui/core/TableRow";
 import { db } from "../firebase/firebase";
 import { auth } from "../firebase/firebase";
 import { withStyles } from "@material-ui/core/styles";
+// import Stack from "@mui/material/Stack";
 
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
@@ -19,6 +20,7 @@ export const List = () => {
   const { projects } = useContext(ProjectContext);
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
+  console.log(Object.keys(projects).length);
 
   return (
     <>

@@ -25,18 +25,20 @@ const ProjectProvider = ({ children }) => {
       orderBy("createdAt", "desc"),
       limit(10)
     );
-    // getDocs(
-    //   query(
-    //     projectsCollectionRef,
-    //     where("uid", "==", currentUser.uid),
-    //     orderBy("createdAt", "desc"),
-    //     limit(10)
-    //   ).then((querySnapShot) => {
-    //     setProjects(
-    //       querySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-    //     );
-    //   })
-    // );
+
+    getDocs(
+      query(
+        projectsCollectionRef,
+        where("uid", "==", currentUser.uid),
+        orderBy("createdAt", "desc"),
+        limit(50)
+      )
+    ).then((querySnapShot) => {
+      setProjects(
+        querySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+      );
+    });
+
     const unsubscribe = onSnapshot(q, {
       next: (querySnapShot) => {
         const projects = querySnapShot.docs.reduce(

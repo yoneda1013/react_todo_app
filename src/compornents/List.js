@@ -7,8 +7,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { db } from "../firebase/firebase";
 import { auth } from "../firebase/firebase";
-import { withStyles } from "@material-ui/core/styles";
-// import Stack from "@mui/material/Stack";
+
+import PaginationOutlined from "./Pagenation";
 
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
@@ -160,7 +160,8 @@ export const List = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Pagination count={5} page={page} variant="outlined" />
+      <PaginationOutlined />
+      {/* <Pagination count={5} page={page} variant="outlined" /> */}
     </>
   );
 };

@@ -23,7 +23,7 @@ const ProjectProvider = ({ children }) => {
       projectsCollectionRef,
       where("uid", "==", currentUser.uid),
       orderBy("createdAt", "desc"),
-      limit(10)
+      limit(20)
     );
 
     getDocs(
@@ -31,7 +31,7 @@ const ProjectProvider = ({ children }) => {
         projectsCollectionRef,
         where("uid", "==", currentUser.uid),
         orderBy("createdAt", "desc"),
-        limit(50)
+        limit(20)
       )
     ).then((querySnapShot) => {
       setProjects(

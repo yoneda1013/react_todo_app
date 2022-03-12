@@ -166,7 +166,7 @@ export const List = () => {
       </TableContainer>
       <ReactPaginate
         pageCount={Math.ceil(Object.keys(projects).length / perPage)}
-        marginPagesDisplayed={2}
+        marginPagesDisplayed={3}
         pageRangeDisplayed={3}
         onPageChange={pageChange}
         containerClassName="pagination"

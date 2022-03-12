@@ -8,19 +8,25 @@ import TableRow from "@material-ui/core/TableRow";
 import { db } from "../firebase/firebase";
 import { auth } from "../firebase/firebase";
 
-import PaginationOutlined from "./Pagenation";
-
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { ProjectContext } from "../contexts/ProjectContext";
-import Pagination from "@material-ui/lab/Pagination";
+import ReactPaginate from "react-paginate";
 
 export const List = () => {
   const { projects } = useContext(ProjectContext);
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
   console.log(Object.keys(projects).length);
+
+  const [start, setStart] = useState(0);
+  const [perPage, setPerPage] = useState(5);
+
+  const pageChange = (data) => {
+    let pageNumber = data["selected"];
+    setStart(pageNumber * perPage);
+  };
 
   return (
     <>
@@ -61,9 +67,7 @@ export const List = () => {
           Sign Out
         </Button>
       </div>
-      <TableContainer
-      // style={{ marginTop: "3.5vh" }}
-      >
+      <TableContainer>
         <Table>
           <TableHead>
             <TableRow
@@ -103,65 +107,83 @@ export const List = () => {
             </TableRow>
           </TableHead>
           <TableBody className="ListBody">
-            {Object.values(projects).map((row, index) => (
-              <TableRow key={index}>
-                <TableCell style={{ textAlign: "center", fontSize: "1.5rem" }}>
-                  {row.title}
-                </TableCell>
-                {/* <TableCell>{row.deadlineDate}</TableCell> */}
-                {/* timestampだと表示できなさそうなので、firestoreに文字列で保存する作戦 */}
-                {/* <TableCell>{row.deadlineDate.toString()}</TableCell>  */}
-                <TableCell style={{ textAlign: "center" }}>
-                  <Button
-                    size="small"
-                    variant="contained"
-                    style={{
-                      margin: "5px",
-                      fontSize: "12px",
-                      padding: "0.3vh",
-                      color: "#FFFFFF",
-                      background: "#3636B3",
-                      "&:hover": {
-                        backgroundColor: "#000066",
-                      },
-                    }}
-                    onClick={() => {
-                      navigate(`/${row.id}`);
-                    }}
+            {Object.values(projects)
+              .slice(start, start + perPage)
+              .map((row, index) => (
+                <TableRow key={index}>
+                  <TableCell
+                    style={{ textAlign: "center", fontSize: "1.5rem" }}
                   >
-                    詳細ページへ
-                  </Button>
-                </TableCell>
-                <TableCell style={{ textAlign: "center" }}>
-                  <Button
-                    size="small"
-                    variant="contained"
-                    style={{
-                      margin: "5px",
-                      fontSize: "12px",
-                      padding: "0.3vh",
-                      color: "#FFFFFF",
-                      background: "#3636B3",
-                      "&:hover": {
-                        backgroundColor: "#000066",
-                      },
-                    }}
-                    onClick={() => {
-                      alert("削除が完了しました");
-                      db.collection("projects").doc(row.id).delete();
-                    }}
-                    //↑collection丸ごと消えてしまうから該当のドキュメントのみ消したい
-                  >
-                    削除
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
+                    {row.title}
+                  </TableCell>
+                  <TableCell style={{ textAlign: "center" }}>
+                    <Button
+                      size="small"
+                      variant="contained"
+                      style={{
+                        margin: "5px",
+                        fontSize: "12px",
+                        padding: "0.3vh",
+                        color: "#FFFFFF",
+                        background: "#3636B3",
+                        "&:hover": {
+                          backgroundColor: "#000066",
+                        },
+                      }}
+                      onClick={() => {
+                        navigate(`/${row.id}`);
+                      }}
+                    >
+                      詳細ページへ
+                    </Button>
+                  </TableCell>
+                  <TableCell style={{ textAlign: "center" }}>
+                    <Button
+                      size="small"
+                      variant="contained"
+                      style={{
+                        margin: "5px",
+                        fontSize: "12px",
+                        padding: "0.3vh",
+                        color: "#FFFFFF",
+                        background: "#3636B3",
+                        "&:hover": {
+                          backgroundColor: "#000066",
+                        },
+                      }}
+                      onClick={() => {
+                        alert("削除が完了しました");
+                        db.collection("projects").doc(row.id).delete();
+                      }}
+                    >
+                      削除
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
-      <PaginationOutlined />
-      {/* <Pagination count={5} page={page} variant="outlined" /> */}
+      <ReactPaginate
+        pageCount={Math.ceil(Object.keys(projects).length / perPage)}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={3}
+        onPageChange={pageChange}
+        containerClassName="pagination"
+        pageClassName="page-item"
+        pageLinkClassName="page-link"
+        activeClassName="active"
+        previousLabel="back"
+        nextLabel="next"
+        previousClassName="page-item"
+        nextClassName="page-item"
+        previousLinkClassName="page-link"
+        nextLinkClassName="page-link"
+        disabledClassName="disabled"
+        breakLabel="..."
+        breakClassName="page-item"
+        breakLinkClassName="page-link"
+      />
     </>
   );
 };

@@ -28,6 +28,7 @@ h2 {
   --cl--back: #f4f4f4;
   --cl--blue: #000066;
   --cl--gray: #e8e7e7;
+  --cl--lightblue: #a4a4e5;
 }
 
 /* Auth */
@@ -226,6 +227,28 @@ span {
   background: -webkit-linear-gradient(bottom, #a4a4e5, #fff);
   background: linear-gradient(to top, #a4a4e5, 70%, #fff);
   padding-bottom: 4vh;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2vh;
+  gap: 20px 6px;
+}
+
+.page-item,
+.page-link {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 30px;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+  height: 35px;
+  width: 35px;
+  background: var(--cl--lightblue);
+  color: #ffffff;
 }
 
 /* responsive */

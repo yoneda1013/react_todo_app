@@ -7,6 +7,9 @@ import {
   limit,
   where,
   getDocs,
+  DocumentSnapshot,
+  startAt,
+  startAfter,
 } from "firebase/firestore";
 import { AuthContext } from "../auth/AuthProvider";
 import { db } from "../firebase/firebase";
@@ -18,39 +21,50 @@ const ProjectProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const { currentUser } = useContext(AuthContext);
   useEffect(() => {
+    let isMounted = true;
+    setIsLoading(true);
     const projectsCollectionRef = collection(db, "projects");
-    const q = query(
+    const first = query(
       projectsCollectionRef,
       where("uid", "==", currentUser.uid),
       orderBy("createdAt", "desc"),
       limit(10)
     );
 
-    getDocs(
-      query(
-        projectsCollectionRef,
+    // const lastVisible = getDocs(first.then(querySnapShot) =>{
+
+    // });
+    // documentSnapShots.docs[documentSnapShots.docs.length - 1];
+
+    getDocs(first).then((querySnapShot) => {
+      const lastVisible = querySnapShot.docs[querySnapShot.docs.length - 1];
+      console.log("last", lastVisible);
+      const next = query(
+        collection(db, "projects"),
         where("uid", "==", currentUser.uid),
         orderBy("createdAt", "desc"),
+        startAfter(lastVisible),
         limit(10)
-      )
-    ).then((querySnapShot) => {
-      setProjects(
-        querySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
       );
-    });
-
-    const unsubscribe = onSnapshot(q, {
-      next: (querySnapShot) => {
-        const projects = querySnapShot.docs.reduce(
-          (acc, doc) => ({ ...acc, [doc.id]: { ...doc.data(), id: doc.id } }),
-          {}
+      if (isMounted) {
+        setProjects(
+          querySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
         );
-        setProjects(projects);
         setIsLoading(false);
-      },
+      }
     });
-    return () => unsubscribe();
-  }, []);
+    // const unsubscribe = onSnapshot(q, {
+    //   next: (querySnapShot) => {
+    //     const projects = querySnapShot.docs.reduce(
+    //       (acc, doc) => ({ ...acc, [doc.id]: { ...doc.data(), id: doc.id } }),
+    //       {}
+    //     );
+    //     setProjects(projects);
+    //     setIsLoading(false);
+    //   },
+    // });
+    return () => (isMounted = false);
+  }, [currentUser.uid]);
 
   return (
     <ProjectContext.Provider value={{ projects, isLoading }}>

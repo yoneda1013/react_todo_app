@@ -18,8 +18,6 @@ export const List = () => {
   const { projects } = useContext(ProjectContext);
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
-  console.log(Object.keys(projects).length);
-
   const [start, setStart] = useState(0);
   const [perPage, setPerPage] = useState(5);
 

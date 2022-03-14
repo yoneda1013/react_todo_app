@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -14,17 +14,22 @@ import { useNavigate } from "react-router-dom";
 import { ProjectContext } from "../contexts/ProjectContext";
 import ReactPaginate from "react-paginate";
 
+import { AuthContext } from "../auth/AuthProvider";
+import {
+  collection,
+  onSnapshot,
+  query,
+  orderBy,
+  limit,
+  where,
+  getDocs,
+  DocumentSnapshot,
+  startAt,
+  startAfter,
+} from "firebase/firestore";
 export const List = () => {
   const { projects } = useContext(ProjectContext);
   const navigate = useNavigate();
-  const [page, setPage] = useState(1);
-  const [start, setStart] = useState(0);
-  const [perPage, setPerPage] = useState(5);
-
-  const pageChange = (data) => {
-    let pageNumber = data["selected"];
-    setStart(pageNumber * perPage);
-  };
 
   return (
     <>
@@ -106,7 +111,7 @@ export const List = () => {
           </TableHead>
           <TableBody className="ListBody">
             {Object.values(projects)
-              .slice(start, start + perPage)
+              // .slice(start, start + perPage)
               .map((row, index) => (
                 <TableRow key={index}>
                   <TableCell
@@ -162,7 +167,25 @@ export const List = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <ReactPaginate
+
+      <Button
+        size="small"
+        variant="contained"
+        style={{
+          margin: "2vh",
+          fontSize: "14px",
+          padding: "0.5vh",
+          color: "#3636B3",
+          background: "#FFFFFF",
+          "&:hover": {
+            backgroundColor: "#000066",
+          },
+        }}
+        // onClick={}
+      >
+        次の5件を表示する
+      </Button>
+      {/* <ReactPaginate
         pageCount={Math.ceil(Object.keys(projects).length / perPage)}
         marginPagesDisplayed={3}
         pageRangeDisplayed={3}
@@ -181,7 +204,7 @@ export const List = () => {
         breakLabel="..."
         breakClassName="page-item"
         breakLinkClassName="page-link"
-      />
+      /> */}
     </>
   );
 };

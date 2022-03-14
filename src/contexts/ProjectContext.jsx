@@ -30,11 +30,27 @@ const ProjectProvider = ({ children }) => {
       projectsCollectionRef,
       where("uid", "==", currentUser.uid),
       orderBy("createdAt", "desc"),
-      limit(30)
+      limit(10)
     );
     getDocs(first).then((querySnapShot) => {
       const lastVisible = querySnapShot.docs[querySnapShot.docs.length - 1];
       console.log("last", lastVisible);
+      const next = query(
+        collection(db, "projects"),
+        where("uid", "==", currentUser.uid),
+        orderBy("createdAt", "desc"),
+        startAfter(lastVisible),
+        limit(10)
+      );
+
+      // const fetchMoreProjects = getDocs(next).then((querySnapShot) => {
+      //   if (isMounted) {
+      //     setProjects(
+      //       querySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+      //     );
+      //     setIsLoading(false);
+      //   }
+      // });
 
       if (isMounted) {
         setProjects(
@@ -43,11 +59,12 @@ const ProjectProvider = ({ children }) => {
         setIsLoading(false);
       }
     });
+
     return () => (isMounted = false);
   }, [currentUser.uid]);
 
   return (
-    <ProjectContext.Provider value={{ projects, isLoading }}>
+    <ProjectContext.Provider value={{ projects, isLoading, setProjects }}>
       {children}
     </ProjectContext.Provider>
   );

@@ -26,24 +26,30 @@ import {
   DocumentSnapshot,
   startAt,
   startAfter,
+  QuerySnapshot,
 } from "firebase/firestore";
 export const List = () => {
   const { currentUser } = useContext(AuthContext);
-  const { projects } = useContext(ProjectContext);
+  const { projects, setProjects } = useContext(ProjectContext);
   const navigate = useNavigate();
-  useEffect(() => {
-    const lastVisible = projects[Math.floor(projects.length / 10) * 10];
-    console.log(lastVisible);
-    console.log(Math.floor(projects.length));
-    const next = query(
-      collection(db, "projects"),
-      where("uid", "==", currentUser.uid),
-      orderBy("createdAt", "desc"),
-      startAfter(lastVisible),
-      limit(10)
-    );
-    const fetchMoreProjects = () => {};
-  });
+  const [nextPageLoading, setNextPageLoading] = useState(false);
+  // useEffect(() => {
+  //   getDocs().then((QuerySnapshot) => {
+  //     // const lastVisible = querySnapShot.docs[QuerySnapShot.docs.length - 1];
+  //     const next = query(
+  //       collection(db, "projects"),
+  //       where("uid", "==", currentUser.uid),
+  //       orderBy("createdAt", "desc"),
+  //       // startAt(lastVisible),
+  //       limit(10)
+  //     ).then((QuerySnapShot) => {
+  //       setProjects(
+  //         QuerySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+  //       );
+  //     });
+  //   });
+  //   const fetchMoreProjects = () => {};
+  // });
 
   return (
     <>
@@ -193,28 +199,8 @@ export const List = () => {
         }}
         // onClick={fetchMoreProjects}
       >
-        次の5件を表示する
+        次の10件を表示する
       </Button>
-      {/* <ReactPaginate
-        pageCount={Math.ceil(Object.keys(projects).length / perPage)}
-        marginPagesDisplayed={3}
-        pageRangeDisplayed={3}
-        onPageChange={pageChange}
-        containerClassName="pagination"
-        pageClassName="page-item"
-        pageLinkClassName="page-link"
-        activeClassName="active"
-        previousLabel="back"
-        nextLabel="next"
-        previousClassName="page-item"
-        nextClassName="page-item"
-        previousLinkClassName="page-link"
-        nextLinkClassName="page-link"
-        disabledClassName="disabled"
-        breakLabel="..."
-        breakClassName="page-item"
-        breakLinkClassName="page-link"
-      /> */}
     </>
   );
 };

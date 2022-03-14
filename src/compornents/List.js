@@ -28,8 +28,22 @@ import {
   startAfter,
 } from "firebase/firestore";
 export const List = () => {
+  const { currentUser } = useContext(AuthContext);
   const { projects } = useContext(ProjectContext);
   const navigate = useNavigate();
+  useEffect(() => {
+    const lastVisible = projects[Math.floor(projects.length / 10) * 10];
+    console.log(lastVisible);
+    console.log(Math.floor(projects.length));
+    const next = query(
+      collection(db, "projects"),
+      where("uid", "==", currentUser.uid),
+      orderBy("createdAt", "desc"),
+      startAfter(lastVisible),
+      limit(10)
+    );
+    const fetchMoreProjects = () => {};
+  });
 
   return (
     <>
@@ -110,60 +124,56 @@ export const List = () => {
             </TableRow>
           </TableHead>
           <TableBody className="ListBody">
-            {Object.values(projects)
-              // .slice(start, start + perPage)
-              .map((row, index) => (
-                <TableRow key={index}>
-                  <TableCell
-                    style={{ textAlign: "center", fontSize: "1.5rem" }}
+            {Object.values(projects).map((row, index) => (
+              <TableRow key={index}>
+                <TableCell style={{ textAlign: "center", fontSize: "1.5rem" }}>
+                  {row.title}
+                </TableCell>
+                <TableCell style={{ textAlign: "center" }}>
+                  <Button
+                    size="small"
+                    variant="contained"
+                    style={{
+                      margin: "5px",
+                      fontSize: "12px",
+                      padding: "0.3vh",
+                      color: "#FFFFFF",
+                      background: "#3636B3",
+                      "&:hover": {
+                        backgroundColor: "#000066",
+                      },
+                    }}
+                    onClick={() => {
+                      navigate(`/${row.id}`);
+                    }}
                   >
-                    {row.title}
-                  </TableCell>
-                  <TableCell style={{ textAlign: "center" }}>
-                    <Button
-                      size="small"
-                      variant="contained"
-                      style={{
-                        margin: "5px",
-                        fontSize: "12px",
-                        padding: "0.3vh",
-                        color: "#FFFFFF",
-                        background: "#3636B3",
-                        "&:hover": {
-                          backgroundColor: "#000066",
-                        },
-                      }}
-                      onClick={() => {
-                        navigate(`/${row.id}`);
-                      }}
-                    >
-                      詳細ページへ
-                    </Button>
-                  </TableCell>
-                  <TableCell style={{ textAlign: "center" }}>
-                    <Button
-                      size="small"
-                      variant="contained"
-                      style={{
-                        margin: "5px",
-                        fontSize: "12px",
-                        padding: "0.3vh",
-                        color: "#FFFFFF",
-                        background: "#3636B3",
-                        "&:hover": {
-                          backgroundColor: "#000066",
-                        },
-                      }}
-                      onClick={() => {
-                        alert("削除が完了しました");
-                        db.collection("projects").doc(row.id).delete();
-                      }}
-                    >
-                      削除
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
+                    詳細ページへ
+                  </Button>
+                </TableCell>
+                <TableCell style={{ textAlign: "center" }}>
+                  <Button
+                    size="small"
+                    variant="contained"
+                    style={{
+                      margin: "5px",
+                      fontSize: "12px",
+                      padding: "0.3vh",
+                      color: "#FFFFFF",
+                      background: "#3636B3",
+                      "&:hover": {
+                        backgroundColor: "#000066",
+                      },
+                    }}
+                    onClick={() => {
+                      alert("削除が完了しました");
+                      db.collection("projects").doc(row.id).delete();
+                    }}
+                  >
+                    削除
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
@@ -181,7 +191,7 @@ export const List = () => {
             backgroundColor: "#000066",
           },
         }}
-        // onClick={}
+        // onClick={fetchMoreProjects}
       >
         次の5件を表示する
       </Button>

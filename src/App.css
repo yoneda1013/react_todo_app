@@ -253,7 +253,7 @@ span {
 
 /* responsive */
 @media screen and (max-width: 1040px) {
-  .CheckList li {
+  .CheckListItem {
     display: block;
     margin-bottom: 3.5vh;
   }
@@ -274,4 +274,32 @@ span {
 }
 
 @media screen and (max-width: 740px) {
+  .ItemList {
+    display: block;
+  }
+  .CheckList {
+    width: 100%;
+  }
+  .CheckListInput input {
+    margin-right: 0;
+  }
+  .CheckListItem {
+    display: flex;
+  }
+  .CheckList {
+    margin-bottom: 5vh;
+  }
+  .CheckList li {
+    height: 5vh;
+  }
+  .URL {
+    width: 100%;
+    margin-bottom: 1vh;
+  }
+  .URL textarea {
+    height: 10vh;
+  }
+  .titleInput {
+    margin-bottom: 0;
+  }
 }

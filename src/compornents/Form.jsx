@@ -167,10 +167,7 @@ export const Form = ({ project }) => {
 
   const handleUrlTextChange = (event) => {
     let urlTextHasError = false;
-    if (
-      event.target.value !=
-      "^(?:(?:http(?:s)?|ftp)://)(?:\\S+(?::(?:\\S)*)?@)?(?:(?:[a-z0-9\u00a1-\uffff](?:-)*)*(?:[a-z0-9\u00a1-\uffff])+)(?:\\.(?:[a-z0-9\u00a1-\uffff](?:-)*)*(?:[a-z0-9\u00a1-\uffff])+)*(?:\\.(?:[a-z0-9\u00a1-\uffff]){2,})(?::(?:\\d){2,5})?(?:/(?:\\S)*)?$"
-    ) {
+    if (event.target.value != "https?://[w!?/+-_~;.,*&@#$%()'[]]+") {
       urlTextHasError = true;
     } else {
       urlTextHasError = false;
@@ -186,14 +183,7 @@ export const Form = ({ project }) => {
   };
 
   const onClickAdd = () => {
-    if (
-      30 < formState.title.length
-      // ||
-      // formState.cmykText == "" ||
-      // formState.tonboBool == "" ||
-      // formState.dataTypeText == "" ||
-      // formState.imgTypeText == ""
-    ) {
+    if (30 < formState.title.length) {
       alert("正しい値を入力してください");
     } else {
       alert("保存が完了しました！");

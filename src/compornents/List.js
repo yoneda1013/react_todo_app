@@ -30,26 +30,10 @@ import {
 } from "firebase/firestore";
 export const List = () => {
   const { currentUser } = useContext(AuthContext);
-  const { projects, setProjects } = useContext(ProjectContext);
+  const { projects, next, prev, prevDisabled, nextDisabled } =
+    useContext(ProjectContext);
   const navigate = useNavigate();
   const [nextPageLoading, setNextPageLoading] = useState(false);
-  // useEffect(() => {
-  //   getDocs().then((QuerySnapshot) => {
-  //     // const lastVisible = querySnapShot.docs[QuerySnapShot.docs.length - 1];
-  //     const next = query(
-  //       collection(db, "projects"),
-  //       where("uid", "==", currentUser.uid),
-  //       orderBy("createdAt", "desc"),
-  //       // startAt(lastVisible),
-  //       limit(10)
-  //     ).then((QuerySnapShot) => {
-  //       setProjects(
-  //         QuerySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-  //       );
-  //     });
-  //   });
-  //   const fetchMoreProjects = () => {};
-  // });
 
   return (
     <>
@@ -184,23 +168,44 @@ export const List = () => {
         </Table>
       </TableContainer>
 
-      <Button
-        size="small"
-        variant="contained"
-        style={{
-          margin: "2vh",
-          fontSize: "14px",
-          padding: "0.5vh",
-          color: "#3636B3",
-          background: "#FFFFFF",
-          "&:hover": {
-            backgroundColor: "#000066",
-          },
-        }}
-        // onClick={fetchMoreProjects}
-      >
-        次の10件を表示する
-      </Button>
+      {!prevDisabled && (
+        <Button
+          size="small"
+          variant="contained"
+          style={{
+            margin: "2vh",
+            fontSize: "14px",
+            padding: "0.5vh",
+            color: "#3636B3",
+            background: "#FFFFFF",
+            "&:hover": {
+              backgroundColor: "#000066",
+            },
+          }}
+          onClick={prev}
+        >
+          前の10件を表示する
+        </Button>
+      )}
+      {!nextDisabled && (
+        <Button
+          size="small"
+          variant="contained"
+          style={{
+            margin: "2vh",
+            fontSize: "14px",
+            padding: "0.5vh",
+            color: "#3636B3",
+            background: "#FFFFFF",
+            "&:hover": {
+              backgroundColor: "#000066",
+            },
+          }}
+          onClick={next}
+        >
+          次の10件を表示する
+        </Button>
+      )}
     </>
   );
 };

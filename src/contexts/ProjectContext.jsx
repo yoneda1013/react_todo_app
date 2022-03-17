@@ -1,70 +1,115 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import {
   collection,
-  onSnapshot,
   query,
   orderBy,
   limit,
   where,
   getDocs,
-  DocumentSnapshot,
-  startAt,
   startAfter,
+  limitToLast,
+  endAt,
 } from "firebase/firestore";
 import { AuthContext } from "../auth/AuthProvider";
 import { db } from "../firebase/firebase";
 
 const ProjectContext = React.createContext();
 
+const LIMIT = 2;
+
 const ProjectProvider = ({ children }) => {
   const [projects, setProjects] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-
+  const [cursor, setCursor] = useState(0);
+  const [nextCursor, setNextCursor] = useState(undefined);
+  const [prevCursor, setPrevCursor] = useState(undefined);
+  const [isLastPage, setIsPastPage] = useState(false);
   const { currentUser } = useContext(AuthContext);
-  useEffect(() => {
-    let isMounted = true;
-    setIsLoading(true);
-    const projectsCollectionRef = collection(db, "projects");
+  const isMountedRef = useRef(false);
 
-    const first = query(
-      projectsCollectionRef,
-      where("uid", "==", currentUser.uid),
-      orderBy("createdAt", "desc"),
-      limit(10)
-    );
-    getDocs(first).then((querySnapShot) => {
-      const lastVisible = querySnapShot.docs[querySnapShot.docs.length - 1];
-      console.log("last", lastVisible);
-      const next = query(
-        collection(db, "projects"),
-        where("uid", "==", currentUser.uid),
-        orderBy("createdAt", "desc"),
-        startAfter(lastVisible),
-        limit(10)
-      );
-
-      // const fetchMoreProjects = getDocs(next).then((querySnapShot) => {
-      //   if (isMounted) {
-      //     setProjects(
-      //       querySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-      //     );
-      //     setIsLoading(false);
-      //   }
-      // });
-
-      if (isMounted) {
+  const fetch = (q, callback) => {
+    getDocs(q).then((querySnapShot) => {
+      if (isMountedRef.current) {
+        const nextCursor = querySnapShot.docs[querySnapShot.docs.length - 1];
+        const prevCursor = querySnapShot.docs[0];
+        console.log(prevCursor);
+        setNextCursor(nextCursor);
+        setPrevCursor(prevCursor);
         setProjects(
           querySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
         );
         setIsLoading(false);
+        callback && callback();
       }
     });
+  };
 
-    return () => (isMounted = false);
+  useEffect(() => {
+    isMountedRef.current = true;
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    const q = query(
+      collection(db, "projects"),
+      where("uid", "==", currentUser.uid),
+      orderBy("createdAt", "desc"),
+      limit(LIMIT)
+    );
+    setIsLoading(true);
+    fetch(q);
   }, [currentUser.uid]);
 
+  const prevDisabled = cursor === 0;
+  const nextDisabled = Object.keys(projects).length < LIMIT || isLastPage;
+
+  const next = () => {
+    if (!nextCursor || nextDisabled) return;
+    let q = query(
+      collection(db, "projects"),
+      where("uid", "==", currentUser.uid),
+      orderBy("createdAt", "desc"),
+      startAfter(nextCursor),
+      limit(LIMIT)
+    );
+    fetch(q, async () => {
+      setCursor((cursor) => cursor + 1);
+      const docCheck = await getDocs(query(q, limit(1)));
+      if (!docCheck.size) {
+        setIsPastPage(true);
+      }
+    });
+  };
+
+  const prev = () => {
+    if (!prevCursor || prevDisabled) return;
+    let q = query(
+      collection(db, "projects"),
+      where("uid", "==", currentUser.uid),
+      orderBy("createdAt", "desc"),
+      endAt(prevCursor),
+      limitToLast(LIMIT)
+    );
+    fetch(q, () => {
+      setCursor((cursor) => cursor - 1);
+      setIsPastPage(false);
+    });
+  };
+
   return (
-    <ProjectContext.Provider value={{ projects, isLoading, setProjects }}>
+    <ProjectContext.Provider
+      value={{
+        projects,
+        isLoading,
+        setProjects,
+        next,
+        prev,
+        prevDisabled,
+        nextDisabled,
+      }}
+    >
       {children}
     </ProjectContext.Provider>
   );

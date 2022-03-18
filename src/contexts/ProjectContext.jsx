@@ -15,7 +15,7 @@ import { db } from "../firebase/firebase";
 
 const ProjectContext = React.createContext();
 
-const LIMIT = 2;
+const LIMIT = 5;
 
 const ProjectProvider = ({ children }) => {
   const [projects, setProjects] = useState({});
@@ -24,6 +24,7 @@ const ProjectProvider = ({ children }) => {
   const [nextCursor, setNextCursor] = useState(undefined);
   const [prevCursor, setPrevCursor] = useState(undefined);
   const [isLastPage, setIsPastPage] = useState(false);
+
   const { currentUser } = useContext(AuthContext);
   const isMountedRef = useRef(false);
 
@@ -32,7 +33,6 @@ const ProjectProvider = ({ children }) => {
       if (isMountedRef.current) {
         const nextCursor = querySnapShot.docs[querySnapShot.docs.length - 1];
         const prevCursor = querySnapShot.docs[0];
-        console.log(prevCursor);
         setNextCursor(nextCursor);
         setPrevCursor(prevCursor);
         setProjects(
@@ -40,6 +40,7 @@ const ProjectProvider = ({ children }) => {
         );
         setIsLoading(false);
         callback && callback();
+        console.log(callback && callback());
       }
     });
   };
@@ -59,6 +60,7 @@ const ProjectProvider = ({ children }) => {
       limit(LIMIT)
     );
     setIsLoading(true);
+
     fetch(q);
   }, [currentUser.uid]);
 
@@ -67,6 +69,7 @@ const ProjectProvider = ({ children }) => {
 
   const next = () => {
     if (!nextCursor || nextDisabled) return;
+
     let q = query(
       collection(db, "projects"),
       where("uid", "==", currentUser.uid),
@@ -74,6 +77,7 @@ const ProjectProvider = ({ children }) => {
       startAfter(nextCursor),
       limit(LIMIT)
     );
+
     fetch(q, async () => {
       setCursor((cursor) => cursor + 1);
       const docCheck = await getDocs(query(q, limit(1)));

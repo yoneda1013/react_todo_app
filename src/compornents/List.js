@@ -12,28 +12,14 @@ import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { ProjectContext } from "../contexts/ProjectContext";
-import ReactPaginate from "react-paginate";
 
 import { AuthContext } from "../auth/AuthProvider";
-import {
-  collection,
-  onSnapshot,
-  query,
-  orderBy,
-  limit,
-  where,
-  getDocs,
-  DocumentSnapshot,
-  startAt,
-  startAfter,
-  QuerySnapshot,
-} from "firebase/firestore";
+
 export const List = () => {
   const { currentUser } = useContext(AuthContext);
   const { projects, next, prev, prevDisabled, nextDisabled } =
     useContext(ProjectContext);
   const navigate = useNavigate();
-  const [nextPageLoading, setNextPageLoading] = useState(false);
 
   return (
     <>
@@ -184,7 +170,7 @@ export const List = () => {
           }}
           onClick={prev}
         >
-          前の10件を表示する
+          前の5件を表示する
         </Button>
       )}
       {!nextDisabled && (
@@ -203,7 +189,7 @@ export const List = () => {
           }}
           onClick={next}
         >
-          次の10件を表示する
+          次の5件を表示する
         </Button>
       )}
     </>

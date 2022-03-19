@@ -40,7 +40,6 @@ const ProjectProvider = ({ children }) => {
         );
         setIsLoading(false);
         callback && callback();
-        console.log(callback && callback());
       }
     });
   };
@@ -60,7 +59,6 @@ const ProjectProvider = ({ children }) => {
       limit(LIMIT)
     );
     setIsLoading(true);
-
     fetch(q);
   }, [currentUser.uid]);
 

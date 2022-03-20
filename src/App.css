@@ -100,11 +100,9 @@ h2 {
 }
 
 /* Main */
-
 /* Title */
 
 .titleInput {
-  /* position: relative; */
   width: 70%;
   margin: 3vh 15%;
   font-size: var(--font--size--h2);
@@ -137,50 +135,50 @@ input[type="text"]:focus {
   font-size: var(--font--size--p);
 }
 
-/* ItemList */
-.ErrorMessage span {
+/* Form */
+.errorMessage span {
   font-size: 1rem;
   margin-right: 0;
   text-align: right;
   display: block;
   color: red;
 }
-.ItemList {
+.itemList {
   display: flex;
   justify-content: space-between;
   margin: 4vh 15% 0 15%;
 }
-.CheckList {
+.checkList {
   width: 40%;
 }
-.CheckList ul {
+.checkList ul {
   padding: 0;
 }
-.CheckListItem {
+.checkListItem {
   margin-bottom: 0.1vh;
   height: 3vh;
   display: flex;
   justify-content: space-between;
 }
-.CheckList li {
+.checkList li {
   height: 7vh;
 }
-.CheckList label {
+.checkList label {
   display: inline-block;
 }
-.URL {
+.url {
   width: 50%;
 }
-.URL textarea {
+.url textarea {
   height: 25vh;
   width: 100%;
   background-color: var(--cl--gray);
   padding: 2vh;
 }
-.CheckListInput {
+.checkListInput {
   display: inline-block;
 }
-.CheckListInput input {
+.checkListInput input {
   font-size: var(--font--size--p);
   box-sizing: border-box;
   padding: 0.5vh;
@@ -192,7 +190,7 @@ input[type="text"]:focus {
   height: 22px;
 }
 
-.CheckListInput input[type="text"]:focus {
+.checkListInput input[type="text"]:focus {
   border-bottom: 2px solid #000066;
   outline: none;
 }
@@ -204,16 +202,16 @@ span {
 }
 
 /* list */
-.ListRow th {
+.listRow th {
   font-size: var(--font--size--p);
 }
-.ListBody td {
+.listBody td {
   font-size: var(--font--size--p);
 }
 
 /* SaveBtn */
 
-.SaveBtnContainer {
+.saveBtnContainer {
   text-align: right;
   padding-right: 20px;
   margin-top: 2vh;
@@ -222,7 +220,7 @@ span {
 
 /* 一覧ページ */
 
-.ListBtn {
+.listBtn {
   background: -moz-linear-gradient(bottom, #a4a4e5, #fff);
   background: -webkit-linear-gradient(bottom, #a4a4e5, #fff);
   background: linear-gradient(to top, #a4a4e5, 70%, #fff);
@@ -253,15 +251,15 @@ span {
 
 /* responsive */
 @media screen and (max-width: 1040px) {
-  .CheckListItem {
+  .checkListItem {
     display: block;
     margin-bottom: 3.5vh;
   }
-  .CheckList li:last-child {
+  .checkList li:last-child {
     margin-bottom: 0;
     height: 2vh;
   }
-  .CheckListInput {
+  .checkListInput {
     margin-bottom: 1vh;
   }
   .SaveBtnContainer {
@@ -274,29 +272,29 @@ span {
 }
 
 @media screen and (max-width: 740px) {
-  .ItemList {
+  .itemList {
     display: block;
   }
-  .CheckList {
+  .checkList {
     width: 100%;
   }
-  .CheckListInput input {
+  .checkListInput input {
     margin-right: 0;
   }
-  .CheckListItem {
+  .checkListItem {
     display: flex;
   }
-  .CheckList {
+  .checkList {
     margin-bottom: 5vh;
   }
-  .CheckList li {
+  .checkList li {
     height: 5vh;
   }
-  .URL {
+  .url {
     width: 100%;
     margin-bottom: 1vh;
   }
-  .URL textarea {
+  .url textarea {
     height: 10vh;
   }
   .titleInput {

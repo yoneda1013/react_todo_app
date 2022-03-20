@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -23,7 +23,7 @@ export const List = () => {
 
   return (
     <>
-      <div className="ListBtn">
+      <div className="listBtn">
         <Button
           size="small"
           variant="contained"
@@ -64,7 +64,7 @@ export const List = () => {
         <Table>
           <TableHead>
             <TableRow
-              className="ListRow"
+              className="listRow"
               style={{ background: "#A4A4E5", color: "#ffffff" }}
             >
               <TableCell
@@ -99,7 +99,7 @@ export const List = () => {
               </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody className="ListBody">
+          <TableBody className="listBody">
             {Object.values(projects).map((row, index) => (
               <TableRow key={index}>
                 <TableCell style={{ textAlign: "center", fontSize: "1.5rem" }}>

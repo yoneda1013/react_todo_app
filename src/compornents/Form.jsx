@@ -167,7 +167,7 @@ export const Form = ({ project }) => {
 
   const handleUrlTextChange = (event) => {
     let urlTextHasError = false;
-    if (event.target.value != "https?://[w!?/+-_~;.,*&@#$%()'[]]+") {
+    if (event.target.value.size > 50) {
       urlTextHasError = true;
     } else {
       urlTextHasError = false;
@@ -210,12 +210,12 @@ export const Form = ({ project }) => {
           onChange={handleDatePickerChange}
         />
       </div>
-      <div className="ItemList">
-        <div className="CheckList">
+      <div className="itemList">
+        <div className="checkList">
           <h2>入稿前チェックリスト</h2>
           <ul>
             <li>
-              <div className="CheckListItem">
+              <div className="checkListItem">
                 <label className="checkBox">
                   <input
                     type="checkbox"
@@ -225,7 +225,7 @@ export const Form = ({ project }) => {
                   <span>カラーモード</span>
                 </label>
 
-                <div className="CheckListInput Input">
+                <div className="checkListInput Input">
                   <input
                     type="text"
                     placeholder="RGB/CMYK"
@@ -236,14 +236,14 @@ export const Form = ({ project }) => {
                 </div>
               </div>
               {formState.cmykTextTouched && formState.cmykTextHasError && (
-                <div className="ErrorMessage">
+                <div className="errorMessage">
                   <span>カラーモードを入力してください</span>
                 </div>
               )}
             </li>
 
             <li>
-              <div className="CheckListItem">
+              <div className="checkListItem">
                 <label>
                   <input
                     type="checkbox"
@@ -252,7 +252,7 @@ export const Form = ({ project }) => {
                   />
                   <span>トンボ形式</span>
                 </label>
-                <div className="CheckListInput Input">
+                <div className="checkListInput Input">
                   <input
                     type="text"
                     placeholder="アリ / ナシ"
@@ -263,14 +263,14 @@ export const Form = ({ project }) => {
                 </div>
               </div>
               {formState.tonboTextTouched && formState.tonboTextHasError && (
-                <div className="ErrorMessage">
+                <div className="errorMessage">
                   <span>トンボの有無を入力してください</span>
                 </div>
               )}
             </li>
 
             <li>
-              <div className="CheckListItem">
+              <div className="checkListItem">
                 <label>
                   <input
                     type="checkbox"
@@ -279,7 +279,7 @@ export const Form = ({ project }) => {
                   />
                   <span>データ形式</span>
                 </label>
-                <div className="CheckListInput Input">
+                <div className="checkListInput Input">
                   <input
                     type="text"
                     placeholder="ai / PDF / psd"
@@ -290,14 +290,14 @@ export const Form = ({ project }) => {
                 </div>
               </div>
               {formState.dataTypeTextTouched && formState.dataTypeTextHasError && (
-                <div className="ErrorMessage">
+                <div className="errorMessage">
                   <span>指定の拡張子を入力してください</span>
                 </div>
               )}
             </li>
 
             <li>
-              <div className="CheckListItem">
+              <div className="checkListItem">
                 <label>
                   <input
                     type="checkbox"
@@ -307,7 +307,7 @@ export const Form = ({ project }) => {
 
                   <span>画像</span>
                 </label>
-                <div className="CheckListInput Input">
+                <div className="checkListInput Input">
                   <input
                     type="text"
                     placeholder="リンク / 埋め込み"
@@ -318,7 +318,7 @@ export const Form = ({ project }) => {
                 </div>
               </div>
               {formState.imgTypeTextTouched && formState.imgTypeTextHasError && (
-                <div className="ErrorMessage">
+                <div className="errorMessage">
                   <span>画像の扱いを入力してください</span>
                 </div>
               )}
@@ -338,8 +338,8 @@ export const Form = ({ project }) => {
           </ul>
         </div>
 
-        <div className="URL Input">
-          <h2>入稿所URL</h2>
+        <div className="url Input">
+          <h2>入稿所URL（50字以内）</h2>
           <textarea
             type="text"
             placeholder="URL"
@@ -348,7 +348,7 @@ export const Form = ({ project }) => {
             onBlur={urlTextTypeHandler}
           />
           {formState.urlTextTouched && formState.urlTextHasError && (
-            <div className="ErrorMessage">
+            <div className="errorMessage">
               <span>正しいURLを入力してください</span>
             </div>
           )}

@@ -14,10 +14,7 @@ export const Deadline = () => {
       <label>入稿締切</label>
       <DatePicker
         className="DatePicker"
-        value={
-          deadlineDate
-          //   // parseAsMoment(deadlineDate).format("YYYY/MM/DD")
-        }
+        value={deadlineDate}
         selected={deadlineDate}
         onChange={handleChange}
       />

@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button";
 
 export const SaveBtn = ({ onClickAdd, children }) => {
   return (
-    <div className="SaveBtnContainer">
+    <div className="saveBtnContainer">
       <Button
         size="small"
         variant="contained"

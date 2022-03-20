@@ -19,7 +19,6 @@ const SignUpButton = styled(Button)({
 
 const SignUp = ({ history }) => {
   const { signup } = useContext(AuthContext);
-  //AuthContextからsingup関数を受け取る
 
   const handleSubmit = (event) => {
     event.preventDefault();

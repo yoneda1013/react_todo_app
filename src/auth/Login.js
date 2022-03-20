@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { AuthContext } from "./AuthProvider";
 import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import { styled } from "@material-ui/core/styles";
 
@@ -26,10 +25,11 @@ const Login = ({ history }) => {
     login(email.value, password.value, history);
   };
 
-    const OnClickGuestButton = (event) => {
-      event.preventDefault();
-      login("guest@example.com", "guest1", history);};
-  
+  const OnClickGuestButton = (event) => {
+    event.preventDefault();
+    login("guest@example.com", "guest1", history);
+  };
+
   return (
     <div className="wrapper">
       <div className="auth-container">

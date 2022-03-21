@@ -34,7 +34,11 @@ const Login = ({ history }) => {
     <div className="wrapper">
       <div className="auth-container">
         <h1>LOGIN</h1>
-        <p>登録したアドレス、パスワードを入力してください。</p>
+        <p>
+          登録したアドレス、
+          <br />
+          パスワードを入力してください。
+        </p>
         <form onSubmit={handleSubmit}>
           <div className="auth-form">
             <span>Email</span>

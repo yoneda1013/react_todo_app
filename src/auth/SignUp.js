@@ -30,7 +30,11 @@ const SignUp = ({ history }) => {
     <div className="wrapper">
       <div className="auth-container">
         <h1>Sign Up</h1>
-        <p>登録がまだの方は下記フォームに必要事項を入力してください。</p>
+        <p>
+          登録がまだの方は下記フォームに
+          <br />
+          必要事項を入力してください。
+        </p>
         <form onSubmit={handleSubmit}>
           <div className="auth-form">
             <span>E-mail</span>

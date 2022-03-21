@@ -13,28 +13,28 @@ service cloud.firestore {
       }
       allow create: if forWriteAuthenticated(request.resource.data.uid) 
       && request.resource.data.keys().hasOnly([title, cmykText,dataTypeText, imgTypeText, tonboTypeText, urlText, cmykBool, dataTypeBool, imgTypeBool, koritsuBool,tonboBool, deadlineDate])
-      && (!('title' in request.resource.data)||(request.resource.data.title is string && request.resource.data.title.size()<= 30 )
+      && !('title' in request.resource.data)||(request.resource.data.title is string && request.resource.data.title.size()<= 30 )
       &&('cmykText' in request.resource.data)||(request.resource.data.cmykText is string && request.resource.data.cmykText.size()<= 10 )
       &&('dataTypeText' in request.resource.data)||(request.resource.data.dataTypeText is string && request.resource.data.dataTypeText.size()<= 10 )
       &&('imgTypeText' in request.resource.data)||(request.resource.data.imgTypeText is string && request.resource.data.imgTypeText.size()<= 10 )
       &&('tonboTypeText' in request.resource.data)||(request.resource.data.tonboTypeText is string && request.resource.data.tonboTypeText.size()<= 10 )
       &&('urlText' in request.resource.data)||(request.resource.data.urlText is string && request.resource.data.urlText.size()<= 100 )
-      &&('cmykBool' request.resource.data) || (request.resource.data.cmykBool is boolean)
-      &&('dataTypeBool' request.resource.data) || (request.resource.data.dataTypeBool is boolean)
-      &&('imgTypeBool' request.resource.data) || (request.resource.data.imgTypeBool is boolean)
-      &&('tonboTypeBool' request.resource.data) || (request.resource.data.tonboTypeBool is boolean)
+      &&('cmykBool'  in request.resource.data) || (request.resource.data.cmykBool is bool)
+      &&('dataTypeBool' in request.resource.data) || (request.resource.data.dataTypeBool is bool)
+      &&('imgTypeBool' in request.resource.data) || (request.resource.data.imgTypeBool is bool)
+      &&('tonboTypeBool' in request.resource.data) || (request.resource.data.tonboTypeBool is bool)
       && (request.resource.data.createdAt == request.time);
       allow read: if forReadAuthenticated(resource.data.uid);
-      allow update: if forWriteAuthenticated(request.resource.data.uid) && (!('title' in request.resource.data)||(request.resource.data.title is string && request.resource.data.title.size()<= 30 )
+      allow update: if forWriteAuthenticated(request.resource.data.uid) && !('title' in request.resource.data)||(request.resource.data.title is string && request.resource.data.title.size()<= 30 )
       &&('cmykText' in request.resource.data)||(request.resource.data.cmykText is string && request.resource.data.cmykText.size()<= 10 )
       &&('dataTypeText' in request.resource.data)||(request.resource.data.dataTypeText is string && request.resource.data.dataTypeText.size()<= 10 )
       &&('imgTypeText' in request.resource.data)||(request.resource.data.imgTypeText is string && request.resource.data.imgTypeText.size()<= 10 )
       &&('tonboTypeText' in request.resource.data)||(request.resource.data.tonboTypeText is string && request.resource.data.tonboTypeText.size()<= 10 )
       &&('urlText' in request.resource.data)||(request.resource.data.urlText is string && request.resource.data.urlText.size()<= 100 )
-      &&('cmykBool' request.resource.data) || (request.resource.data.cmykBool is boolean)
-      &&('dataTypeBool' request.resource.data) || (request.resource.data.dataTypeBool is boolean)
-      &&('imgTypeBool' request.resource.data) || (request.resource.data.imgTypeBool is boolean)
-      &&('tonboTypeBool' request.resource.data) || (request.resource.data.tonboTypeBool is boolean)
+      &&('cmykBool' in request.resource.data) || (request.resource.data.cmykBool is bool)
+      &&('dataTypeBool' in request.resource.data) || (request.resource.data.dataTypeBool is bool)
+      &&('imgTypeBool' in request.resource.data) || (request.resource.data.imgTypeBool is bool)
+      &&('tonboTypeBool' in request.resource.data) || (request.resource.data.tonboTypeBool is bool)
       && (request.resource.data.createdAt == request.time); 
       allow delete: if forWriteAuthenticated(request.resource.data.uid);
     }

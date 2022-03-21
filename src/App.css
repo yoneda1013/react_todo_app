@@ -33,7 +33,9 @@ h2 {
 
 /* Auth */
 .wrapper {
-  margin-top: 10vh;
+  height: 100vh;
+  padding-top: 10vh;
+  background: var(--cl--gray);
 }
 
 .auth-container {
@@ -55,7 +57,6 @@ h2 {
 .auth-container p {
   text-align: center;
   font-size: var(--font--size--p);
-  color: #ffffff;
   margin: 1.5vh 0 1vh 0;
 }
 

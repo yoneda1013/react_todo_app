@@ -35,6 +35,11 @@ const ProjectProvider = ({ children }) => {
         const prevCursor = querySnapShot.docs[0];
         setNextCursor(nextCursor);
         setPrevCursor(prevCursor);
+        // console.log(nextCursor);
+        // console.log(prevCursor);
+        // console.log(projects.length);
+        // console.log(projects[4]);
+        // console.log(projects[1]);
         setProjects(
           querySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
         );
@@ -44,12 +49,26 @@ const ProjectProvider = ({ children }) => {
     });
   };
 
-  const deleteData = (q, row) => {
-    getDocs(q).then((querySnapShot) => {
-      if (isMountedRef.current) {
-        setProjects(querySnapShot.doc(row.id).delete());
-      }
-    });
+  const deleteData = (rowId, rowIndex) => {
+    // console.log("delete");
+    // console.log(rowId);
+    // console.log(rowIndex);
+    db.collection("projects").doc(rowId).delete();
+    const copyProjects = Object.assign({}, projects);
+    // console.log(copyProjects[rowIndex]);
+    delete copyProjects[rowId];
+    setProjects(copyProjects);
+    // console.log(copyProjects);
+    // console.log(copyProjects[1]);
+
+    // delete copyProjects[r];
+
+    // getDocs(q).then((querySnapShot) => {
+    //   // if (isMountedRef.current) {
+    //   //   console.log(querySnapShot.doc());
+    //   //   setProjects(querySnapShot.doc().delete());
+    //   // }
+    // });
   };
 
   useEffect(() => {

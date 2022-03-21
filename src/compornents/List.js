@@ -142,7 +142,10 @@ export const List = () => {
                     }}
                     onClick={() => {
                       alert("削除が完了しました");
-                      deleteData(row);
+                      const rowId = row.id;
+                      const rowIndex = index;
+                      deleteData(rowId, rowIndex);
+                      // db.collection("projects").doc(row.id).delete();
                     }}
                   >
                     削除

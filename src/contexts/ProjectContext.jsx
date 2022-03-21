@@ -100,9 +100,14 @@ const ProjectProvider = ({ children }) => {
     });
   };
 
+  const deleteData = (r) => {
+    db.collection("projects").doc(r.id).delete();
+  };
+
   return (
     <ProjectContext.Provider
       value={{
+        deleteData,
         projects,
         isLoading,
         setProjects,

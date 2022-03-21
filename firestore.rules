@@ -41,19 +41,8 @@ service cloud.firestore {
       &&('imgTypeBool' in request.resource.data) || (request.resource.data.imgTypeBool is bool)
       &&('tonboTypeBool' in request.resource.data) || (request.resource.data.tonboTypeBool is bool)
       && (request.resource.data.createdAt == request.time); 
-      allow delete: if forWriteAuthenticated()
-      && forReadAuthenticated()
+      allow delete: if forReadAuthenticated()
       && request.auth != null
-      && !('title' in request.resource.data)
-      &&('cmykText' in request.resource.data)
-      &&('dataTypeText' in request.resource.data)
-      &&('imgTypeText' in request.resource.data)
-      &&('tonboTypeText' in request.resource.data)
-      &&('urlText' in request.resource.data)
-      &&('cmykBool' in request.resource.data)
-      &&('dataTypeBool' in request.resource.data)
-      &&('imgTypeBool' in request.resource.data)
-      &&('tonboTypeBool' in request.resource.data)
       ;
     }
   }

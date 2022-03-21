@@ -6,6 +6,7 @@ import { SaveBtn } from "./SaveBtn";
 import { Title } from "./Title";
 import { db } from "../firebase/firebase";
 import { AuthContext } from "../auth/AuthProvider";
+import { ProjectContext } from "../contexts/ProjectContext";
 
 const initialFormData = {
   title: "",
@@ -64,6 +65,7 @@ export const Form = ({ project }) => {
         }
       : initialFormData
   );
+  const { onClickUpdate } = useContext(ProjectContext);
 
   const isEdit = project !== undefined;
 
@@ -355,7 +357,9 @@ export const Form = ({ project }) => {
         </div>
       </div>
 
-      <SaveBtn onClickAdd={onClickAdd}>{isEdit ? "変更保存" : "保存"}</SaveBtn>
+      <SaveBtn onClickAdd={(onClickAdd, onClickUpdate)}>
+        {isEdit ? "変更保存" : "保存"}
+      </SaveBtn>
     </>
   );
 };

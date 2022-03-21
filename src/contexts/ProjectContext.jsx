@@ -50,26 +50,18 @@ const ProjectProvider = ({ children }) => {
   };
 
   const deleteData = (rowId, rowIndex) => {
-    // console.log("delete");
-    // console.log(rowId);
-    // console.log(rowIndex);
     db.collection("projects").doc(rowId).delete();
     const copyProjects = Object.assign({}, projects);
-    // console.log(copyProjects[rowIndex]);
     delete copyProjects[rowIndex];
     setProjects(copyProjects);
-    // console.log(copyProjects);
-    // console.log(copyProjects[1]);
-
-    // delete copyProjects[r];
-
-    // getDocs(q).then((querySnapShot) => {
-    //   // if (isMountedRef.current) {
-    //   //   console.log(querySnapShot.doc());
-    //   //   setProjects(querySnapShot.doc().delete());
-    //   // }
-    // });
   };
+
+  const onClickUpdate = () => {
+    const copyProjects = Object.assign({}, projects);
+    copyProjects.push();
+    setProjects(copyProjects);
+  };
+  //savebtnを押したらprojectsのstateを更新する
 
   useEffect(() => {
     isMountedRef.current = true;
@@ -138,6 +130,7 @@ const ProjectProvider = ({ children }) => {
         prev,
         prevDisabled,
         nextDisabled,
+        onClickUpdate,
       }}
     >
       {children}

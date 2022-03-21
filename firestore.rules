@@ -12,7 +12,7 @@ service cloud.firestore {
       return request.auth.uid == resource.data.uid;
       }
 
-      allow create: if forWriteAuthenticated(request.resource.data.uid)
+      allow create: if forWriteAuthenticated()
       && request.auth != null 
       && request.resource.data.keys().hasOnly(['title', 'cmykText','dataTypeText', 'imgTypeText', 'tonboTypeText', 'urlText', 'cmykBool', 'dataTypeBool', 'imgTypeBool', 'koritsuBool','tonboBool', 'deadlineDate'])
       && !('title' in request.resource.data)||(request.resource.data.title is string && request.resource.data.title.size()<= 30 )
@@ -26,9 +26,9 @@ service cloud.firestore {
       &&('imgTypeBool' in request.resource.data) || (request.resource.data.imgTypeBool is bool)
       &&('tonboTypeBool' in request.resource.data) || (request.resource.data.tonboTypeBool is bool)
       && (request.resource.data.createdAt == request.time);
-      allow read: if forReadAuthenticated(resource.data.uid)
+      allow read: if forReadAuthenticated()
       && request.auth != null;
-      allow update: if forWriteAuthenticated(request.resource.data.uid) 
+      allow update: if forWriteAuthenticated() 
       && request.auth != null
       && !('title' in request.resource.data)||(request.resource.data.title is string && request.resource.data.title.size()<= 30 )
       &&('cmykText' in request.resource.data)||(request.resource.data.cmykText is string && request.resource.data.cmykText.size()<= 10 )
@@ -41,7 +41,7 @@ service cloud.firestore {
       &&('imgTypeBool' in request.resource.data) || (request.resource.data.imgTypeBool is bool)
       &&('tonboTypeBool' in request.resource.data) || (request.resource.data.tonboTypeBool is bool)
       && (request.resource.data.createdAt == request.time); 
-      allow delete: if forWriteAuthenticated(request.resource.data.uid)
+      allow delete: if forWriteAuthenticated()
       && request.auth != null
       ;
     }

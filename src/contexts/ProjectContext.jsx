@@ -56,7 +56,7 @@ const ProjectProvider = ({ children }) => {
     db.collection("projects").doc(rowId).delete();
     const copyProjects = Object.assign({}, projects);
     // console.log(copyProjects[rowIndex]);
-    delete copyProjects[rowId];
+    delete copyProjects[rowIndex];
     setProjects(copyProjects);
     // console.log(copyProjects);
     // console.log(copyProjects[1]);

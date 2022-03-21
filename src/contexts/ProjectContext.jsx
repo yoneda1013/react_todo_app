@@ -44,6 +44,14 @@ const ProjectProvider = ({ children }) => {
     });
   };
 
+  const deleteData = (q, row) => {
+    getDocs(q).then((querySnapShot) => {
+      if (isMountedRef.current) {
+        setProjects(querySnapShot.doc(row.id).delete());
+      }
+    });
+  };
+
   useEffect(() => {
     isMountedRef.current = true;
     return () => {
@@ -98,10 +106,6 @@ const ProjectProvider = ({ children }) => {
       setCursor((cursor) => cursor - 1);
       setIsPastPage(false);
     });
-  };
-
-  const deleteData = (r) => {
-    db.collection("projects").doc(r.id).delete();
   };
 
   return (

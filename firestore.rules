@@ -42,6 +42,7 @@ service cloud.firestore {
       &&('tonboTypeBool' in request.resource.data) || (request.resource.data.tonboTypeBool is bool)
       && (request.resource.data.createdAt == request.time); 
       allow delete: if forWriteAuthenticated()
+      && forReadAuthenticated()
       && request.auth != null
       ;
     }

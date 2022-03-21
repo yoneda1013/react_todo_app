@@ -44,6 +44,16 @@ service cloud.firestore {
       allow delete: if forWriteAuthenticated()
       && forReadAuthenticated()
       && request.auth != null
+      && !('title' in request.resource.data)
+      &&('cmykText' in request.resource.data)
+      &&('dataTypeText' in request.resource.data)
+      &&('imgTypeText' in request.resource.data)
+      &&('tonboTypeText' in request.resource.data)
+      &&('urlText' in request.resource.data)
+      &&('cmykBool' in request.resource.data)
+      &&('dataTypeBool' in request.resource.data)
+      &&('imgTypeBool' in request.resource.data)
+      &&('tonboTypeBool' in request.resource.data)
       ;
     }
   }

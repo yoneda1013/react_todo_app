@@ -50,7 +50,13 @@ const ProjectProvider = ({ children }) => {
   };
 
   const deleteData = (rowId, rowIndex) => {
-    db.collection("projects").doc(rowId).delete();
+    const deleteQ = db
+      .collection("projects")
+      // .where("uid", "==", currentUser.uid)
+      //クエリとセキュリティールールを合わせる
+      .doc(rowId)
+      .delete();
+    deleteQ();
     const copyProjects = Object.assign({}, projects);
     delete copyProjects[rowIndex];
     setProjects(copyProjects);

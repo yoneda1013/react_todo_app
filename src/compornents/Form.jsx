@@ -38,7 +38,8 @@ export const Form = ({ project }) => {
   const { currentUser } = useContext(AuthContext);
   const [formState, setFormState] = useState(
     project
-      ? {
+      ? //↑ProjectContextのprojectsじゃないから反映されていない？
+        {
           title: project.title,
           cmykText: project.cmykText,
           tonboText: project.tonboText,

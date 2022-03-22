@@ -56,13 +56,6 @@ const ProjectProvider = ({ children }) => {
     setProjects(copyProjects);
   };
 
-  const onClickUpdate = () => {
-    const copyProjects = Object.assign({}, projects);
-    copyProjects.push();
-    setProjects(copyProjects);
-  };
-  //savebtnを押したらprojectsのstateを更新する
-
   useEffect(() => {
     isMountedRef.current = true;
     return () => {
@@ -130,7 +123,7 @@ const ProjectProvider = ({ children }) => {
         prev,
         prevDisabled,
         nextDisabled,
-        onClickUpdate,
+        setProjects,
       }}
     >
       {children}

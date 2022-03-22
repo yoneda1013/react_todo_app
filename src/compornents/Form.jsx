@@ -65,7 +65,15 @@ export const Form = ({ project }) => {
         }
       : initialFormData
   );
-  const { onClickUpdate } = useContext(ProjectContext);
+  const {
+    projects,
+    next,
+    prev,
+    prevDisabled,
+    nextDisabled,
+    deleteData,
+    setProjects,
+  } = useContext(ProjectContext);
 
   const isEdit = project !== undefined;
 
@@ -183,6 +191,15 @@ export const Form = ({ project }) => {
   const urlTextTypeHandler = () => {
     setFormState((prev) => ({ ...prev, urlTextTouched: true }));
   };
+
+  console.log(formState);
+  const onClickUpdate = () => {
+    const copyProjects = Object.assign({}, projects);
+    setProjects((copyProjects) => ({ ...copyProjects, formState }));
+    // copyProjects.[] = projects[];
+    // copyProjects.push();
+  };
+  //savebtnを押したらprojectsのstateを更新する
 
   const onClickAdd = () => {
     if (30 < formState.title.length) {
@@ -357,7 +374,7 @@ export const Form = ({ project }) => {
         </div>
       </div>
 
-      <SaveBtn onClickAdd={(onClickAdd, onClickUpdate)}>
+      <SaveBtn onClickAdd={onClickAdd} onClickUpdate={onClickUpdate}>
         {isEdit ? "変更保存" : "保存"}
       </SaveBtn>
     </>

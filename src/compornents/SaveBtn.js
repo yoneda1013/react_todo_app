@@ -1,13 +1,13 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 
-export const SaveBtn = ({ onClickAdd, children }) => {
+export const SaveBtn = ({ onClickAdd, children, onClickUpdate }) => {
   return (
     <div className="saveBtnContainer">
       <Button
         size="small"
         variant="contained"
-        onClick={onClickAdd}
+        onClick={(onClickAdd, onClickUpdate)}
         style={{
           margin: "5px",
           fontSize: "20px",

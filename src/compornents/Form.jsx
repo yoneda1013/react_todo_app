@@ -38,17 +38,19 @@ const initialFormData = {
 export const Form = ({ project }) => {
   const { currentUser } = useContext(AuthContext);
   const { projects, setProjects } = useContext(ProjectContext);
-  // console.log(projects);
-  // console.log(project);
+  // console.log(projects.find((e) => e.title === "TEST_55555"));
 
   let { id } = useParams();
-  // console.log(id);
+  console.log(projects);
+  console.log(typeof projects);
   const targetProject = id && projects.find((v) => v.id === id);
+  //projectsをarrにする
+  console.log(targetProject);
+
   // console.log(targetProject);
   const [formState, setFormState] = useState(
     id
-      ? //↑ProjectContextのprojectsじゃないから反映されていない？
-        {
+      ? {
           title: targetProject.title,
           cmykText: targetProject.cmykText,
           tonboText: targetProject.tonboText,
@@ -214,9 +216,6 @@ export const Form = ({ project }) => {
       console.log(formState);
       //↓ここ。ここで入力内容をprojectsに追加できていない。copyProjectsにformStateを追加する。
       setProjects({ ...copyProjects, formState });
-
-      //ProjectContextのprojectは更新される
-      //formStateとprojectProviderのprojectが繋がってない
     }
   };
 

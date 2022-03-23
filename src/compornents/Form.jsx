@@ -193,15 +193,6 @@ export const Form = ({ project }) => {
     setFormState((prev) => ({ ...prev, urlTextTouched: true }));
   };
 
-  console.log(formState);
-  const onClickUpdate = () => {
-    const copyProjects = Object.assign({}, projects);
-    setProjects((copyProjects) => ({ ...copyProjects, formState }));
-    // copyProjects.[] = projects[];
-    // copyProjects.push();
-  };
-  //savebtnを押したらprojectsのstateを更新する
-
   const onClickAdd = () => {
     if (30 < formState.title.length) {
       alert("正しい値を入力してください");
@@ -214,6 +205,10 @@ export const Form = ({ project }) => {
         uid: currentUser.uid,
         ...formState,
       });
+
+      setProjects((copyProjects) => ({ ...copyProjects, projects }));
+      //ProjectContextのprojectは更新される
+      //formStateとprojectProviderのprojectが繋がってない
     }
   };
 
@@ -375,9 +370,7 @@ export const Form = ({ project }) => {
         </div>
       </div>
 
-      <SaveBtn onClickAdd={onClickAdd} onClickUpdate={onClickUpdate}>
-        {isEdit ? "変更保存" : "保存"}
-      </SaveBtn>
+      <SaveBtn onClickAdd={onClickAdd}>{isEdit ? "変更保存" : "保存"}</SaveBtn>
     </>
   );
 };

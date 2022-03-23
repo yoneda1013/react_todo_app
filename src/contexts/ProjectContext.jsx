@@ -48,6 +48,7 @@ const ProjectProvider = ({ children }) => {
       }
     });
   };
+  // console.log(projects);
 
   const deleteData = (rowId, rowIndex) => {
     db.collection("projects")

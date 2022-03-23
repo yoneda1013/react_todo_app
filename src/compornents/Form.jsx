@@ -7,6 +7,7 @@ import { Title } from "./Title";
 import { db } from "../firebase/firebase";
 import { AuthContext } from "../auth/AuthProvider";
 import { ProjectContext } from "../contexts/ProjectContext";
+import { useParams } from "react-router-dom";
 
 const initialFormData = {
   title: "",
@@ -36,23 +37,31 @@ const initialFormData = {
 
 export const Form = ({ project }) => {
   const { currentUser } = useContext(AuthContext);
+  const { projects, setProjects } = useContext(ProjectContext);
+  // console.log(projects);
+  // console.log(project);
+
+  let { id } = useParams();
+  // console.log(id);
+  const targetProject = id && projects.find((v) => v.id === id);
+  // console.log(targetProject);
   const [formState, setFormState] = useState(
-    project
+    id
       ? //↑ProjectContextのprojectsじゃないから反映されていない？
         {
-          title: project.title,
-          cmykText: project.cmykText,
-          tonboText: project.tonboText,
-          dataTypeText: project.dataTypeText,
-          imgTypeText: project.imgTypeText,
-          urlText: project.urlText,
-          deadlineDate: project.deadlineDate.toDate(),
-          cmykBool: project.cmykBool,
-          tonboBool: project.tonboBool,
-          dataTypeBool: project.dataTypeBool,
-          imgTypeBool: project.imgTypeBool,
-          koritsuBool: project.koritsuBool,
-          createdAt: project.createdAt.toDate(),
+          title: targetProject.title,
+          cmykText: targetProject.cmykText,
+          tonboText: targetProject.tonboText,
+          dataTypeText: targetProject.dataTypeText,
+          imgTypeText: targetProject.imgTypeText,
+          urlText: targetProject.urlText,
+          deadlineDate: targetProject.deadlineDate.toDate(),
+          cmykBool: targetProject.cmykBool,
+          tonboBool: targetProject.tonboBool,
+          dataTypeBool: targetProject.dataTypeBool,
+          imgTypeBool: targetProject.imgTypeBool,
+          koritsuBool: targetProject.koritsuBool,
+          createdAt: targetProject.createdAt.toDate(),
           cmykTextHasError: false,
           cmykTextTouched: false,
           tonboTextHasError: false,
@@ -66,17 +75,8 @@ export const Form = ({ project }) => {
         }
       : initialFormData
   );
-  const {
-    projects,
-    next,
-    prev,
-    prevDisabled,
-    nextDisabled,
-    deleteData,
-    setProjects,
-  } = useContext(ProjectContext);
 
-  const isEdit = project !== undefined;
+  const isEdit = id !== undefined;
 
   const handleTitleChange = (event) =>
     setFormState((prev) => ({ ...prev, title: event.target.value }));
@@ -198,15 +198,23 @@ export const Form = ({ project }) => {
       alert("正しい値を入力してください");
     } else {
       alert("保存が完了しました！");
-      const docRef = project
-        ? db.collection("projects").doc(project.id)
+
+      const docRef = isEdit
+        ? db.collection("projects").doc(targetProject.id)
         : db.collection("projects").doc();
+      console.log(docRef);
       docRef.set({
         uid: currentUser.uid,
         ...formState,
       });
+      //firebaseの書き換えはできているので、ProjectContextの書き換えを行う
+      const copyProjects = Object.assign({}, projects);
+      console.log(copyProjects);
+      console.log(projects);
+      console.log(formState);
+      //↓ここ。ここで入力内容をprojectsに追加できていない。copyProjectsにformStateを追加する。
+      setProjects({ ...copyProjects, formState });
 
-      setProjects((copyProjects) => ({ ...copyProjects, projects }));
       //ProjectContextのprojectは更新される
       //formStateとprojectProviderのprojectが繋がってない
     }

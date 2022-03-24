@@ -41,25 +41,25 @@ export const Form = ({ project }) => {
   // console.log(projects.find((e) => e.title === "TEST_55555"));
 
   let { id } = useParams();
-  console.log(projects);
-  console.log(typeof projects);
-  console.log(
-    Object.keys(projects).map(function (key) {
-      return projects[key];
-    })
-  );
-  console.log(
-    typeof Object.keys(projects).map(function (key) {
-      return projects[key];
-    })
-  );
+  // console.log(projects);
+  // console.log(typeof projects);
+  // console.log(
+  //   Object.keys(projects).map(function (key) {
+  //     return projects[key];
+  //   })
+  // );
+  // console.log(
+  //   typeof Object.keys(projects).map(function (key) {
+  //     return projects[key];
+  //   })
+  // );
 
   const projectsArr = Object.keys(projects).map(function (key) {
     return projects[key];
   });
   const targetProject = id && projectsArr.find((v) => v.id === id);
   //projectsをarrにする
-  console.log(targetProject);
+  // console.log(targetProject);
 
   // console.log(targetProject);
   const [formState, setFormState] = useState(
@@ -91,7 +91,7 @@ export const Form = ({ project }) => {
         }
       : initialFormData
   );
-  console.log(formState);
+  // console.log(formState);
   const isEdit = id !== undefined;
 
   const handleTitleChange = (event) =>
@@ -218,7 +218,7 @@ export const Form = ({ project }) => {
       const docRef = isEdit
         ? db.collection("projects").doc(targetProject.id)
         : db.collection("projects").doc();
-      console.log(docRef);
+
       docRef.set({
         uid: currentUser.uid,
         ...formState,
@@ -226,22 +226,25 @@ export const Form = ({ project }) => {
       //firebaseの書き換えはできているので、ProjectContextの書き換えを行う
       //projectContextの追加
       const copyProjects = Object.assign({}, projects);
+      // console.log(copyProjects);
+      // console.log(projects);
+      // console.log(formState);
 
       //copyProjectsというobjにformStateを追加/更新する・
       // 追加はできているので、更新
 
-      // const copyProjectsArr = Object.keys(copyProjects).map(function (key) {
-      //   return copyProjects[key];
-      // });
+      const copyProjectsArr = Object.keys(copyProjects).map(function (key) {
+        return copyProjects[key];
+      });
       // console.log(copyProjectsArr);
-      // const targetCopyProject = copyProjectsArr.find((v) => v.id === id);
+      const targetCopyProject = copyProjectsArr.find((v) => v.id === id);
 
-      // if (isEdit) {
-      //   // setProjects({ targetCopyProject = formState });
-      //   console.log("更新されました");
-      // } else {
-      //   setProjects({ ...copyProjects, formState });
-      // }
+      if (isEdit) {
+        // setProjects({ targetCopyProject = formState });
+        console.log("更新されました");
+      } else {
+        setProjects({ ...copyProjects, formState });
+      }
     }
   };
 

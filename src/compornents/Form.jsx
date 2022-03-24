@@ -226,9 +226,6 @@ export const Form = ({ project }) => {
       //firebaseの書き換えはできているので、ProjectContextの書き換えを行う
       //projectContextの追加
       const copyProjects = Object.assign({}, projects);
-      // console.log(copyProjects);
-      // console.log(projects);
-      // console.log(formState);
 
       //copyProjectsというobjにformStateを追加/更新する・
       // 追加はできているので、更新

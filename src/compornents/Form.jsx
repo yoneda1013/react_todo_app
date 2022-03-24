@@ -43,7 +43,21 @@ export const Form = ({ project }) => {
   let { id } = useParams();
   console.log(projects);
   console.log(typeof projects);
-  const targetProject = id && projects.find((v) => v.id === id);
+  console.log(
+    Object.keys(projects).map(function (key) {
+      return projects[key];
+    })
+  );
+  console.log(
+    typeof Object.keys(projects).map(function (key) {
+      return projects[key];
+    })
+  );
+
+  const projectsArr = Object.keys(projects).map(function (key) {
+    return projects[key];
+  });
+  const targetProject = id && projectsArr.find((v) => v.id === id);
   //projectsをarrにする
   console.log(targetProject);
 
@@ -77,7 +91,7 @@ export const Form = ({ project }) => {
         }
       : initialFormData
   );
-
+  console.log(formState);
   const isEdit = id !== undefined;
 
   const handleTitleChange = (event) =>
@@ -210,12 +224,27 @@ export const Form = ({ project }) => {
         ...formState,
       });
       //firebaseの書き換えはできているので、ProjectContextの書き換えを行う
+      //projectContextの追加
       const copyProjects = Object.assign({}, projects);
-      console.log(copyProjects);
-      console.log(projects);
-      console.log(formState);
-      //↓ここ。ここで入力内容をprojectsに追加できていない。copyProjectsにformStateを追加する。
-      setProjects({ ...copyProjects, formState });
+      // console.log(copyProjects);
+      // console.log(projects);
+      // console.log(formState);
+
+      //copyProjectsというobjにformStateを追加/更新する・
+      // 追加はできているので、更新
+
+      // const copyProjectsArr = Object.keys(copyProjects).map(function (key) {
+      //   return copyProjects[key];
+      // });
+      // console.log(copyProjectsArr);
+      // const targetCopyProject = copyProjectsArr.find((v) => v.id === id);
+
+      // if (isEdit) {
+      //   // setProjects({ targetCopyProject = formState });
+      //   console.log("更新されました");
+      // } else {
+      //   setProjects({ ...copyProjects, formState });
+      // }
     }
   };
 

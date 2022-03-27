@@ -35,8 +35,8 @@ const ProjectProvider = ({ children }) => {
         const prevCursor = querySnapShot.docs[0];
         setNextCursor(nextCursor);
         setPrevCursor(prevCursor);
-        // console.log(nextCursor);
-        // console.log(prevCursor);
+        console.log(nextCursor);
+        console.log(prevCursor);
         // console.log(projects.length);
         // console.log(projects[4]);
         // console.log(projects[1]);
@@ -48,9 +48,8 @@ const ProjectProvider = ({ children }) => {
       }
     });
   };
-  // console.log(projects);
 
-  const deleteData = (rowId, rowIndex) => {
+  const deleteData = (q, rowId, rowIndex) => {
     db.collection("projects")
       .doc(rowId)
       .delete()
@@ -61,9 +60,11 @@ const ProjectProvider = ({ children }) => {
         console.log("Error", error);
       });
 
+    // const copyProjects = Object.assign({}, projects);
     const copyProjects = Object.assign({}, projects);
     delete copyProjects[rowIndex];
     setProjects(copyProjects);
+    fetch(q);
   };
 
   useEffect(() => {
@@ -134,6 +135,8 @@ const ProjectProvider = ({ children }) => {
         prevDisabled,
         nextDisabled,
         setProjects,
+        fetch,
+        setIsLoading,
       }}
     >
       {children}

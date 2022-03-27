@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import firebase from "firebase/compat/app";
 
@@ -8,6 +8,17 @@ import { db } from "../firebase/firebase";
 import { AuthContext } from "../auth/AuthProvider";
 import { ProjectContext } from "../contexts/ProjectContext";
 import { useParams } from "react-router-dom";
+import {
+  collection,
+  query,
+  orderBy,
+  limit,
+  where,
+  getDocs,
+  startAfter,
+  limitToLast,
+  endAt,
+} from "firebase/firestore";
 
 const initialFormData = {
   title: "",
@@ -37,12 +48,15 @@ const initialFormData = {
 
 export const Form = ({ project }) => {
   const { currentUser } = useContext(AuthContext);
-  const { projects, setProjects } = useContext(ProjectContext);
+  const { projects, setProjects, fetch, setIsLoading } =
+    useContext(ProjectContext);
   // console.log(projects.find((e) => e.title === "TEST_55555"));
 
   let { id } = useParams();
   // console.log(projects);
-  // console.log(typeof projects);
+  var toString = Object.prototype.toString;
+  console.log(typeof projects);
+  console.log(toString.call(projects));
   // console.log(
   //   Object.keys(projects).map(function (key) {
   //     return projects[key];
@@ -59,7 +73,7 @@ export const Form = ({ project }) => {
   });
   const targetProject = id && projectsArr.find((v) => v.id === id);
   //projectsをarrにする
-  // console.log(targetProject);
+  console.log(targetProject);
 
   // console.log(targetProject);
   const [formState, setFormState] = useState(
@@ -209,6 +223,17 @@ export const Form = ({ project }) => {
     setFormState((prev) => ({ ...prev, urlTextTouched: true }));
   };
 
+  // useEffect(() => {
+  //   const q = query(
+  //     collection(db, "projects"),
+  //     where("uid", "==", currentUser.uid),
+  //     orderBy("createdAt", "desc"),
+  //     limit(5)
+  //   );
+  //   setIsLoading(true);
+  //   fetch(q);
+  // }, [currentUser.uid]);
+
   const onClickAdd = () => {
     if (30 < formState.title.length) {
       alert("正しい値を入力してください");
@@ -226,24 +251,25 @@ export const Form = ({ project }) => {
       //firebaseの書き換えはできているので、ProjectContextの書き換えを行う
       //projectContextの追加
       const copyProjects = Object.assign({}, projects);
-      // console.log(copyProjects);
+      console.log(copyProjects);
       // console.log(projects);
       // console.log(formState);
 
       //copyProjectsというobjにformStateを追加/更新する・
       // 追加はできているので、更新
 
-      const copyProjectsArr = Object.keys(copyProjects).map(function (key) {
-        return copyProjects[key];
-      });
+      // const copyProjectsArr = Object.keys(copyProjects).map(function (key) {
+      //   return copyProjects[key];
+      // });
       // console.log(copyProjectsArr);
-      const targetCopyProject = copyProjectsArr.find((v) => v.id === id);
+      // console.log(copyProjectsArr[0]);
+      // const targetCopyProject = copyProjectsArr.find((v) => v.id === id);
 
       if (isEdit) {
         // setProjects({ targetCopyProject = formState });
         console.log("更新されました");
       } else {
-        setProjects({ ...copyProjects, formState });
+        setProjects(...copyProjects, formState);
       }
     }
   };

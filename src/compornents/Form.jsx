@@ -49,7 +49,6 @@ const initialFormData = {
 export const Form = ({ project }) => {
   const { currentUser } = useContext(AuthContext);
   const { projects, setProjects, onClickUpdate } = useContext(ProjectContext);
-  // console.log(projects.find((e) => e.title === "TEST_55555"));
 
   let { id } = useParams();
   // console.log(projects);
@@ -239,18 +238,18 @@ export const Form = ({ project }) => {
       console.log(copyProjects);
       console.log(typeof copyProjects);
 
-      const targetCopyProject = copyProjects.find((v) => v.id === id);
-      console.log(targetCopyProject);
+      // const targetCopyProject = copyProjects.find((v) => v.id === id);
 
       if (isEdit) {
         // setProjects(Object.assign({}, targetCopyProject, formState));
         console.log("更新されました");
       } else {
         console.log("追加されました");
-        setProjects(copyProjects.unshift(formState));
+        setProjects(copyProjects.splice(0, 0, formState));
         console.log(toString.call(copyProjects));
         console.log(copyProjects);
-        // onClickUpdate(); formStateというobjをcopyProjectsのarrにpushしたい
+        console.log(projects);
+        //ここのprojectsは更新されているがcontextのprojectsが更新できていない
       }
     }
   };

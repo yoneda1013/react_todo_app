@@ -105,6 +105,7 @@ const ProjectProvider = ({ children }) => {
   const prevDisabled = cursor === 0;
   const nextDisabled = Object.keys(projects).length <= LIMIT || isLastPage;
   console.log(Object.keys(projects).length);
+  console.log(projects);
   //Object.keys(projects).lengthがfirestoreのプロジェクトの数になるようにする
   console.log(nextDisabled);
 
@@ -154,7 +155,6 @@ const ProjectProvider = ({ children }) => {
         prev,
         prevDisabled,
         nextDisabled,
-        setProjects,
         fetch,
         setIsLoading,
         onClickUpdate,

@@ -54,8 +54,8 @@ export const Form = ({ project }) => {
   let { id } = useParams();
   // console.log(projects);
   var toString = Object.prototype.toString;
-  console.log(typeof projects);
-  console.log(toString.call(projects));
+  // console.log(typeof projects);
+  // console.log(toString.call(projects));
   // console.log(
   //   Object.keys(projects).map(function (key) {
   //     return projects[key];
@@ -72,7 +72,7 @@ export const Form = ({ project }) => {
   });
   const targetProject = id && projectsArr.find((v) => v.id === id);
   //projectsをarrにする
-  console.log(targetProject);
+  // console.log(targetProject);
 
   // console.log(targetProject);
   const [formState, setFormState] = useState(
@@ -106,7 +106,7 @@ export const Form = ({ project }) => {
   );
   // console.log(formState);
   const isEdit = id !== undefined;
-  console.log(toString.call(formState));
+  // console.log(toString.call(formState));
   const handleTitleChange = (event) =>
     setFormState((prev) => ({ ...prev, title: event.target.value }));
 

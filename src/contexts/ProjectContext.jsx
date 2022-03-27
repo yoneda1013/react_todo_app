@@ -35,11 +35,7 @@ const ProjectProvider = ({ children }) => {
         const prevCursor = querySnapShot.docs[0];
         setNextCursor(nextCursor);
         setPrevCursor(prevCursor);
-        console.log(nextCursor);
-        console.log(prevCursor);
-        // console.log(projects.length);
-        // console.log(projects[4]);
-        // console.log(projects[1]);
+
         setProjects(
           querySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
         );
@@ -48,7 +44,7 @@ const ProjectProvider = ({ children }) => {
       }
     });
   };
-
+  console.log("--------");
   const onClickDelete = (q, rowId, rowIndex) => {
     db.collection("projects")
       .doc(rowId)
@@ -63,53 +59,22 @@ const ProjectProvider = ({ children }) => {
     // const copyProjects = Object.assign({}, projects);
     const copyProjects = Object.assign({}, projects);
     delete copyProjects[rowIndex];
+    // fetch(q);
+    // getDocs(q).then((querySnapShot) => {
+    //   if (isMountedRef.current) {
+    //     setProjects(
+    //       querySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+    //     );
+    //     setIsLoading(false);
+    //   }
+    // });
     setProjects(copyProjects);
-    fetch(q);
+    console.log(copyProjects);
   };
 
   const onClickUpdate = (q) => {
-    fetch(q);
+    // fetch(q);
   };
-
-  // const onClickAdd = () => {
-  //   if (30 < formState.title.length) {
-  //     alert("正しい値を入力してください");
-  //   } else {
-  //     alert("保存が完了しました！");
-
-  //     const docRef = isEdit
-  //       ? db.collection("projects").doc(targetProject.id)
-  //       : db.collection("projects").doc();
-
-  //     docRef.set({
-  //       uid: currentUser.uid,
-  //       ...formState,
-  //     });
-  //     //firebaseの書き換えはできているので、ProjectContextの書き換えを行う
-  //     //projectContextの追加
-  //     const copyProjects = Object.assign({}, projects);
-  //     console.log(copyProjects);
-  //     // console.log(projects);
-  //     // console.log(formState);
-
-  //     //copyProjectsというobjにformStateを追加/更新する・
-  //     // 追加はできているので、更新
-
-  //     // const copyProjectsArr = Object.keys(copyProjects).map(function (key) {
-  //     //   return copyProjects[key];
-  //     // });
-  //     // console.log(copyProjectsArr);
-  //     // console.log(copyProjectsArr[0]);
-  //     // const targetCopyProject = copyProjectsArr.find((v) => v.id === id);
-
-  //     if (isEdit) {
-  //       // setProjects({ targetCopyProject = formState });
-  //       console.log("更新されました");
-  //     } else {
-  //       setProjects(...copyProjects, formState);
-  //     }
-  //   }
-  // };
 
   useEffect(() => {
     isMountedRef.current = true;

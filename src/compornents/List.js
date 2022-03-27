@@ -17,7 +17,7 @@ import { AuthContext } from "../auth/AuthProvider";
 
 export const List = () => {
   const { currentUser } = useContext(AuthContext);
-  const { projects, next, prev, prevDisabled, nextDisabled, deleteData } =
+  const { projects, next, prev, prevDisabled, nextDisabled, onClickDelete } =
     useContext(ProjectContext);
   const navigate = useNavigate();
   console.log(projects);
@@ -145,7 +145,7 @@ export const List = () => {
                       alert("削除が完了しました");
                       const rowId = row.id;
                       const rowIndex = index;
-                      deleteData(rowId, rowIndex);
+                      onClickDelete(rowId, rowIndex);
                       // db.collection("projects").doc(row.id).delete();
                     }}
                   >

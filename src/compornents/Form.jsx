@@ -48,8 +48,7 @@ const initialFormData = {
 
 export const Form = ({ project }) => {
   const { currentUser } = useContext(AuthContext);
-  const { projects, setProjects, fetch, setIsLoading } =
-    useContext(ProjectContext);
+  const { projects, setProjects, onClickUpdate } = useContext(ProjectContext);
   // console.log(projects.find((e) => e.title === "TEST_55555"));
 
   let { id } = useParams();
@@ -107,7 +106,7 @@ export const Form = ({ project }) => {
   );
   // console.log(formState);
   const isEdit = id !== undefined;
-
+  console.log(toString.call(formState));
   const handleTitleChange = (event) =>
     setFormState((prev) => ({ ...prev, title: event.target.value }));
 
@@ -223,17 +222,6 @@ export const Form = ({ project }) => {
     setFormState((prev) => ({ ...prev, urlTextTouched: true }));
   };
 
-  // useEffect(() => {
-  //   const q = query(
-  //     collection(db, "projects"),
-  //     where("uid", "==", currentUser.uid),
-  //     orderBy("createdAt", "desc"),
-  //     limit(5)
-  //   );
-  //   setIsLoading(true);
-  //   fetch(q);
-  // }, [currentUser.uid]);
-
   const onClickAdd = () => {
     if (30 < formState.title.length) {
       alert("正しい値を入力してください");
@@ -250,7 +238,8 @@ export const Form = ({ project }) => {
       });
       //firebaseの書き換えはできているので、ProjectContextの書き換えを行う
       //projectContextの追加
-      const copyProjects = Object.assign({}, projects);
+      const copyProjects = projects;
+      // const copyProjects = Object.assign({}, projects);
       console.log(copyProjects);
       // console.log(projects);
       // console.log(formState);
@@ -266,10 +255,12 @@ export const Form = ({ project }) => {
       // const targetCopyProject = copyProjectsArr.find((v) => v.id === id);
 
       if (isEdit) {
-        // setProjects({ targetCopyProject = formState });
+        // setProjects( targetCopyProject = formState );
         console.log("更新されました");
       } else {
-        setProjects(...copyProjects, formState);
+        console.log("追加されました");
+        setProjects(copyProjects.push({ formState }));
+        // onClickUpdate();
       }
     }
   };

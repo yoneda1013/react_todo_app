@@ -49,7 +49,7 @@ const ProjectProvider = ({ children }) => {
     });
   };
 
-  const deleteData = (q, rowId, rowIndex) => {
+  const onClickDelete = (q, rowId, rowIndex) => {
     db.collection("projects")
       .doc(rowId)
       .delete()
@@ -66,6 +66,50 @@ const ProjectProvider = ({ children }) => {
     setProjects(copyProjects);
     fetch(q);
   };
+
+  const onClickUpdate = (q) => {
+    fetch(q);
+  };
+
+  // const onClickAdd = () => {
+  //   if (30 < formState.title.length) {
+  //     alert("正しい値を入力してください");
+  //   } else {
+  //     alert("保存が完了しました！");
+
+  //     const docRef = isEdit
+  //       ? db.collection("projects").doc(targetProject.id)
+  //       : db.collection("projects").doc();
+
+  //     docRef.set({
+  //       uid: currentUser.uid,
+  //       ...formState,
+  //     });
+  //     //firebaseの書き換えはできているので、ProjectContextの書き換えを行う
+  //     //projectContextの追加
+  //     const copyProjects = Object.assign({}, projects);
+  //     console.log(copyProjects);
+  //     // console.log(projects);
+  //     // console.log(formState);
+
+  //     //copyProjectsというobjにformStateを追加/更新する・
+  //     // 追加はできているので、更新
+
+  //     // const copyProjectsArr = Object.keys(copyProjects).map(function (key) {
+  //     //   return copyProjects[key];
+  //     // });
+  //     // console.log(copyProjectsArr);
+  //     // console.log(copyProjectsArr[0]);
+  //     // const targetCopyProject = copyProjectsArr.find((v) => v.id === id);
+
+  //     if (isEdit) {
+  //       // setProjects({ targetCopyProject = formState });
+  //       console.log("更新されました");
+  //     } else {
+  //       setProjects(...copyProjects, formState);
+  //     }
+  //   }
+  // };
 
   useEffect(() => {
     isMountedRef.current = true;
@@ -126,7 +170,7 @@ const ProjectProvider = ({ children }) => {
   return (
     <ProjectContext.Provider
       value={{
-        deleteData,
+        onClickDelete,
         projects,
         isLoading,
         setProjects,
@@ -137,6 +181,7 @@ const ProjectProvider = ({ children }) => {
         setProjects,
         fetch,
         setIsLoading,
+        onClickUpdate,
       }}
     >
       {children}

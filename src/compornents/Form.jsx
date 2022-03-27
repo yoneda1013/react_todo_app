@@ -241,24 +241,26 @@ export const Form = ({ project }) => {
       const copyProjects = projects;
       // const copyProjects = Object.assign({}, projects);
       console.log(copyProjects);
+      console.log(typeof copyProjects);
       // console.log(projects);
       // console.log(formState);
 
       //copyProjectsというobjにformStateを追加/更新する・
       // 追加はできているので、更新
 
-      // const copyProjectsArr = Object.keys(copyProjects).map(function (key) {
-      //   return copyProjects[key];
-      // });
+      const copyProjectsArr = Object.keys(copyProjects).map(function (key) {
+        return copyProjects[key];
+      });
       // console.log(copyProjectsArr);
       // console.log(copyProjectsArr[0]);
-      // const targetCopyProject = copyProjectsArr.find((v) => v.id === id);
+      const targetCopyProject = copyProjectsArr.find((v) => v.id === id);
 
       if (isEdit) {
-        // setProjects( targetCopyProject = formState );
+        setProjects(Object.assign({}, targetCopyProject, formState));
         console.log("更新されました");
       } else {
         console.log("追加されました");
+
         setProjects(copyProjects.push({ formState }));
         // onClickUpdate();
       }

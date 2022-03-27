@@ -45,7 +45,7 @@ const ProjectProvider = ({ children }) => {
     });
   };
   console.log("--------");
-  const onClickDelete = (q, rowId, rowIndex) => {
+  const onClickDelete = (rowId, rowIndex) => {
     db.collection("projects")
       .doc(rowId)
       .delete()
@@ -59,20 +59,28 @@ const ProjectProvider = ({ children }) => {
     // const copyProjects = Object.assign({}, projects);
     const copyProjects = Object.assign({}, projects);
     delete copyProjects[rowIndex];
-    // fetch(q);
-    // getDocs(q).then((querySnapShot) => {
-    //   if (isMountedRef.current) {
-    //     setProjects(
-    //       querySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-    //     );
-    //     setIsLoading(false);
-    //   }
-    // });
+
+    let q = query(
+      collection(db, "projects"),
+      where("uid", "==", currentUser.uid),
+      orderBy("createdAt", "desc"),
+      // endAt(prevCursor),
+      limitToLast(LIMIT)
+    );
+    fetch(q);
+
     setProjects(copyProjects);
     console.log(copyProjects);
   };
 
-  const onClickUpdate = (q) => {
+  const onClickUpdate = () => {
+    // let q = query(
+    //   collection(db, "projects"),
+    //   where("uid", "==", currentUser.uid),
+    //   orderBy("createdAt", "desc"),
+    //   // endAt(prevCursor),
+    //   limitToLast(LIMIT)
+    // );
     // fetch(q);
   };
 
@@ -94,8 +102,18 @@ const ProjectProvider = ({ children }) => {
     fetch(q);
   }, [currentUser.uid]);
 
+  // db.collection("projects")
+  //   .get()
+  //   .then((snap) => {
+  //     const size = snap.size;
+  //     console.log(size);
+  //   });
+
   const prevDisabled = cursor === 0;
-  const nextDisabled = Object.keys(projects).length < LIMIT || isLastPage;
+  const nextDisabled = Object.keys(projects).length <= LIMIT || isLastPage;
+  console.log(Object.keys(projects).length);
+  //Object.keys(projects).lengthがfirestoreのプロジェクトの数になるようにする
+  console.log(nextDisabled);
 
   const next = () => {
     if (!nextCursor || nextDisabled) return;

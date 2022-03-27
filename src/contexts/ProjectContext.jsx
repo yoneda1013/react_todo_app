@@ -57,7 +57,7 @@ const ProjectProvider = ({ children }) => {
       });
 
     // const copyProjects = Object.assign({}, projects);
-    const copyProjects = Object.assign({}, projects);
+    const copyProjects = projects;
     delete copyProjects[rowIndex];
 
     let q = query(
@@ -101,13 +101,6 @@ const ProjectProvider = ({ children }) => {
     setIsLoading(true);
     fetch(q);
   }, [currentUser.uid]);
-
-  // db.collection("projects")
-  //   .get()
-  //   .then((snap) => {
-  //     const size = snap.size;
-  //     console.log(size);
-  //   });
 
   const prevDisabled = cursor === 0;
   const nextDisabled = Object.keys(projects).length <= LIMIT || isLastPage;

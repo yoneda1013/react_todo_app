@@ -55,7 +55,7 @@ export const Form = ({ project }) => {
   // console.log(projects);
   var toString = Object.prototype.toString;
   // console.log(typeof projects);
-  // console.log(toString.call(projects));
+  console.log(toString.call(projects));
   // console.log(
   //   Object.keys(projects).map(function (key) {
   //     return projects[key];
@@ -71,10 +71,7 @@ export const Form = ({ project }) => {
     return projects[key];
   });
   const targetProject = id && projectsArr.find((v) => v.id === id);
-  //projectsをarrにする
-  // console.log(targetProject);
 
-  // console.log(targetProject);
   const [formState, setFormState] = useState(
     id
       ? {
@@ -104,7 +101,7 @@ export const Form = ({ project }) => {
         }
       : initialFormData
   );
-  // console.log(formState);
+
   const isEdit = id !== undefined;
   // console.log(toString.call(formState));
   const handleTitleChange = (event) =>
@@ -236,33 +233,24 @@ export const Form = ({ project }) => {
         uid: currentUser.uid,
         ...formState,
       });
-      //firebaseの書き換えはできているので、ProjectContextの書き換えを行う
-      //projectContextの追加
+
       const copyProjects = projects;
-      // const copyProjects = Object.assign({}, projects);
+
       console.log(copyProjects);
       console.log(typeof copyProjects);
-      // console.log(projects);
-      // console.log(formState);
 
-      //copyProjectsというobjにformStateを追加/更新する・
-      // 追加はできているので、更新
-
-      const copyProjectsArr = Object.keys(copyProjects).map(function (key) {
-        return copyProjects[key];
-      });
-      // console.log(copyProjectsArr);
-      // console.log(copyProjectsArr[0]);
-      const targetCopyProject = copyProjectsArr.find((v) => v.id === id);
+      const targetCopyProject = copyProjects.find((v) => v.id === id);
+      console.log(targetCopyProject);
 
       if (isEdit) {
-        setProjects(Object.assign({}, targetCopyProject, formState));
+        // setProjects(Object.assign({}, targetCopyProject, formState));
         console.log("更新されました");
       } else {
         console.log("追加されました");
-
-        setProjects(copyProjects.push({ formState }));
-        // onClickUpdate();
+        setProjects(copyProjects.unshift(formState));
+        console.log(toString.call(copyProjects));
+        console.log(copyProjects);
+        // onClickUpdate(); formStateというobjをcopyProjectsのarrにpushしたい
       }
     }
   };

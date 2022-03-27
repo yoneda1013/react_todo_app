@@ -22,6 +22,7 @@ export const List = () => {
   const navigate = useNavigate();
   console.log(projects);
   console.log(typeof projects);
+
   return (
     <>
       <div className="listBtn">

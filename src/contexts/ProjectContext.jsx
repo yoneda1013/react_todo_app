@@ -18,6 +18,7 @@ const ProjectContext = React.createContext();
 const LIMIT = 5;
 
 const ProjectProvider = ({ children }) => {
+  // const [projects, setProjects] = useState({});
   const [projects, setProjects] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [cursor, setCursor] = useState(0);
@@ -27,6 +28,7 @@ const ProjectProvider = ({ children }) => {
 
   const { currentUser } = useContext(AuthContext);
   const isMountedRef = useRef(false);
+  console.log(projects);
 
   const fetch = (q, callback) => {
     getDocs(q).then((querySnapShot) => {
@@ -35,16 +37,21 @@ const ProjectProvider = ({ children }) => {
         const prevCursor = querySnapShot.docs[0];
         setNextCursor(nextCursor);
         setPrevCursor(prevCursor);
-
+        // const fetchProjects = projects;
         setProjects(
           querySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
         );
+        // setProjects((projects) => console.log(projects));
         setIsLoading(false);
         callback && callback();
+        console.log("--------");
+        // console.log(fetchProjects);
+        console.log(projects);
+        //onClickAddのタイミングでもfetchする
       }
     });
   };
-  console.log("--------");
+  console.log(projects);
   const onClickDelete = (rowId, rowIndex) => {
     db.collection("projects")
       .doc(rowId)
@@ -103,11 +110,10 @@ const ProjectProvider = ({ children }) => {
   }, [currentUser.uid]);
 
   const prevDisabled = cursor === 0;
-  const nextDisabled = Object.keys(projects).length <= LIMIT || isLastPage;
-  console.log(Object.keys(projects).length);
-  console.log(projects);
+  const nextDisabled = 6 <= LIMIT || isLastPage;
+  // console.log(Object.keys(projects).length);
   //Object.keys(projects).lengthがfirestoreのプロジェクトの数になるようにする
-  console.log(nextDisabled);
+  // console.log(nextDisabled);
 
   const next = () => {
     if (!nextCursor || nextDisabled) return;

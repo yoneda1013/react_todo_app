@@ -20,8 +20,8 @@ export const List = () => {
   const { projects, next, prev, prevDisabled, nextDisabled, onClickDelete } =
     useContext(ProjectContext);
   const navigate = useNavigate();
-  console.log(projects);
-  console.log(typeof projects);
+  var toString = Object.prototype.toString;
+  console.log(toString.call(projects));
 
   return (
     <>

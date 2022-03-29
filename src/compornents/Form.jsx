@@ -230,7 +230,6 @@ export const Form = ({ project }) => {
 
       const copyProjects = projects;
 
-      // console.log(copyProjects);
       // console.log(typeof copyProjects);
 
       if (isEdit) {
@@ -238,7 +237,11 @@ export const Form = ({ project }) => {
         console.log("更新されました");
       } else {
         console.log("追加されました");
-        setProjects(copyProjects.splice(0, 0, formState));
+        // console.log(
+        //   "追加しようとしているもの",
+        //   copyProjects.splice(0, 0, formState)
+        // );
+        setProjects(copyProjects);
         // console.log(toString.call(copyProjects));
         // console.log(copyProjects);
         // console.log(projects);

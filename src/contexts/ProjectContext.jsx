@@ -71,12 +71,13 @@ const ProjectProvider = ({ children }) => {
       where("uid", "==", currentUser.uid),
       orderBy("createdAt", "desc"),
       // endAt(prevCursor),
-      limitToLast(LIMIT)
+      limit(LIMIT)
     );
     fetch(q);
 
     setProjects(copyProjects);
     console.log(copyProjects);
+    console.log("----------3");
   };
 
   const onClickUpdate = (q) => {

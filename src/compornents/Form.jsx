@@ -237,13 +237,13 @@ export const Form = ({ project }) => {
         console.log("更新されました");
       } else {
         console.log("追加されました");
-        // console.log(
-        //   "追加しようとしているもの",
-        //   copyProjects.splice(0, 0, formState)
-        // );
+        console.log(
+          "追加しようとしているもの",
+          copyProjects.splice(0, 0, formState)
+        );
         setProjects(copyProjects);
         // console.log(toString.call(copyProjects));
-        // console.log(copyProjects);
+        console.log(copyProjects);
         // console.log(projects);
       }
     }

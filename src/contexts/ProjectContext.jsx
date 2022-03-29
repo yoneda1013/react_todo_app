@@ -18,7 +18,6 @@ const ProjectContext = React.createContext();
 const LIMIT = 5;
 
 const ProjectProvider = ({ children }) => {
-  // const [projects, setProjects] = useState({});
   const [projects, setProjects] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [cursor, setCursor] = useState(0);
@@ -37,17 +36,18 @@ const ProjectProvider = ({ children }) => {
         const prevCursor = querySnapShot.docs[0];
         setNextCursor(nextCursor);
         setPrevCursor(prevCursor);
-        // const fetchProjects = projects;
+
+        console.log("--------");
         setProjects(
           querySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
         );
-        // setProjects((projects) => console.log(projects));
+        console.log("--------2");
+        // setProjects((prev) => console.log(prev));
+        //ここから下がおこなわれず、
+        console.log(projects);
+        //追加のタイミングで反映されていない
         setIsLoading(false);
         callback && callback();
-        console.log("--------");
-        // console.log(fetchProjects);
-        console.log(projects);
-        //onClickAddのタイミングでもfetchする
       }
     });
   };
@@ -63,7 +63,6 @@ const ProjectProvider = ({ children }) => {
         console.log("Error", error);
       });
 
-    // const copyProjects = Object.assign({}, projects);
     const copyProjects = projects;
     delete copyProjects[rowIndex];
 
@@ -80,7 +79,7 @@ const ProjectProvider = ({ children }) => {
     console.log(copyProjects);
   };
 
-  const onClickUpdate = () => {
+  const onClickUpdate = (q) => {
     // let q = query(
     //   collection(db, "projects"),
     //   where("uid", "==", currentUser.uid),
@@ -88,7 +87,7 @@ const ProjectProvider = ({ children }) => {
     //   // endAt(prevCursor),
     //   limitToLast(LIMIT)
     // );
-    // fetch(q);
+    fetch(q);
   };
 
   useEffect(() => {
@@ -110,7 +109,7 @@ const ProjectProvider = ({ children }) => {
   }, [currentUser.uid]);
 
   const prevDisabled = cursor === 0;
-  const nextDisabled = 6 <= LIMIT || isLastPage;
+  const nextDisabled = Object.keys(projects).length <= LIMIT || isLastPage;
   // console.log(Object.keys(projects).length);
   //Object.keys(projects).lengthがfirestoreのプロジェクトの数になるようにする
   // console.log(nextDisabled);

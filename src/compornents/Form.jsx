@@ -51,25 +51,19 @@ export const Form = ({ project }) => {
   const { projects, setProjects, onClickUpdate } = useContext(ProjectContext);
 
   let { id } = useParams();
-  // console.log(projects);
+
   var toString = Object.prototype.toString;
-  // console.log(typeof projects);
+
   console.log(toString.call(projects));
-  // console.log(
-  //   Object.keys(projects).map(function (key) {
-  //     return projects[key];
-  //   })
-  // );
-  // console.log(
-  //   typeof Object.keys(projects).map(function (key) {
-  //     return projects[key];
-  //   })
-  // );
+  console.log(projects);
 
   const projectsArr = Object.keys(projects).map(function (key) {
     return projects[key];
   });
+  console.log(projectsArr);
+  console.log(id);
   const targetProject = id && projectsArr.find((v) => v.id === id);
+  console.log(targetProject);
 
   const [formState, setFormState] = useState(
     id
@@ -235,21 +229,18 @@ export const Form = ({ project }) => {
 
       const copyProjects = projects;
 
-      console.log(copyProjects);
-      console.log(typeof copyProjects);
-
-      // const targetCopyProject = copyProjects.find((v) => v.id === id);
+      // console.log(copyProjects);
+      // console.log(typeof copyProjects);
 
       if (isEdit) {
-        // setProjects(Object.assign({}, targetCopyProject, formState));
+        setProjects(Object.assign(targetProject, formState));
         console.log("更新されました");
       } else {
         console.log("追加されました");
         setProjects(copyProjects.splice(0, 0, formState));
-        console.log(toString.call(copyProjects));
-        console.log(copyProjects);
-        console.log(projects);
-        //ここのprojectsは更新されているがcontextのprojectsが更新できていない
+        // console.log(toString.call(copyProjects));
+        // console.log(copyProjects);
+        // console.log(projects);
       }
     }
   };

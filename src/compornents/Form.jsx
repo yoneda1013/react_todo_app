@@ -63,6 +63,7 @@ export const Form = ({ project }) => {
   console.log(projectsArr);
   console.log(id);
   const targetProject = id && projectsArr.find((v) => v.id === id);
+  //findが機能していない
   console.log(targetProject);
 
   const [formState, setFormState] = useState(
@@ -96,7 +97,7 @@ export const Form = ({ project }) => {
   );
 
   const isEdit = id !== undefined;
-  // console.log(toString.call(formState));
+
   const handleTitleChange = (event) =>
     setFormState((prev) => ({ ...prev, title: event.target.value }));
 

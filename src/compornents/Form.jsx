@@ -19,6 +19,7 @@ import {
   limitToLast,
   endAt,
 } from "firebase/firestore";
+import { monthsShort } from "moment";
 
 const initialFormData = {
   title: "",
@@ -57,14 +58,16 @@ export const Form = ({ project }) => {
   console.log(toString.call(projects));
   console.log(projects);
 
-  const projectsArr = Object.keys(projects).map(function (key) {
-    return projects[key];
-  });
-  console.log(projectsArr);
-  console.log(id);
-  const targetProject = id && projectsArr.find((v) => v.id === id);
-  //findが機能していない
+  // const projectsArr = Object.keys(projects).map(function (key) {
+  //   return projects[key];
+  // });
+  // console.log(projectsArr);
+  // console.log(id);
+  const targetProject = id && projects.find((v) => v.id === id);
+  //updateした時にfindが機能していない→findはvalueを返すから、arrを返したい
   console.log(targetProject);
+  console.log(toString.call(targetProject));
+  //objになってしまっている
 
   const [formState, setFormState] = useState(
     id
@@ -230,10 +233,15 @@ export const Form = ({ project }) => {
 
       const copyProjects = projects;
 
-      // console.log(typeof copyProjects);
-
+      const targetCopyProject = id && copyProjects.find((v) => v.id === id);
       if (isEdit) {
-        setProjects(Object.assign(targetProject, formState));
+        console.log(
+          "更新するもの",
+          console.log(formState),
+          console.log(toString.call(formState))
+        );
+        // setProjects(targetCopyProject);
+        //targetCopyProjectに更新をしたい。
         console.log("更新されました");
       } else {
         console.log("追加されました");

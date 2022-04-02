@@ -63,32 +63,14 @@ const ProjectProvider = ({ children }) => {
         console.log("Error", error);
       });
 
-    const copyProjects = projects;
-    delete copyProjects[rowIndex];
-
-    let q = query(
-      collection(db, "projects"),
-      where("uid", "==", currentUser.uid),
-      orderBy("createdAt", "desc"),
-      // endAt(prevCursor),
-      limit(LIMIT)
-    );
-    fetch(q);
+    const copyProjects = Object.assign([], projects);
+    console.log(copyProjects);
+    copyProjects.splice(rowIndex, 1);
+    //再レンダリングを正常に機能させるためにミューテートを伴わない方法（直接変更ではなく、データをコピーし参照元を変更する）で行う。
 
     setProjects(copyProjects);
     console.log(copyProjects);
     console.log("----------3");
-  };
-
-  const onClickUpdate = (q) => {
-    // let q = query(
-    //   collection(db, "projects"),
-    //   where("uid", "==", currentUser.uid),
-    //   orderBy("createdAt", "desc"),
-    //   // endAt(prevCursor),
-    //   limitToLast(LIMIT)
-    // );
-    fetch(q);
   };
 
   useEffect(() => {
@@ -163,7 +145,6 @@ const ProjectProvider = ({ children }) => {
         nextDisabled,
         fetch,
         setIsLoading,
-        onClickUpdate,
       }}
     >
       {children}

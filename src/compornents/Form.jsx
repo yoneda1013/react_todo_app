@@ -49,7 +49,7 @@ const initialFormData = {
 
 export const Form = ({ project }) => {
   const { currentUser } = useContext(AuthContext);
-  const { projects, setProjects, onClickUpdate } = useContext(ProjectContext);
+  const { projects, setProjects } = useContext(ProjectContext);
 
   let { id } = useParams();
 
@@ -58,11 +58,6 @@ export const Form = ({ project }) => {
   console.log(toString.call(projects));
   console.log(projects);
 
-  // const projectsArr = Object.keys(projects).map(function (key) {
-  //   return projects[key];
-  // });
-  // console.log(projectsArr);
-  // console.log(id);
   const targetProject = id && projects.find((v) => v.id === id);
   //updateした時にfindが機能していない→findはvalueを返すから、arrを返したい
   console.log(targetProject);
@@ -241,7 +236,7 @@ export const Form = ({ project }) => {
           console.log(toString.call(formState))
         );
         // setProjects(targetCopyProject);
-        //targetCopyProjectに更新をしたい。
+
         console.log("更新されました");
       } else {
         console.log("追加されました");
@@ -250,9 +245,8 @@ export const Form = ({ project }) => {
           copyProjects.splice(0, 0, formState)
         );
         setProjects(copyProjects);
-        // console.log(toString.call(copyProjects));
+
         console.log(copyProjects);
-        // console.log(projects);
       }
     }
   };

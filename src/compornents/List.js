@@ -21,7 +21,7 @@ export const List = () => {
     useContext(ProjectContext);
   const navigate = useNavigate();
   var toString = Object.prototype.toString;
-  console.log(toString.call(projects));
+  // console.log(toString.call(projects));
 
   return (
     <>

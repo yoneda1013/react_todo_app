@@ -55,14 +55,13 @@ export const Form = ({ project }) => {
 
   var toString = Object.prototype.toString;
 
-  console.log(toString.call(projects));
-  console.log(projects);
+  // console.log(toString.call(projects));
+  // console.log(projects);
 
   const targetProject = id && projects.find((v) => v.id === id);
-  //updateした時にfindが機能していない→findはvalueを返すから、arrを返したい
-  console.log(targetProject);
-  console.log(toString.call(targetProject));
-  //objになってしまっている
+
+  // console.log(targetProject);
+  // console.log(toString.call(targetProject));
 
   const [formState, setFormState] = useState(
     id
@@ -226,8 +225,9 @@ export const Form = ({ project }) => {
         ...formState,
       });
 
-      const copyProjects = projects;
-
+      // const copyProjects = projects;
+      const copyProjects = Object.assign([], projects);
+      //ミューテートを伴わない追加、更新する。
       const targetCopyProject = id && copyProjects.find((v) => v.id === id);
       if (isEdit) {
         console.log(
@@ -240,13 +240,9 @@ export const Form = ({ project }) => {
         console.log("更新されました");
       } else {
         console.log("追加されました");
-        console.log(
-          "追加しようとしているもの",
-          copyProjects.splice(0, 0, formState)
-        );
+        copyProjects.unshift(formState);
+        // console.log(copyProjects);
         setProjects(copyProjects);
-
-        console.log(copyProjects);
       }
     }
   };

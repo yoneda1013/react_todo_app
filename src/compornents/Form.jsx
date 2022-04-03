@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import DatePicker from "react-datepicker";
 import firebase from "firebase/compat/app";
 
@@ -8,18 +8,6 @@ import { db } from "../firebase/firebase";
 import { AuthContext } from "../auth/AuthProvider";
 import { ProjectContext } from "../contexts/ProjectContext";
 import { useParams } from "react-router-dom";
-import {
-  collection,
-  query,
-  orderBy,
-  limit,
-  where,
-  getDocs,
-  startAfter,
-  limitToLast,
-  endAt,
-} from "firebase/firestore";
-import { monthsShort } from "moment";
 
 const initialFormData = {
   title: "",
@@ -53,15 +41,7 @@ export const Form = ({ project }) => {
 
   let { id } = useParams();
 
-  var toString = Object.prototype.toString;
-
-  // console.log(toString.call(projects));
-  // console.log(projects);
-
   const targetProject = id && projects.find((v) => v.id === id);
-
-  // console.log(targetProject);
-  // console.log(toString.call(targetProject));
 
   const [formState, setFormState] = useState(
     id
@@ -225,23 +205,30 @@ export const Form = ({ project }) => {
         ...formState,
       });
 
-      // const copyProjects = projects;
       const copyProjects = Object.assign([], projects);
-      //ミューテートを伴わない追加、更新する。
-      const targetCopyProject = id && copyProjects.find((v) => v.id === id);
-      if (isEdit) {
-        console.log(
-          "更新するもの",
-          console.log(formState),
-          console.log(toString.call(formState))
-        );
-        // setProjects(targetCopyProject);
 
-        console.log("更新されました");
+      if (isEdit) {
+        copyProjects.find((v) => v.id === id).title = formState.title;
+        copyProjects.find((v) => v.id === id).cmykText = formState.cmykText;
+        copyProjects.find((v) => v.id === id).tonboText = formState.tonboText;
+        copyProjects.find((v) => v.id === id).dataTypeText =
+          formState.dataTypeText;
+        copyProjects.find((v) => v.id === id).imgTypeText =
+          formState.imgTypeText;
+        copyProjects.find((v) => v.id === id).urlText = formState.urlText;
+        copyProjects.find((v) => v.id === id).cmykBool = formState.cmykBool;
+        copyProjects.find((v) => v.id === id).tonboBool = formState.tonboBool;
+        copyProjects.find((v) => v.id === id).dataTypeBool =
+          formState.dataTypeBool;
+        copyProjects.find((v) => v.id === id).imgTypeBool =
+          formState.imgTypeBool;
+        copyProjects.find((v) => v.id === id).koritsuBool =
+          formState.koritsuBool;
+        copyProjects.find((v) => v.id === id).deadlineDate =
+          formState.deadlineDate.toDate();
+        setProjects(copyProjects);
       } else {
-        console.log("追加されました");
         copyProjects.unshift(formState);
-        // console.log(copyProjects);
         setProjects(copyProjects);
       }
     }

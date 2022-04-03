@@ -254,7 +254,13 @@ span {
 @media screen and (max-width: 1040px) {
   .checkListItem {
     display: block;
-    margin-bottom: 3.5vh;
+    margin-bottom: 3vh;
+  }
+  .checkList li {
+    height: 8vh;
+  }
+  .checkBox {
+    width: 100%;
   }
   .checkList li:last-child {
     margin-bottom: 0;
@@ -262,6 +268,10 @@ span {
   }
   .checkListInput {
     margin-bottom: 1vh;
+    width: 100%;
+  }
+  .checkListInput input {
+    margin-left: 0;
   }
   .SaveBtnContainer {
     margin-top: 0;
@@ -284,12 +294,13 @@ span {
   }
   .checkListItem {
     display: flex;
+    margin-bottom: 0.1vh;
   }
   .checkList {
     margin-bottom: 5vh;
   }
   .checkList li {
-    height: 5vh;
+    height: 6vh;
   }
   .url {
     width: 100%;

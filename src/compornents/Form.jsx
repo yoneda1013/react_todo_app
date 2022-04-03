@@ -281,7 +281,7 @@ export const Form = ({ project }) => {
 
             <li>
               <div className="checkListItem">
-                <label>
+                <label className="checkBox">
                   <input
                     type="checkbox"
                     checked={formState.tonboBool}
@@ -308,7 +308,7 @@ export const Form = ({ project }) => {
 
             <li>
               <div className="checkListItem">
-                <label>
+                <label className="checkBox">
                   <input
                     type="checkbox"
                     checked={formState.dataTypeBool}
@@ -335,7 +335,7 @@ export const Form = ({ project }) => {
 
             <li>
               <div className="checkListItem">
-                <label>
+                <label className="checkBox">
                   <input
                     type="checkbox"
                     checked={formState.imgTypeBool}

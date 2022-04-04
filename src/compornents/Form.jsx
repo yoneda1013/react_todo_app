@@ -35,7 +35,7 @@ const initialFormData = {
   createdAt: firebase.firestore.FieldValue.serverTimestamp(),
 };
 
-export const Form = ({ project }) => {
+export const Form = ({}) => {
   const { currentUser } = useContext(AuthContext);
   const { projects, setProjects } = useContext(ProjectContext);
 
@@ -224,8 +224,14 @@ export const Form = ({ project }) => {
           formState.imgTypeBool;
         copyProjects.find((v) => v.id === id).koritsuBool =
           formState.koritsuBool;
-        copyProjects.find((v) => v.id === id).deadlineDate =
-          formState.deadlineDate.toDate();
+        copyProjects.find((v) => v.id === id).deadlineDate.toDate();
+
+        console.log(copyProjects.find((v) => v.id === id).deadlineDate);
+        console.log(formState.deadlineDate);
+        console.log(
+          copyProjects.find((v) => v.id === id).deadlineDate.toDate()
+        );
+
         setProjects(copyProjects);
       } else {
         copyProjects.unshift(formState);

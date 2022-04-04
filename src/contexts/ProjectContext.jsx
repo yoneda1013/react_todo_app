@@ -27,7 +27,6 @@ const ProjectProvider = ({ children }) => {
 
   const { currentUser } = useContext(AuthContext);
   const isMountedRef = useRef(false);
-  // console.log(projects);
 
   const fetch = (q, callback) => {
     getDocs(q).then((querySnapShot) => {
@@ -37,20 +36,16 @@ const ProjectProvider = ({ children }) => {
         setNextCursor(nextCursor);
         setPrevCursor(prevCursor);
 
-        console.log("--------");
         setProjects(
           querySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
         );
-        console.log("--------2");
-
-        // console.log(projects);
 
         setIsLoading(false);
         callback && callback();
       }
     });
   };
-  // console.log(projects);
+
   const onClickDelete = (rowId, rowIndex) => {
     db.collection("projects")
       .doc(rowId)
@@ -63,16 +58,15 @@ const ProjectProvider = ({ children }) => {
       });
 
     const copyProjects = Object.assign([], projects);
-    // console.log(copyProjects);
 
     //再レンダリングを正常に機能させるためにミューテートを伴わない方法（直接変更ではなく、データをコピーし参照元を変更する）で行う。
     //indexをkeyとして使用しているため、ページネーションの際に再描画されていない→idに一致したインデックスを返す
     const index = projects.findIndex((projects) => projects.id === rowId);
-    console.log("削除されたindex", index);
+    // console.log("削除されたindex", index);
     copyProjects.splice(index, 1);
     setProjects(copyProjects);
-    console.log(copyProjects);
-    console.log("----------3");
+    // console.log(copyProjects);
+    // console.log("----------3");
   };
 
   useEffect(() => {

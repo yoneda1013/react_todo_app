@@ -189,7 +189,8 @@ export const Form = ({}) => {
   const urlTextTypeHandler = () => {
     setFormState((prev) => ({ ...prev, urlTextTouched: true }));
   };
-
+  console.log(formState.deadlineDate);
+  console.log(projects);
   const onClickAdd = () => {
     if (30 < formState.title.length) {
       alert("正しい値を入力してください");
@@ -206,7 +207,7 @@ export const Form = ({}) => {
       });
 
       const copyProjects = Object.assign([], projects);
-
+      //ネスト構造を持つオブジェクトなので浅いコピーではなく深いコピーが必要
       if (isEdit) {
         copyProjects.find((v) => v.id === id).title = formState.title;
         copyProjects.find((v) => v.id === id).cmykText = formState.cmykText;
@@ -224,14 +225,20 @@ export const Form = ({}) => {
           formState.imgTypeBool;
         copyProjects.find((v) => v.id === id).koritsuBool =
           formState.koritsuBool;
-        copyProjects.find((v) => v.id === id).deadlineDate.toDate();
 
-        console.log(copyProjects.find((v) => v.id === id).deadlineDate);
-        console.log(formState.deadlineDate);
-        console.log(
-          copyProjects.find((v) => v.id === id).deadlineDate.toDate()
-        );
+        copyProjects.find((v) => v.id === id).deadlineDate =
+          formState.deadlineDate;
 
+        // console.log(
+        //   "変更前",
+        //   copyProjects.find((v) => v.id === id).deadlineDate
+        // );
+        // console.log("変更後", formState.deadlineDate);
+        // // console.log(
+        // //   "変更前",
+        // //   copyProjects.find((v) => v.id === id).deadlineDate.toDate()
+        // // );
+        // console.log(copyProjects);
         setProjects(copyProjects);
       } else {
         copyProjects.unshift(formState);

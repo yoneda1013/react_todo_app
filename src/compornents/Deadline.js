@@ -1,14 +1,7 @@
 import React from "react";
 import DatePicker from "react-datepicker";
-import { useState } from "react";
 
-export const Deadline = () => {
-  const [deadlineDate, setDeadlineDate] = useState(new Date());
-
-  const handleChange = (deadlineDate) => {
-    setDeadlineDate(deadlineDate);
-  };
-
+export const Deadline = (deadlineDate, onChange) => {
   return (
     <div className="deadline">
       <label>入稿締切</label>
@@ -16,7 +9,7 @@ export const Deadline = () => {
         className="DatePicker"
         value={deadlineDate}
         selected={deadlineDate}
-        onChange={handleChange}
+        onChange={onChange}
       />
     </div>
   );

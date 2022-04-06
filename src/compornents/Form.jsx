@@ -42,8 +42,8 @@ export const Form = ({}) => {
   let { id } = useParams();
 
   const targetProject = id && projects.find((v) => v.id === id);
-  console.log(targetProject.deadlineDate);
-
+  console.log(projects);
+  console.log(targetProject);
   const [formState, setFormState] = useState(
     id
       ? {
@@ -190,8 +190,7 @@ export const Form = ({}) => {
   const urlTextTypeHandler = () => {
     setFormState((prev) => ({ ...prev, urlTextTouched: true }));
   };
-  // console.log(formState.deadlineDate);
-  // console.log(projects);
+
   const onClickAdd = () => {
     if (30 < formState.title.length) {
       alert("正しい値を入力してください");
@@ -210,7 +209,7 @@ export const Form = ({}) => {
       // const copyProjects = Object.assign([], projects);
       const copyProjects = JSON.parse(JSON.stringify(projects));
       console.log(copyProjects);
-      //ネスト構造を持つオブジェクトなので浅いコピーではなく深いコピーが必要
+
       if (isEdit) {
         copyProjects.find((v) => v.id === id).title = formState.title;
         copyProjects.find((v) => v.id === id).cmykText = formState.cmykText;
@@ -228,24 +227,19 @@ export const Form = ({}) => {
           formState.imgTypeBool;
         copyProjects.find((v) => v.id === id).koritsuBool =
           formState.koritsuBool;
-        copyProjects.find((v) => v.id === id).deadlineDate =
-          formState.deadlineDate;
-        // firebase.firestore.Timestamp.fromDate(
-        //   (copyProjects.find((v) => v.id === id).deadlineDate =
-        //     formState.deadlineDate)
-        // );
-        // console.log(
-        //   "timestamp",
-        //   firebase.firestore.Timestamp.fromDate(
-        //     copyProjects.find((v) => v.id === id).deadlineDate
-        //   )
-        // );
-        // console.log(
-        //   firebase.firestore.Timestamp.fromDate(
-        //     (copyProjects.find((v) => v.id === id).deadlineDate =
-        //       formState.deadlineDate)
-        //   )
-        // );
+        // copyProjects.find((v) => v.id === id).deadlineDate =
+        //   formState.deadlineDate;
+
+        firebase.firestore.Timestamp.fromDate(
+          (copyProjects.find((v) => v.id === id).deadlineDate =
+            formState.deadlineDate)
+        );
+        console.log(
+          firebase.firestore.Timestamp.fromDate(
+            (copyProjects.find((v) => v.id === id).deadlineDate =
+              formState.deadlineDate)
+          )
+        );
 
         setProjects(copyProjects);
       } else {

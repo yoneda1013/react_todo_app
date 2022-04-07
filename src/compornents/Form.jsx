@@ -196,54 +196,70 @@ export const Form = ({}) => {
       alert("正しい値を入力してください");
     } else {
       alert("保存が完了しました！");
-
       const docRef = isEdit
         ? db.collection("projects").doc(targetProject.id)
         : db.collection("projects").doc();
 
       docRef.set({
-        uid: currentUser.uid,
         ...formState,
+
+        uid: currentUser.uid,
+        deadlineDate: firebase.firestore.Timestamp.fromDate(
+          formState.deadlineDate
+        ),
+        // createdAt: firebase.firestore.Timestamp.fromDate(formState.createdAt),
       });
 
       // const copyProjects = Object.assign([], projects);
-      const copyProjects = JSON.parse(JSON.stringify(projects));
-      console.log(copyProjects);
+      // const copyProjects = JSON.parse(JSON.stringify(projects));
+      // console.log(copyProjects);
 
       if (isEdit) {
-        copyProjects.find((v) => v.id === id).title = formState.title;
-        copyProjects.find((v) => v.id === id).cmykText = formState.cmykText;
-        copyProjects.find((v) => v.id === id).tonboText = formState.tonboText;
-        copyProjects.find((v) => v.id === id).dataTypeText =
-          formState.dataTypeText;
-        copyProjects.find((v) => v.id === id).imgTypeText =
-          formState.imgTypeText;
-        copyProjects.find((v) => v.id === id).urlText = formState.urlText;
-        copyProjects.find((v) => v.id === id).cmykBool = formState.cmykBool;
-        copyProjects.find((v) => v.id === id).tonboBool = formState.tonboBool;
-        copyProjects.find((v) => v.id === id).dataTypeBool =
-          formState.dataTypeBool;
-        copyProjects.find((v) => v.id === id).imgTypeBool =
-          formState.imgTypeBool;
-        copyProjects.find((v) => v.id === id).koritsuBool =
-          formState.koritsuBool;
+        const index = projects.findIndex((p) => p.id === id);
+        console.log(index);
+
+        // copyProjects.find((v) => v.id === id).title = formState.title;
+        // copyProjects.find((v) => v.id === id).cmykText = formState.cmykText;
+        // copyProjects.find((v) => v.id === id).tonboText = formState.tonboText;
+        // copyProjects.find((v) => v.id === id).dataTypeText =
+        //   formState.dataTypeText;
+        // copyProjects.find((v) => v.id === id).imgTypeText =
+        //   formState.imgTypeText;
+        // copyProjects.find((v) => v.id === id).urlText = formState.urlText;
+        // copyProjects.find((v) => v.id === id).cmykBool = formState.cmykBool;
+        // copyProjects.find((v) => v.id === id).tonboBool = formState.tonboBool;
+        // copyProjects.find((v) => v.id === id).dataTypeBool =
+        //   formState.dataTypeBool;
+        // copyProjects.find((v) => v.id === id).imgTypeBool =
+        //   formState.imgTypeBool;
+        // copyProjects.find((v) => v.id === id).koritsuBool =
+        //   formState.koritsuBool;
         // copyProjects.find((v) => v.id === id).deadlineDate =
         //   formState.deadlineDate;
 
-        firebase.firestore.Timestamp.fromDate(
-          (copyProjects.find((v) => v.id === id).deadlineDate =
-            formState.deadlineDate)
-        );
-        console.log(
-          firebase.firestore.Timestamp.fromDate(
-            (copyProjects.find((v) => v.id === id).deadlineDate =
-              formState.deadlineDate)
-          )
-        );
+        // firebase.firestore.Timestamp.fromDate(
+        //   (copyProjects.find((v) => v.id === id).deadlineDate =
+        //     formState.deadlineDate)
+        // );
 
-        setProjects(copyProjects);
+        setProjects((prev) => {
+          const projects = [...prev];
+          projects[index] = {
+            ...formState,
+            id,
+            deadlineDate: firebase.firestore.Timestamp.fromDate(
+              formState.deadlineDate
+            ),
+            createdAt: firebase.firestore.Timestamp.fromDate(
+              formState.createdAt
+            ),
+          };
+          return projects;
+        });
       } else {
+        const copyProjects = [...projects];
         copyProjects.unshift(formState);
+        //idもsetしたい
         setProjects(copyProjects);
       }
     }

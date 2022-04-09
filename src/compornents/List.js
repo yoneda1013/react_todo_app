@@ -146,7 +146,6 @@ export const List = () => {
                       const rowId = row.id;
                       const rowIndex = index;
                       onClickDelete(rowId, rowIndex);
-                      // db.collection("projects").doc(row.id).delete();
                     }}
                   >
                     削除

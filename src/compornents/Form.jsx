@@ -42,8 +42,8 @@ export const Form = ({}) => {
   let { id } = useParams();
 
   const targetProject = id && projects.find((v) => v.id === id);
-  console.log(projects);
-  console.log(targetProject);
+  // console.log(projects);
+  console.log(id);
   const [formState, setFormState] = useState(
     id
       ? {
@@ -200,9 +200,13 @@ export const Form = ({}) => {
         ? db.collection("projects").doc(targetProject.id)
         : db.collection("projects").doc();
 
-      docRef.set({
-        ...formState,
+      //idの事前取得
+      const newDoc = docRef.id;
+      console.log(newDoc);
 
+      docRef.set({
+        //update
+        ...formState,
         uid: currentUser.uid,
         deadlineDate: firebase.firestore.Timestamp.fromDate(
           formState.deadlineDate
@@ -210,37 +214,10 @@ export const Form = ({}) => {
         // createdAt: firebase.firestore.Timestamp.fromDate(formState.createdAt),
       });
 
-      // const copyProjects = Object.assign([], projects);
       // const copyProjects = JSON.parse(JSON.stringify(projects));
-      // console.log(copyProjects);
 
       if (isEdit) {
         const index = projects.findIndex((p) => p.id === id);
-        console.log(index);
-
-        // copyProjects.find((v) => v.id === id).title = formState.title;
-        // copyProjects.find((v) => v.id === id).cmykText = formState.cmykText;
-        // copyProjects.find((v) => v.id === id).tonboText = formState.tonboText;
-        // copyProjects.find((v) => v.id === id).dataTypeText =
-        //   formState.dataTypeText;
-        // copyProjects.find((v) => v.id === id).imgTypeText =
-        //   formState.imgTypeText;
-        // copyProjects.find((v) => v.id === id).urlText = formState.urlText;
-        // copyProjects.find((v) => v.id === id).cmykBool = formState.cmykBool;
-        // copyProjects.find((v) => v.id === id).tonboBool = formState.tonboBool;
-        // copyProjects.find((v) => v.id === id).dataTypeBool =
-        //   formState.dataTypeBool;
-        // copyProjects.find((v) => v.id === id).imgTypeBool =
-        //   formState.imgTypeBool;
-        // copyProjects.find((v) => v.id === id).koritsuBool =
-        //   formState.koritsuBool;
-        // copyProjects.find((v) => v.id === id).deadlineDate =
-        //   formState.deadlineDate;
-
-        // firebase.firestore.Timestamp.fromDate(
-        //   (copyProjects.find((v) => v.id === id).deadlineDate =
-        //     formState.deadlineDate)
-        // );
 
         setProjects((prev) => {
           const projects = [...prev];
@@ -258,8 +235,9 @@ export const Form = ({}) => {
         });
       } else {
         const copyProjects = [...projects];
+        formState.id = newDoc;
         copyProjects.unshift(formState);
-        //idもsetしたい
+
         setProjects(copyProjects);
       }
     }

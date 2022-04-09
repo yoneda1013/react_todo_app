@@ -16,7 +16,7 @@ import { db } from "../firebase/firebase";
 const ProjectContext = React.createContext();
 
 const LIMIT = 5;
-
+console.log("projectContext start");
 const ProjectProvider = ({ children }) => {
   const [projects, setProjects] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -45,8 +45,8 @@ const ProjectProvider = ({ children }) => {
       }
     });
   };
-
-  const onClickDelete = (rowId, rowIndex) => {
+  console.log(projects);
+  const onClickDelete = (rowId) => {
     db.collection("projects")
       .doc(rowId)
       .delete()
@@ -65,8 +65,6 @@ const ProjectProvider = ({ children }) => {
     // console.log("削除されたindex", index);
     copyProjects.splice(index, 1);
     setProjects(copyProjects);
-    // console.log(copyProjects);
-    // console.log("----------3");
   };
 
   useEffect(() => {
@@ -127,7 +125,7 @@ const ProjectProvider = ({ children }) => {
       setIsPastPage(false);
     });
   };
-
+  console.log("projectContext fin");
   return (
     <ProjectContext.Provider
       value={{

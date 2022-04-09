@@ -40,10 +40,9 @@ export const Form = ({}) => {
   const { projects, setProjects } = useContext(ProjectContext);
 
   let { id } = useParams();
-
+  console.log(initialFormData.createdAt);
   const targetProject = id && projects.find((v) => v.id === id);
-  // console.log(projects);
-  console.log(id);
+
   const [formState, setFormState] = useState(
     id
       ? {
@@ -235,9 +234,21 @@ export const Form = ({}) => {
         });
       } else {
         const copyProjects = [...projects];
-        formState.id = newDoc;
-        copyProjects.unshift(formState);
-
+        console.log(formState.createdAt);
+        const copyFormState = {
+          ...formState,
+          id: newDoc,
+          deadlineDate: firebase.firestore.Timestamp.fromDate(
+            formState.deadlineDate
+          ),
+          // createdAt: firebase.firestore.Timestamp.fromDate(formState.createdAt),
+        };
+        console.log(formState.deadlineDate);
+        console.log(formState);
+        console.log(copyFormState);
+        console.log(copyFormState.createdAt);
+        copyProjects.unshift(copyFormState);
+        //新規追加のタイミングでcreatedAtがtimestampになっていない。fieldValue
         setProjects(copyProjects);
       }
     }

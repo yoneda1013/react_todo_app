@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 import { AuthContext } from "../auth/AuthProvider";
 import { db } from "../firebase/firebase";
+import firebase from "firebase/compat/app";
 
 const ProjectContext = React.createContext();
 
@@ -85,11 +86,18 @@ const ProjectProvider = ({ children }) => {
     fetch(q);
   }, [currentUser.uid]);
 
+  // firebase
+  //   .firestore()
+  //   .collection("projects")
+  //   .get()
+  //   .then((snap) => {
+  //     const size = snap.size;
+  //     console.log(size);
+  //   });
+
   const prevDisabled = cursor === 0;
   const nextDisabled = Object.keys(projects).length <= LIMIT || isLastPage;
-  // console.log(Object.keys(projects).length);
   //Object.keys(projects).lengthがfirestoreのプロジェクトの数になるようにする
-  // console.log(nextDisabled);
 
   const next = () => {
     if (!nextCursor || nextDisabled) return;

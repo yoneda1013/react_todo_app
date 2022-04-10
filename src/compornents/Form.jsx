@@ -213,8 +213,6 @@ export const Form = ({}) => {
         // createdAt: firebase.firestore.Timestamp.fromDate(formState.createdAt),
       });
 
-      // const copyProjects = JSON.parse(JSON.stringify(projects));
-
       if (isEdit) {
         const index = projects.findIndex((p) => p.id === id);
 
@@ -243,10 +241,10 @@ export const Form = ({}) => {
           ),
           createdAt: firebase.firestore.Timestamp.fromDate(formState.createdAt),
         };
-        console.log(formState.deadlineDate);
-        console.log(formState);
-        console.log(copyFormState);
-        console.log(copyFormState.createdAt);
+        // console.log(formState.deadlineDate);
+        // console.log(formState);
+        // console.log(copyFormState);
+        // console.log(copyFormState.createdAt);
         copyProjects.unshift(copyFormState);
         //新規追加のタイミングでcreatedAtがtimestampになっていない。fieldValue
         setProjects(copyProjects);

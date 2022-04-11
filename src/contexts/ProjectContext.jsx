@@ -100,7 +100,8 @@ const ProjectProvider = ({ children }) => {
 
   const prevDisabled = cursor === 0;
   // const nextDisabled = projectsLength <= LIMIT || isLastPage;
-  const nextDisabled = Object.keys(projects).length <= LIMIT || isLastPage;
+  const nextDisabled = 6 <= LIMIT || isLastPage;
+  // const nextDisabled = Object.keys(projects).length <= LIMIT || isLastPage;
   console.log(nextDisabled);
 
   const next = () => {

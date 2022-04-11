@@ -40,7 +40,7 @@ export const Form = ({}) => {
   const { projects, setProjects } = useContext(ProjectContext);
 
   let { id } = useParams();
-  console.log(initialFormData.createdAt);
+
   const targetProject = id && projects.find((v) => v.id === id);
 
   const [formState, setFormState] = useState(
@@ -224,9 +224,9 @@ export const Form = ({}) => {
             deadlineDate: firebase.firestore.Timestamp.fromDate(
               formState.deadlineDate
             ),
-            // createdAt: firebase.firestore.Timestamp.fromDate(
-            //   formState.createdAt
-            // ),
+            createdAt: firebase.firestore.Timestamp.fromDate(
+              formState.createdAt
+            ),
           };
           return projects;
         });
@@ -239,7 +239,7 @@ export const Form = ({}) => {
           deadlineDate: firebase.firestore.Timestamp.fromDate(
             formState.deadlineDate
           ),
-          createdAt: firebase.firestore.Timestamp.fromDate(formState.createdAt),
+          createdAt: firebase.firestore.Timestamp.now(),
         };
         // console.log(formState.deadlineDate);
         // console.log(formState);

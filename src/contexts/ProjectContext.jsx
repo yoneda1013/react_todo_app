@@ -25,6 +25,7 @@ const ProjectProvider = ({ children }) => {
   const [nextCursor, setNextCursor] = useState(undefined);
   const [prevCursor, setPrevCursor] = useState(undefined);
   const [isLastPage, setIsPastPage] = useState(false);
+  const [projectsLength, setProjectsLength] = useState(0);
 
   const { currentUser } = useContext(AuthContext);
   const isMountedRef = useRef(false);
@@ -34,9 +35,11 @@ const ProjectProvider = ({ children }) => {
       if (isMountedRef.current) {
         const nextCursor = querySnapShot.docs[querySnapShot.docs.length - 1];
         const prevCursor = querySnapShot.docs[0];
+
         setNextCursor(nextCursor);
         setPrevCursor(prevCursor);
 
+        console.log("a");
         setProjects(
           querySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
         );
@@ -46,7 +49,7 @@ const ProjectProvider = ({ children }) => {
       }
     });
   };
-  console.log(projects);
+
   const onClickDelete = (rowId) => {
     db.collection("projects")
       .doc(rowId)
@@ -63,7 +66,7 @@ const ProjectProvider = ({ children }) => {
     //再レンダリングを正常に機能させるためにミューテートを伴わない方法（直接変更ではなく、データをコピーし参照元を変更する）で行う。
     //indexをkeyとして使用しているため、ページネーションの際に再描画されていない→idに一致したインデックスを返す
     const index = projects.findIndex((projects) => projects.id === rowId);
-    // console.log("削除されたindex", index);
+
     copyProjects.splice(index, 1);
     setProjects(copyProjects);
   };
@@ -82,22 +85,23 @@ const ProjectProvider = ({ children }) => {
       orderBy("createdAt", "desc"),
       limit(LIMIT)
     );
+    console.log("b");
     setIsLoading(true);
     fetch(q);
   }, [currentUser.uid]);
 
-  // firebase
-  //   .firestore()
-  //   .collection("projects")
+  // db.collection("projects")
   //   .get()
-  //   .then((snap) => {
-  //     const size = snap.size;
-  //     console.log(size);
+  //   .then((querySnapShot) => {
+  //     const projectsLength = querySnapShot.docs.length - 1;
+  //     setProjectsLength(projectsLength);
+  //     console.log(projectsLength);
   //   });
 
   const prevDisabled = cursor === 0;
+  // const nextDisabled = projectsLength <= LIMIT || isLastPage;
   const nextDisabled = Object.keys(projects).length <= LIMIT || isLastPage;
-  //Object.keys(projects).lengthがfirestoreのプロジェクトの数になるようにする
+  console.log(nextDisabled);
 
   const next = () => {
     if (!nextCursor || nextDisabled) return;

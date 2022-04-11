@@ -9,6 +9,7 @@ import {
   startAfter,
   limitToLast,
   endAt,
+  endBefore,
 } from "firebase/firestore";
 import { AuthContext } from "../auth/AuthProvider";
 import { db } from "../firebase/firebase";
@@ -17,7 +18,7 @@ import firebase from "firebase/compat/app";
 const ProjectContext = React.createContext();
 
 const LIMIT = 5;
-console.log("projectContext start");
+
 const ProjectProvider = ({ children }) => {
   const [projects, setProjects] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -35,11 +36,11 @@ const ProjectProvider = ({ children }) => {
       if (isMountedRef.current) {
         const nextCursor = querySnapShot.docs[querySnapShot.docs.length - 1];
         const prevCursor = querySnapShot.docs[0];
-
+        console.log("next", nextCursor);
+        console.log("prev", prevCursor);
         setNextCursor(nextCursor);
         setPrevCursor(prevCursor);
 
-        console.log("a");
         setProjects(
           querySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
         );
@@ -85,7 +86,7 @@ const ProjectProvider = ({ children }) => {
       orderBy("createdAt", "desc"),
       limit(LIMIT)
     );
-    console.log("b");
+
     setIsLoading(true);
     fetch(q);
   }, [currentUser.uid]);
@@ -102,7 +103,6 @@ const ProjectProvider = ({ children }) => {
   // const nextDisabled = projectsLength <= LIMIT || isLastPage;
   const nextDisabled = 6 <= LIMIT || isLastPage;
   // const nextDisabled = Object.keys(projects).length <= LIMIT || isLastPage;
-  console.log(nextDisabled);
 
   const next = () => {
     if (!nextCursor || nextDisabled) return;
@@ -130,7 +130,7 @@ const ProjectProvider = ({ children }) => {
       collection(db, "projects"),
       where("uid", "==", currentUser.uid),
       orderBy("createdAt", "desc"),
-      endAt(prevCursor),
+      endBefore(prevCursor),
       limitToLast(LIMIT)
     );
     fetch(q, () => {
@@ -138,7 +138,7 @@ const ProjectProvider = ({ children }) => {
       setIsPastPage(false);
     });
   };
-  console.log("projectContext fin");
+
   return (
     <ProjectContext.Provider
       value={{

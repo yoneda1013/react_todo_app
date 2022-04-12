@@ -26,7 +26,6 @@ const ProjectProvider = ({ children }) => {
   const [nextCursor, setNextCursor] = useState(undefined);
   const [prevCursor, setPrevCursor] = useState(undefined);
   const [isLastPage, setIsPastPage] = useState(false);
-  const [projectsLength, setProjectsLength] = useState(0);
 
   const { currentUser } = useContext(AuthContext);
   const isMountedRef = useRef(false);
@@ -100,9 +99,7 @@ const ProjectProvider = ({ children }) => {
   //   });
 
   const prevDisabled = cursor === 0;
-  // const nextDisabled = projectsLength <= LIMIT || isLastPage;
-  const nextDisabled = 6 <= LIMIT || isLastPage;
-  // const nextDisabled = Object.keys(projects).length <= LIMIT || isLastPage;
+  const nextDisabled = Object.keys(projects).length < LIMIT || isLastPage;
 
   const next = () => {
     if (!nextCursor || nextDisabled) return;

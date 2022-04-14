@@ -9,6 +9,7 @@ import {
   startAfter,
   limitToLast,
   endAt,
+  startAt,
   endBefore,
 } from "firebase/firestore";
 import { AuthContext } from "../auth/AuthProvider";
@@ -18,7 +19,7 @@ import firebase from "firebase/compat/app";
 const ProjectContext = React.createContext();
 
 const LIMIT = 5;
-
+console.log("Context start");
 const ProjectProvider = ({ children }) => {
   const [projects, setProjects] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -29,17 +30,18 @@ const ProjectProvider = ({ children }) => {
 
   const { currentUser } = useContext(AuthContext);
   const isMountedRef = useRef(false);
-
+  console.log("context", projects);
+  //onClickAddの際これ↑がLIMITを超えてしまう。
+  //onDeleteの際、これが4になる
   const fetch = (q, callback) => {
     getDocs(q).then((querySnapShot) => {
       if (isMountedRef.current) {
         const nextCursor = querySnapShot.docs[querySnapShot.docs.length - 1];
         const prevCursor = querySnapShot.docs[0];
-        console.log("next", nextCursor);
-        console.log("prev", prevCursor);
+
         setNextCursor(nextCursor);
         setPrevCursor(prevCursor);
-
+        console.log("in fetch", projects);
         setProjects(
           querySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
         );
@@ -63,12 +65,20 @@ const ProjectProvider = ({ children }) => {
 
     const copyProjects = Object.assign([], projects);
 
-    //再レンダリングを正常に機能させるためにミューテートを伴わない方法（直接変更ではなく、データをコピーし参照元を変更する）で行う。
-    //indexをkeyとして使用しているため、ページネーションの際に再描画されていない→idに一致したインデックスを返す
     const index = projects.findIndex((projects) => projects.id === rowId);
 
     copyProjects.splice(index, 1);
     setProjects(copyProjects);
+
+    let q = query(
+      collection(db, "projects"),
+      where("uid", "==", currentUser.uid),
+      orderBy("createdAt", "desc"),
+      startAt(prevCursor),
+      limit(LIMIT)
+    );
+    fetch(q);
+    console.log("afterFetch", projects);
   };
 
   useEffect(() => {
@@ -89,14 +99,6 @@ const ProjectProvider = ({ children }) => {
     setIsLoading(true);
     fetch(q);
   }, [currentUser.uid]);
-
-  // db.collection("projects")
-  //   .get()
-  //   .then((querySnapShot) => {
-  //     const projectsLength = querySnapShot.docs.length - 1;
-  //     setProjectsLength(projectsLength);
-  //     console.log(projectsLength);
-  //   });
 
   const prevDisabled = cursor === 0;
   const nextDisabled = Object.keys(projects).length < LIMIT || isLastPage;
@@ -135,7 +137,7 @@ const ProjectProvider = ({ children }) => {
       setIsPastPage(false);
     });
   };
-
+  console.log("Context fin");
   return (
     <ProjectContext.Provider
       value={{

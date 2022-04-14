@@ -199,12 +199,9 @@ export const Form = ({}) => {
         ? db.collection("projects").doc(targetProject.id)
         : db.collection("projects").doc();
 
-      //idの事前取得
       const newDoc = docRef.id;
-      console.log(newDoc);
 
       docRef.set({
-        //update
         ...formState,
         uid: currentUser.uid,
         deadlineDate: firebase.firestore.Timestamp.fromDate(
@@ -232,7 +229,7 @@ export const Form = ({}) => {
         });
       } else {
         const copyProjects = [...projects];
-        console.log(formState.createdAt);
+
         const copyFormState = {
           ...formState,
           id: newDoc,
@@ -241,12 +238,9 @@ export const Form = ({}) => {
           ),
           createdAt: firebase.firestore.Timestamp.now(),
         };
-        // console.log(formState.deadlineDate);
-        // console.log(formState);
-        // console.log(copyFormState);
-        // console.log(copyFormState.createdAt);
+
         copyProjects.unshift(copyFormState);
-        //新規追加のタイミングでcreatedAtがtimestampになっていない。fieldValue
+
         setProjects(copyProjects);
       }
     }

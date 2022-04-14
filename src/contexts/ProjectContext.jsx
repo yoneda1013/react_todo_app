@@ -30,9 +30,9 @@ const ProjectProvider = ({ children }) => {
 
   const { currentUser } = useContext(AuthContext);
   const isMountedRef = useRef(false);
-  console.log("context", projects);
-  //onClickAddの際これ↑がLIMITを超えてしまう。
-  //onDeleteの際、これが4になる
+
+  //onClickAddの際LIMITを超えてしまう。
+  //onDeleteの際4になる
   const fetch = (q, callback) => {
     getDocs(q).then((querySnapShot) => {
       if (isMountedRef.current) {
@@ -41,23 +41,31 @@ const ProjectProvider = ({ children }) => {
 
         setNextCursor(nextCursor);
         setPrevCursor(prevCursor);
-        console.log("in fetch", projects);
         setProjects(
           querySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
         );
-
+        console.log("in fetch", projects);
         setIsLoading(false);
         callback && callback();
       }
     });
   };
+  console.log("context", projects);
 
   const onClickDelete = (rowId) => {
     db.collection("projects")
       .doc(rowId)
       .delete()
       .then(() => {
-        console.log("successfully");
+        let q = query(
+          collection(db, "projects"),
+          where("uid", "==", currentUser.uid),
+          orderBy("createdAt", "desc"),
+          startAt(prevCursor),
+          limit(LIMIT)
+        );
+        fetch(q);
+        console.log("successfully", projects);
       })
       .catch((error) => {
         console.log("Error", error);
@@ -70,14 +78,6 @@ const ProjectProvider = ({ children }) => {
     copyProjects.splice(index, 1);
     setProjects(copyProjects);
 
-    let q = query(
-      collection(db, "projects"),
-      where("uid", "==", currentUser.uid),
-      orderBy("createdAt", "desc"),
-      startAt(prevCursor),
-      limit(LIMIT)
-    );
-    fetch(q);
     console.log("afterFetch", projects);
   };
 

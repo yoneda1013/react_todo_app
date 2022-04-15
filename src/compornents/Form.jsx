@@ -50,44 +50,51 @@ const initialFormData = {
 
 export const Form = ({}) => {
   const { currentUser } = useContext(AuthContext);
-  const { projects, setProjects, fetch, prevCursor } =
-    useContext(ProjectContext);
+  const {
+    projects,
+    setProjects,
+    fetch,
+    prevCursor,
+    formState,
+    //idがある時formStateがinitialできている
+    setFormState,
+    isEdit,
+    onClickAdd,
+  } = useContext(ProjectContext);
 
   let { id } = useParams();
 
-  const targetProject = id && projects.find((v) => v.id === id);
+  // const targetProject = id && projects.find((v) => v.id === id);
 
-  const [formState, setFormState] = useState(
-    id
-      ? {
-          title: targetProject.title,
-          cmykText: targetProject.cmykText,
-          tonboText: targetProject.tonboText,
-          dataTypeText: targetProject.dataTypeText,
-          imgTypeText: targetProject.imgTypeText,
-          urlText: targetProject.urlText,
-          deadlineDate: targetProject.deadlineDate.toDate(),
-          cmykBool: targetProject.cmykBool,
-          tonboBool: targetProject.tonboBool,
-          dataTypeBool: targetProject.dataTypeBool,
-          imgTypeBool: targetProject.imgTypeBool,
-          koritsuBool: targetProject.koritsuBool,
-          createdAt: targetProject.createdAt.toDate(),
-          cmykTextHasError: false,
-          cmykTextTouched: false,
-          tonboTextHasError: false,
-          tonboTextTouched: false,
-          dataTypeTextHasError: false,
-          dataTypeTextTouched: false,
-          imgTypeTextHasError: false,
-          imTypeTextTouched: false,
-          urlTextHasError: false,
-          urlTextTouched: false,
-        }
-      : initialFormData
-  );
-
-  const isEdit = id !== undefined;
+  // const [formState, setFormState] = useState(
+  //   id
+  //     ? {
+  //         title: targetProject.title,
+  //         cmykText: targetProject.cmykText,
+  //         tonboText: targetProject.tonboText,
+  //         dataTypeText: targetProject.dataTypeText,
+  //         imgTypeText: targetProject.imgTypeText,
+  //         urlText: targetProject.urlText,
+  //         deadlineDate: targetProject.deadlineDate.toDate(),
+  //         cmykBool: targetProject.cmykBool,
+  //         tonboBool: targetProject.tonboBool,
+  //         dataTypeBool: targetProject.dataTypeBool,
+  //         imgTypeBool: targetProject.imgTypeBool,
+  //         koritsuBool: targetProject.koritsuBool,
+  //         createdAt: targetProject.createdAt.toDate(),
+  //         cmykTextHasError: false,
+  //         cmykTextTouched: false,
+  //         tonboTextHasError: false,
+  //         tonboTextTouched: false,
+  //         dataTypeTextHasError: false,
+  //         dataTypeTextTouched: false,
+  //         imgTypeTextHasError: false,
+  //         imTypeTextTouched: false,
+  //         urlTextHasError: false,
+  //         urlTextTouched: false,
+  //       }
+  //     : initialFormData
+  // );
 
   const handleTitleChange = (event) =>
     setFormState((prev) => ({ ...prev, title: event.target.value }));
@@ -204,70 +211,70 @@ export const Form = ({}) => {
     setFormState((prev) => ({ ...prev, urlTextTouched: true }));
   };
 
-  const onClickAdd = () => {
-    if (30 < formState.title.length) {
-      alert("正しい値を入力してください");
-    } else {
-      alert("保存が完了しました！");
-      const docRef = isEdit
-        ? db.collection("projects").doc(targetProject.id)
-        : db.collection("projects").doc();
+  // const onClickAdd = () => {
+  //   if (30 < formState.title.length) {
+  //     alert("正しい値を入力してください");
+  //   } else {
+  //     alert("保存が完了しました！");
+  //     const docRef = isEdit
+  //       ? db.collection("projects").doc(targetProject.id)
+  //       : db.collection("projects").doc();
 
-      const newDoc = docRef.id;
+  //     const newDoc = docRef.id;
 
-      docRef.set({
-        ...formState,
-        uid: currentUser.uid,
-        deadlineDate: firebase.firestore.Timestamp.fromDate(
-          formState.deadlineDate
-        ),
-        // createdAt: firebase.firestore.Timestamp.fromDate(formState.createdAt),
-      });
-      // let q = query(
-      //   collection(db, "projects"),
-      //   where("uid", "==", currentUser.uid),
-      //   orderBy("createdAt", "desc"),
-      //   startAfter(prevCursor),
-      //   limit(5)
-      // );
-      // fetch(q);
-      if (isEdit) {
-        const index = projects.findIndex((p) => p.id === id);
+  //     docRef.set({
+  //       ...formState,
+  //       uid: currentUser.uid,
+  //       deadlineDate: firebase.firestore.Timestamp.fromDate(
+  //         formState.deadlineDate
+  //       ),
+  //       // createdAt: firebase.firestore.Timestamp.fromDate(formState.createdAt),
+  //     });
+  //     // let q = query(
+  //     //   collection(db, "projects"),
+  //     //   where("uid", "==", currentUser.uid),
+  //     //   orderBy("createdAt", "desc"),
+  //     //   startAfter(prevCursor),
+  //     //   limit(5)
+  //     // );
+  //     // fetch(q);
+  //     if (isEdit) {
+  //       const index = projects.findIndex((p) => p.id === id);
 
-        setProjects((prev) => {
-          const projects = [...prev];
-          projects[index] = {
-            ...formState,
-            id,
-            deadlineDate: firebase.firestore.Timestamp.fromDate(
-              formState.deadlineDate
-            ),
-            createdAt: firebase.firestore.Timestamp.fromDate(
-              formState.createdAt
-            ),
-          };
+  //       setProjects((prev) => {
+  //         const projects = [...prev];
+  //         projects[index] = {
+  //           ...formState,
+  //           id,
+  //           deadlineDate: firebase.firestore.Timestamp.fromDate(
+  //             formState.deadlineDate
+  //           ),
+  //           createdAt: firebase.firestore.Timestamp.fromDate(
+  //             formState.createdAt
+  //           ),
+  //         };
 
-          return projects;
-        });
-      } else {
-        const copyProjects = [...projects];
+  //         return projects;
+  //       });
+  //     } else {
+  //       const copyProjects = [...projects];
 
-        const copyFormState = {
-          ...formState,
-          id: newDoc,
-          deadlineDate: firebase.firestore.Timestamp.fromDate(
-            formState.deadlineDate
-          ),
-          createdAt: firebase.firestore.Timestamp.now(),
-        };
+  //       const copyFormState = {
+  //         ...formState,
+  //         id: newDoc,
+  //         deadlineDate: firebase.firestore.Timestamp.fromDate(
+  //           formState.deadlineDate
+  //         ),
+  //         createdAt: firebase.firestore.Timestamp.now(),
+  //       };
 
-        copyProjects.unshift(copyFormState);
+  //       copyProjects.unshift(copyFormState);
 
-        setProjects(copyProjects);
-      }
-      console.log("onClickAdd", projects);
-    }
-  };
+  //       setProjects(copyProjects);
+  //     }
+  //     console.log("onClickAdd", projects);
+  //   }
+  // };
 
   return (
     <>

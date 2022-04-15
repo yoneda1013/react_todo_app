@@ -19,7 +19,7 @@ import firebase from "firebase/compat/app";
 const ProjectContext = React.createContext();
 
 const LIMIT = 5;
-console.log("Context start");
+
 const ProjectProvider = ({ children }) => {
   const [projects, setProjects] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -30,9 +30,7 @@ const ProjectProvider = ({ children }) => {
 
   const { currentUser } = useContext(AuthContext);
   const isMountedRef = useRef(false);
-
-  //onClickAddの際LIMITを超えてしまう。
-  //onDeleteの際4になる
+  console.log("context begin", projects);
   const fetch = (q, callback) => {
     getDocs(q).then((querySnapShot) => {
       if (isMountedRef.current) {
@@ -44,13 +42,12 @@ const ProjectProvider = ({ children }) => {
         setProjects(
           querySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
         );
-        console.log("in fetch", projects);
+        console.log("fetch", projects);
         setIsLoading(false);
         callback && callback();
       }
     });
   };
-  console.log("context", projects);
 
   const onClickDelete = (rowId) => {
     db.collection("projects")
@@ -65,7 +62,6 @@ const ProjectProvider = ({ children }) => {
           limit(LIMIT)
         );
         fetch(q);
-        console.log("successfully", projects);
       })
       .catch((error) => {
         console.log("Error", error);
@@ -77,8 +73,17 @@ const ProjectProvider = ({ children }) => {
 
     copyProjects.splice(index, 1);
     setProjects(copyProjects);
+  };
 
-    console.log("afterFetch", projects);
+  const onClickUpdate = () => {
+    let q = query(
+      collection(db, "projects"),
+      where("uid", "==", currentUser.uid),
+      orderBy("createdAt", "desc"),
+      startAt(prevCursor),
+      limit(LIMIT)
+    );
+    fetch(q);
   };
 
   useEffect(() => {
@@ -137,7 +142,7 @@ const ProjectProvider = ({ children }) => {
       setIsPastPage(false);
     });
   };
-  console.log("Context fin");
+
   return (
     <ProjectContext.Provider
       value={{
@@ -151,6 +156,7 @@ const ProjectProvider = ({ children }) => {
         nextDisabled,
         fetch,
         setIsLoading,
+        prevCursor,
       }}
     >
       {children}

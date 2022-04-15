@@ -20,7 +20,7 @@ export const List = () => {
   const { projects, next, prev, prevDisabled, nextDisabled, onClickDelete } =
     useContext(ProjectContext);
   const navigate = useNavigate();
-
+  console.log("list", projects);
   return (
     <>
       <div className="listBtn">

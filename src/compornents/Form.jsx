@@ -2,6 +2,19 @@ import React, { useContext, useState } from "react";
 import DatePicker from "react-datepicker";
 import firebase from "firebase/compat/app";
 
+import {
+  collection,
+  query,
+  orderBy,
+  limit,
+  where,
+  getDocs,
+  startAfter,
+  limitToLast,
+  endAt,
+  startAt,
+  endBefore,
+} from "firebase/firestore";
 import { SaveBtn } from "./SaveBtn";
 import { Title } from "./Title";
 import { db } from "../firebase/firebase";
@@ -37,7 +50,8 @@ const initialFormData = {
 
 export const Form = ({}) => {
   const { currentUser } = useContext(AuthContext);
-  const { projects, setProjects } = useContext(ProjectContext);
+  const { projects, setProjects, fetch, prevCursor } =
+    useContext(ProjectContext);
 
   let { id } = useParams();
 
@@ -209,7 +223,14 @@ export const Form = ({}) => {
         ),
         // createdAt: firebase.firestore.Timestamp.fromDate(formState.createdAt),
       });
-
+      // let q = query(
+      //   collection(db, "projects"),
+      //   where("uid", "==", currentUser.uid),
+      //   orderBy("createdAt", "desc"),
+      //   startAfter(prevCursor),
+      //   limit(5)
+      // );
+      // fetch(q);
       if (isEdit) {
         const index = projects.findIndex((p) => p.id === id);
 
@@ -225,6 +246,7 @@ export const Form = ({}) => {
               formState.createdAt
             ),
           };
+
           return projects;
         });
       } else {
@@ -243,6 +265,7 @@ export const Form = ({}) => {
 
         setProjects(copyProjects);
       }
+      console.log("onClickAdd", projects);
     }
   };
 

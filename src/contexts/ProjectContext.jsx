@@ -17,7 +17,6 @@ import { db } from "../firebase/firebase";
 import firebase from "firebase/compat/app";
 import { useParams } from "react-router-dom";
 
-console.log("----context start-----");
 const ProjectContext = React.createContext();
 
 const LIMIT = 5;
@@ -57,10 +56,9 @@ const ProjectProvider = ({ children }) => {
   };
   let { id } = useParams();
   const isEdit = id !== undefined;
-  console.log("id", id);
+
   const targetProject = id && projects.find((v) => v.id === id);
-  console.log(targetProject);
-  //targetProjectはとれてる
+
   const [formState, setFormState] = useState(
     id
       ? {
@@ -91,7 +89,6 @@ const ProjectProvider = ({ children }) => {
       : initialFormData
   );
   console.log(formState.title);
-  console.log(targetProject.title);
 
   const { currentUser } = useContext(AuthContext);
   const isMountedRef = useRef(false);
@@ -107,7 +104,7 @@ const ProjectProvider = ({ children }) => {
         setProjects(
           querySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
         );
-        console.log("fetch", projects);
+
         setIsLoading(false);
         callback && callback();
       }
@@ -159,18 +156,17 @@ const ProjectProvider = ({ children }) => {
         ),
         // createdAt: firebase.firestore.Timestamp.fromDate(formState.createdAt),
       });
-      console.log("onClickAdd内のfetch前", projects);
-      // let q = query(
-      //   collection(db, "projects"),
-      //   where("uid", "==", currentUser.uid),
-      //   orderBy("createdAt", "desc"),
-      //   startAt(prevCursor),
-      //   //↑修正
-      //   limit(5)
-      // );
-      // fetch(q);
-      // console.log("onClickAdd内のfetch後", projects);
 
+      let q = query(
+        collection(db, "projects"),
+        where("uid", "==", currentUser.uid),
+        orderBy("createdAt", "desc"),
+        // startAt(prevCursor),
+        //↑修正
+        limit(5)
+      );
+      fetch(q);
+      console.log("after fetch", projects);
       if (isEdit) {
         const index = projects.findIndex((p) => p.id === id);
 
@@ -206,7 +202,6 @@ const ProjectProvider = ({ children }) => {
         setProjects(copyProjects);
       }
     }
-    console.log("setProjects後", projects);
   };
 
   useEffect(() => {
@@ -265,7 +260,6 @@ const ProjectProvider = ({ children }) => {
       setIsPastPage(false);
     });
   };
-  console.log("----context fin-----");
 
   return (
     <ProjectContext.Provider

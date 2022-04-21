@@ -29,66 +29,65 @@ const ProjectProvider = ({ children }) => {
   const [prevCursor, setPrevCursor] = useState(undefined);
   const [isLastPage, setIsPastPage] = useState(false);
 
-  const initialFormData = {
-    title: "",
-    cmykText: "",
-    tonboText: "",
-    dataTypeText: "",
-    imgTypeText: "",
-    urlText: "",
-    deadlineDate: new Date(),
-    cmykBool: false,
-    tonboBool: false,
-    dataTypeBool: false,
-    imgTypeBool: false,
-    koritsuBool: false,
-    cmykTextHasError: false,
-    cmykTextTouched: false,
-    tonboTextHasError: false,
-    tonboTextTouched: false,
-    dataTypeTextHasError: false,
-    dataTypeTextTouched: false,
-    imgTypeTextHasError: false,
-    imTypeTextTouched: false,
-    urlTextHasError: false,
-    urlTextTouched: false,
-    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-  };
+  // const initialFormData = {
+  //   title: "",
+  //   cmykText: "",
+  //   tonboText: "",
+  //   dataTypeText: "",
+  //   imgTypeText: "",
+  //   urlText: "",
+  //   deadlineDate: new Date(),
+  //   cmykBool: false,
+  //   tonboBool: false,
+  //   dataTypeBool: false,
+  //   imgTypeBool: false,
+  //   koritsuBool: false,
+  //   cmykTextHasError: false,
+  //   cmykTextTouched: false,
+  //   tonboTextHasError: false,
+  //   tonboTextTouched: false,
+  //   dataTypeTextHasError: false,
+  //   dataTypeTextTouched: false,
+  //   imgTypeTextHasError: false,
+  //   imTypeTextTouched: false,
+  //   urlTextHasError: false,
+  //   urlTextTouched: false,
+  //   createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+  // };
   let { id } = useParams();
   const isEdit = id !== undefined;
 
-  const targetProject = id && projects.find((v) => v.id === id);
+  // const targetProject = id && projects.find((v) => v.id === id);
 
-  const [formState, setFormState] = useState(
-    id
-      ? {
-          title: targetProject.title,
-          cmykText: targetProject.cmykText,
-          tonboText: targetProject.tonboText,
-          dataTypeText: targetProject.dataTypeText,
-          imgTypeText: targetProject.imgTypeText,
-          urlText: targetProject.urlText,
-          deadlineDate: targetProject.deadlineDate.toDate(),
-          cmykBool: targetProject.cmykBool,
-          tonboBool: targetProject.tonboBool,
-          dataTypeBool: targetProject.dataTypeBool,
-          imgTypeBool: targetProject.imgTypeBool,
-          koritsuBool: targetProject.koritsuBool,
-          createdAt: targetProject.createdAt.toDate(),
-          cmykTextHasError: false,
-          cmykTextTouched: false,
-          tonboTextHasError: false,
-          tonboTextTouched: false,
-          dataTypeTextHasError: false,
-          dataTypeTextTouched: false,
-          imgTypeTextHasError: false,
-          imTypeTextTouched: false,
-          urlTextHasError: false,
-          urlTextTouched: false,
-        }
-      : initialFormData
-  );
-  console.log(formState.title);
+  // const [formState, setFormState] = useState(
+  //   id
+  //     ? {
+  //         title: targetProject.title,
+  //         cmykText: targetProject.cmykText,
+  //         tonboText: targetProject.tonboText,
+  //         dataTypeText: targetProject.dataTypeText,
+  //         imgTypeText: targetProject.imgTypeText,
+  //         urlText: targetProject.urlText,
+  //         deadlineDate: targetProject.deadlineDate.toDate(),
+  //         cmykBool: targetProject.cmykBool,
+  //         tonboBool: targetProject.tonboBool,
+  //         dataTypeBool: targetProject.dataTypeBool,
+  //         imgTypeBool: targetProject.imgTypeBool,
+  //         koritsuBool: targetProject.koritsuBool,
+  //         createdAt: targetProject.createdAt.toDate(),
+  //         cmykTextHasError: false,
+  //         cmykTextTouched: false,
+  //         tonboTextHasError: false,
+  //         tonboTextTouched: false,
+  //         dataTypeTextHasError: false,
+  //         dataTypeTextTouched: false,
+  //         imgTypeTextHasError: false,
+  //         imTypeTextTouched: false,
+  //         urlTextHasError: false,
+  //         urlTextTouched: false,
+  //       }
+  //     : initialFormData
+  // );
 
   const { currentUser } = useContext(AuthContext);
   const isMountedRef = useRef(false);
@@ -137,71 +136,68 @@ const ProjectProvider = ({ children }) => {
     setProjects(copyProjects);
   };
 
-  const onClickAdd = () => {
-    if (30 < formState.title.length) {
-      alert("正しい値を入力してください");
-    } else {
-      alert("保存が完了しました！");
-      const docRef = isEdit
-        ? db.collection("projects").doc(targetProject.id)
-        : db.collection("projects").doc();
+  const onClickUpdate = () => {
+    // if (30 < formState.title.length) {
+    //   alert("正しい値を入力してください");
+    // } else {
+    //   alert("保存が完了しました！");
+    //   const docRef = isEdit
+    //     ? db.collection("projects").doc(targetProject.id)
+    //     : db.collection("projects").doc();
 
-      const newDoc = docRef.id;
+    //   const newDoc = docRef.id;
 
-      docRef.set({
-        ...formState,
-        uid: currentUser.uid,
-        deadlineDate: firebase.firestore.Timestamp.fromDate(
-          formState.deadlineDate
-        ),
-        // createdAt: firebase.firestore.Timestamp.fromDate(formState.createdAt),
-      });
+    //   docRef.set({
+    //     ...formState,
+    //     uid: currentUser.uid,
+    //     deadlineDate: firebase.firestore.Timestamp.fromDate(
+    //       formState.deadlineDate
+    //     ),
+    //     // createdAt: firebase.firestore.Timestamp.fromDate(formState.createdAt),
+    //   });
 
-      let q = query(
-        collection(db, "projects"),
-        where("uid", "==", currentUser.uid),
-        orderBy("createdAt", "desc"),
-        // startAt(prevCursor),
-        //↑修正
-        limit(5)
-      );
-      fetch(q);
-      console.log("after fetch", projects);
-      if (isEdit) {
-        const index = projects.findIndex((p) => p.id === id);
+    let q = query(
+      collection(db, "projects"),
+      where("uid", "==", currentUser.uid),
+      orderBy("createdAt", "desc"),
+      limit(5)
+    );
+    fetch(q);
 
-        setProjects((prev) => {
-          const projects = [...prev];
-          projects[index] = {
-            ...formState,
-            id,
-            deadlineDate: firebase.firestore.Timestamp.fromDate(
-              formState.deadlineDate
-            ),
-            createdAt: firebase.firestore.Timestamp.fromDate(
-              formState.createdAt
-            ),
-          };
+    // if (isEdit) {
+    //   const index = projects.findIndex((p) => p.id === id);
+    //   console.log(index);
+    //   setProjects((prev) => {
+    //     const projects = [...prev];
+    //     projects[index] = {
+    //       ...formState,
+    //       id,
+    //       deadlineDate: firebase.firestore.Timestamp.fromDate(
+    //         formState.deadlineDate
+    //       ),
+    //       createdAt: firebase.firestore.Timestamp.fromDate(
+    //         formState.createdAt
+    //       ),
+    //     };
 
-          return projects;
-        });
-      } else {
-        const copyProjects = [...projects];
+    //     return projects;
+    //   });
+    // } else {
+    //   const copyProjects = [...projects];
 
-        const copyFormState = {
-          ...formState,
-          id: newDoc,
-          deadlineDate: firebase.firestore.Timestamp.fromDate(
-            formState.deadlineDate
-          ),
-          createdAt: firebase.firestore.Timestamp.now(),
-        };
+    //   const copyFormState = {
+    //     ...formState,
+    //     id: newDoc,
+    //     deadlineDate: firebase.firestore.Timestamp.fromDate(
+    //       formState.deadlineDate
+    //     ),
+    //     createdAt: firebase.firestore.Timestamp.now(),
+    //   };
 
-        copyProjects.unshift(copyFormState);
+    //   copyProjects.unshift(copyFormState);
 
-        setProjects(copyProjects);
-      }
-    }
+    //   setProjects(copyProjects);
+    // }
   };
 
   useEffect(() => {
@@ -275,10 +271,11 @@ const ProjectProvider = ({ children }) => {
         fetch,
         setIsLoading,
         prevCursor,
-        formState,
-        setFormState,
+        // formState,
+        // setFormState,
         isEdit,
-        onClickAdd,
+        onClickUpdate,
+        // onClickAdd,
       }}
     >
       {children}

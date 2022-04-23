@@ -24,73 +24,22 @@ const LIMIT = 5;
 const ProjectProvider = ({ children }) => {
   const [projects, setProjects] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  //fetchでprojectsに値が入っているか否か
   const [cursor, setCursor] = useState(0);
+  //現在のページ数
   const [nextCursor, setNextCursor] = useState(undefined);
+  //ページ内一番最後のobj
   const [prevCursor, setPrevCursor] = useState(undefined);
+  //ページ内一番最初のobj
   const [isLastPage, setIsPastPage] = useState(false);
+  //次ページに遷移できるか（データがあるか）否か
 
-  // const initialFormData = {
-  //   title: "",
-  //   cmykText: "",
-  //   tonboText: "",
-  //   dataTypeText: "",
-  //   imgTypeText: "",
-  //   urlText: "",
-  //   deadlineDate: new Date(),
-  //   cmykBool: false,
-  //   tonboBool: false,
-  //   dataTypeBool: false,
-  //   imgTypeBool: false,
-  //   koritsuBool: false,
-  //   cmykTextHasError: false,
-  //   cmykTextTouched: false,
-  //   tonboTextHasError: false,
-  //   tonboTextTouched: false,
-  //   dataTypeTextHasError: false,
-  //   dataTypeTextTouched: false,
-  //   imgTypeTextHasError: false,
-  //   imTypeTextTouched: false,
-  //   urlTextHasError: false,
-  //   urlTextTouched: false,
-  //   createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-  // };
   let { id } = useParams();
   const isEdit = id !== undefined;
 
-  // const targetProject = id && projects.find((v) => v.id === id);
-
-  // const [formState, setFormState] = useState(
-  //   id
-  //     ? {
-  //         title: targetProject.title,
-  //         cmykText: targetProject.cmykText,
-  //         tonboText: targetProject.tonboText,
-  //         dataTypeText: targetProject.dataTypeText,
-  //         imgTypeText: targetProject.imgTypeText,
-  //         urlText: targetProject.urlText,
-  //         deadlineDate: targetProject.deadlineDate.toDate(),
-  //         cmykBool: targetProject.cmykBool,
-  //         tonboBool: targetProject.tonboBool,
-  //         dataTypeBool: targetProject.dataTypeBool,
-  //         imgTypeBool: targetProject.imgTypeBool,
-  //         koritsuBool: targetProject.koritsuBool,
-  //         createdAt: targetProject.createdAt.toDate(),
-  //         cmykTextHasError: false,
-  //         cmykTextTouched: false,
-  //         tonboTextHasError: false,
-  //         tonboTextTouched: false,
-  //         dataTypeTextHasError: false,
-  //         dataTypeTextTouched: false,
-  //         imgTypeTextHasError: false,
-  //         imTypeTextTouched: false,
-  //         urlTextHasError: false,
-  //         urlTextTouched: false,
-  //       }
-  //     : initialFormData
-  // );
-
   const { currentUser } = useContext(AuthContext);
   const isMountedRef = useRef(false);
+  //DOMツリーにDOMノードが追加されているか
 
   const fetch = (q, callback) => {
     getDocs(q).then((querySnapShot) => {
@@ -123,9 +72,10 @@ const ProjectProvider = ({ children }) => {
           limit(LIMIT)
         );
         fetch(q);
+        console.log("Delete");
       })
       .catch((error) => {
-        console.log("Error", error);
+        console.log("Error");
       });
 
     const copyProjects = Object.assign([], projects);
@@ -137,25 +87,6 @@ const ProjectProvider = ({ children }) => {
   };
 
   const onClickUpdate = () => {
-    // if (30 < formState.title.length) {
-    //   alert("正しい値を入力してください");
-    // } else {
-    //   alert("保存が完了しました！");
-    //   const docRef = isEdit
-    //     ? db.collection("projects").doc(targetProject.id)
-    //     : db.collection("projects").doc();
-
-    //   const newDoc = docRef.id;
-
-    //   docRef.set({
-    //     ...formState,
-    //     uid: currentUser.uid,
-    //     deadlineDate: firebase.firestore.Timestamp.fromDate(
-    //       formState.deadlineDate
-    //     ),
-    //     // createdAt: firebase.firestore.Timestamp.fromDate(formState.createdAt),
-    //   });
-
     let q = query(
       collection(db, "projects"),
       where("uid", "==", currentUser.uid),
@@ -163,41 +94,6 @@ const ProjectProvider = ({ children }) => {
       limit(5)
     );
     fetch(q);
-
-    // if (isEdit) {
-    //   const index = projects.findIndex((p) => p.id === id);
-    //   console.log(index);
-    //   setProjects((prev) => {
-    //     const projects = [...prev];
-    //     projects[index] = {
-    //       ...formState,
-    //       id,
-    //       deadlineDate: firebase.firestore.Timestamp.fromDate(
-    //         formState.deadlineDate
-    //       ),
-    //       createdAt: firebase.firestore.Timestamp.fromDate(
-    //         formState.createdAt
-    //       ),
-    //     };
-
-    //     return projects;
-    //   });
-    // } else {
-    //   const copyProjects = [...projects];
-
-    //   const copyFormState = {
-    //     ...formState,
-    //     id: newDoc,
-    //     deadlineDate: firebase.firestore.Timestamp.fromDate(
-    //       formState.deadlineDate
-    //     ),
-    //     createdAt: firebase.firestore.Timestamp.now(),
-    //   };
-
-    //   copyProjects.unshift(copyFormState);
-
-    //   setProjects(copyProjects);
-    // }
   };
 
   useEffect(() => {
@@ -206,6 +102,7 @@ const ProjectProvider = ({ children }) => {
       isMountedRef.current = false;
     };
   }, []);
+  //cleanup function メモリーリーク防止
 
   useEffect(() => {
     const q = query(
@@ -218,6 +115,7 @@ const ProjectProvider = ({ children }) => {
     setIsLoading(true);
     fetch(q);
   }, [currentUser.uid]);
+  //ログインユーザーが変わるごとにfetchをして、前のユーザーのデータが残らないようにする
 
   const prevDisabled = cursor === 0;
   const nextDisabled = Object.keys(projects).length < LIMIT || isLastPage;
@@ -271,11 +169,8 @@ const ProjectProvider = ({ children }) => {
         fetch,
         setIsLoading,
         prevCursor,
-        // formState,
-        // setFormState,
         isEdit,
         onClickUpdate,
-        // onClickAdd,
       }}
     >
       {children}

@@ -50,18 +50,8 @@ const initialFormData = {
 
 export const Form = ({}) => {
   const { currentUser } = useContext(AuthContext);
-  const {
-    projects,
-    setProjects,
-    fetch,
-    prevCursor,
-    // formState,
-    //idがある時formStateがinitialできている
-    // setFormState,
-    isEdit,
-    // onClickAdd,
-    onClickUpdate,
-  } = useContext(ProjectContext);
+  const { projects, setProjects, isEdit, onClickUpdate } =
+    useContext(ProjectContext);
 
   let { id } = useParams();
 
@@ -232,19 +222,13 @@ export const Form = ({}) => {
         // createdAt: firebase.firestore.Timestamp.fromDate(formState.createdAt),
       });
       onClickUpdate();
-      // let q = query(
-      //   collection(db, "projects"),
-      //   where("uid", "==", currentUser.uid),
-      //   orderBy("createdAt", "desc"),
-      //   startAfter(prevCursor),
-      //   limit(5)
-      // );
-      // fetch(q);
+
       if (isEdit) {
         const index = projects.findIndex((p) => p.id === id);
-
+        //paramsでとってきたidを持つobjの位置 pはprojects
         setProjects((prev) => {
           const projects = [...prev];
+
           projects[index] = {
             ...formState,
             id,
@@ -274,7 +258,6 @@ export const Form = ({}) => {
 
         setProjects(copyProjects);
       }
-      console.log("onClickAdd", projects);
     }
   };
 

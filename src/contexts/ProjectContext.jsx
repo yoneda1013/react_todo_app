@@ -33,6 +33,7 @@ const ProjectProvider = ({ children }) => {
   //ページ内一番最初のobj
   const [isLastPage, setIsPastPage] = useState(false);
   //次ページに遷移できるか（データがあるか）否か
+  const [pjSize, setPjSize] = useState(0);
 
   let { id } = useParams();
   const isEdit = id !== undefined;
@@ -68,14 +69,14 @@ const ProjectProvider = ({ children }) => {
           collection(db, "projects"),
           where("uid", "==", currentUser.uid),
           orderBy("createdAt", "desc"),
-          startAt(prevCursor),
+          // startAt(prevCursor),
           limit(LIMIT)
         );
         fetch(q);
         console.log("Delete");
       })
       .catch((error) => {
-        console.log("Error");
+        console.log("Error", error);
       });
 
     const copyProjects = Object.assign([], projects);
@@ -91,7 +92,7 @@ const ProjectProvider = ({ children }) => {
       collection(db, "projects"),
       where("uid", "==", currentUser.uid),
       orderBy("createdAt", "desc"),
-      limit(5)
+      limit(LIMIT)
     );
     fetch(q);
   };
@@ -117,12 +118,20 @@ const ProjectProvider = ({ children }) => {
   }, [currentUser.uid]);
   //ログインユーザーが変わるごとにfetchをして、前のユーザーのデータが残らないようにする
 
+  const pjRef = db.collection("projects").where("uid", "==", currentUser.uid);
+  //Collection Reference　コレクションを参照する
+  console.log(pjRef);
+
+  pjRef.get().then((querySnapShot) => {
+    const pjSize = querySnapShot.docs.length;
+  });
+
   const prevDisabled = cursor === 0;
   const nextDisabled = Object.keys(projects).length < LIMIT || isLastPage;
 
   const next = () => {
     if (!nextCursor || nextDisabled) return;
-
+    //もし5番目のpjがfalseもしくはnextDisableがtrueだったら処理を止める
     let q = query(
       collection(db, "projects"),
       where("uid", "==", currentUser.uid),

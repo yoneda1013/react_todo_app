@@ -175,6 +175,7 @@ export const List = () => {
           前の5件を表示する
         </Button>
       )}
+      {/* pjSizeが5の倍数の時、表示させない */}
       {!nextDisabled && (
         <Button
           size="small"

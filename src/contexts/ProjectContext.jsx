@@ -8,13 +8,11 @@ import {
   getDocs,
   startAfter,
   limitToLast,
-  endAt,
-  startAt,
   endBefore,
 } from "firebase/firestore";
 import { AuthContext } from "../auth/AuthProvider";
 import { db } from "../firebase/firebase";
-import firebase from "firebase/compat/app";
+
 import { useParams } from "react-router-dom";
 
 const ProjectContext = React.createContext();
@@ -73,7 +71,9 @@ const ProjectProvider = ({ children }) => {
           limit(LIMIT)
         );
         fetch(q);
+
         console.log("Delete");
+        console.log(pjSize);
       })
       .catch((error) => {
         console.log("Error", error);
@@ -82,7 +82,11 @@ const ProjectProvider = ({ children }) => {
     const copyProjects = Object.assign([], projects);
 
     const index = projects.findIndex((projects) => projects.id === rowId);
-
+    //もしもrowIdが6の倍数の時、cursor-1してsetCursorに入れる
+    console.log(index);
+    if (index % 6 == 0) {
+      setCursor((cursor) => cursor - 1);
+    }
     copyProjects.splice(index, 1);
     setProjects(copyProjects);
   };
@@ -120,15 +124,16 @@ const ProjectProvider = ({ children }) => {
 
   const pjRef = db.collection("projects").where("uid", "==", currentUser.uid);
   //Collection Reference　コレクションを参照する
-  console.log(pjRef);
 
   pjRef.get().then((querySnapShot) => {
     const pjSize = querySnapShot.docs.length;
+    setPjSize(pjSize);
   });
 
   const prevDisabled = cursor === 0;
   const nextDisabled = Object.keys(projects).length < LIMIT || isLastPage;
-
+  console.log(prevDisabled);
+  console.log(cursor);
   const next = () => {
     if (!nextCursor || nextDisabled) return;
     //もし5番目のpjがfalseもしくはnextDisableがtrueだったら処理を止める
@@ -160,6 +165,7 @@ const ProjectProvider = ({ children }) => {
     );
     fetch(q, () => {
       setCursor((cursor) => cursor - 1);
+      console.log("-------------------");
       setIsPastPage(false);
     });
   };
@@ -180,6 +186,7 @@ const ProjectProvider = ({ children }) => {
         prevCursor,
         isEdit,
         onClickUpdate,
+        pjSize,
       }}
     >
       {children}

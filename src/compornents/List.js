@@ -17,10 +17,17 @@ import { AuthContext } from "../auth/AuthProvider";
 
 export const List = () => {
   const { currentUser } = useContext(AuthContext);
-  const { projects, next, prev, prevDisabled, nextDisabled, onClickDelete } =
-    useContext(ProjectContext);
+  const {
+    projects,
+    next,
+    prev,
+    prevDisabled,
+    nextDisabled,
+    onClickDelete,
+    pjSize,
+  } = useContext(ProjectContext);
   const navigate = useNavigate();
-
+  console.log("list", pjSize);
   return (
     <>
       <div className="listBtn">
@@ -175,8 +182,8 @@ export const List = () => {
           前の5件を表示する
         </Button>
       )}
-      {/* pjSizeが5の倍数の時、表示させない */}
-      {!nextDisabled && (
+      {/* nextDisabledかつpjSizeが5の倍数の時、表示させない */}
+      {!nextDisabled && !(pjSize % 5 == 0) && (
         <Button
           size="small"
           variant="contained"

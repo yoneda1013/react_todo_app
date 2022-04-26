@@ -225,7 +225,7 @@ span {
   background: -moz-linear-gradient(bottom, #a4a4e5, #fff);
   background: -webkit-linear-gradient(bottom, #a4a4e5, #fff);
   background: linear-gradient(to top, #a4a4e5, 70%, #fff);
-  padding-bottom: 4vh;
+  padding: 4vh 4vh 0;
 }
 
 .pagination {

@@ -8,6 +8,7 @@ import TableRow from "@material-ui/core/TableRow";
 import { db } from "../firebase/firebase";
 import { auth } from "../firebase/firebase";
 
+import { collection, query, orderBy, limit, where } from "firebase/firestore";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -23,11 +24,47 @@ export const List = () => {
     prev,
     prevDisabled,
     nextDisabled,
-    onClickDelete,
     pjSize,
+    setCursor,
+    setProjects,
+    LIMIT,
+    cursor,
+    fetch,
   } = useContext(ProjectContext);
   const navigate = useNavigate();
-  console.log("list", pjSize);
+
+  const onClickDelete = (rowId) => {
+    db.collection("projects")
+      .doc(rowId)
+      .delete()
+      .then(() => {
+        let q = query(
+          collection(db, "projects"),
+          where("uid", "==", currentUser.uid),
+          orderBy("createdAt", "desc"),
+          // startAt(prevCursor),
+          limit(LIMIT)
+        );
+
+        fetch(q);
+        console.log("delete内fetch", projects);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    const copyProjects = Object.assign([], projects);
+
+    const index = projects.findIndex((projects) => projects.id === rowId);
+
+    if (index % 6 == 0) {
+      setCursor((cursor) => cursor - 1);
+    }
+    console.log(cursor);
+    copyProjects.splice(index, 1);
+    setProjects(copyProjects);
+  };
+  console.log(cursor);
   return (
     <>
       <div className="listBtn">

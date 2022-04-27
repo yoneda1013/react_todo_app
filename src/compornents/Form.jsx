@@ -2,19 +2,6 @@ import React, { useContext, useState } from "react";
 import DatePicker from "react-datepicker";
 import firebase from "firebase/compat/app";
 
-import {
-  collection,
-  query,
-  orderBy,
-  limit,
-  where,
-  getDocs,
-  startAfter,
-  limitToLast,
-  endAt,
-  startAt,
-  endBefore,
-} from "firebase/firestore";
 import { SaveBtn } from "./SaveBtn";
 import { Title } from "./Title";
 import { db } from "../firebase/firebase";

@@ -24,13 +24,10 @@ const ProjectProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   //fetchでprojectsに値が入っているか否か
   const [cursor, setCursor] = useState(0);
-  //現在のページ数
+  //ページ数
   const [nextCursor, setNextCursor] = useState(undefined);
-  //ページ内一番最後のobj
   const [prevCursor, setPrevCursor] = useState(undefined);
-  //ページ内一番最初のobj
   const [isLastPage, setIsPastPage] = useState(false);
-  //次ページに遷移できるか（データがあるか）否か
   const [pjSize, setPjSize] = useState(0);
 
   let { id } = useParams();
@@ -51,44 +48,11 @@ const ProjectProvider = ({ children }) => {
         setProjects(
           querySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
         );
-
+        console.log("fetch");
         setIsLoading(false);
         callback && callback();
       }
     });
-  };
-
-  const onClickDelete = (rowId) => {
-    db.collection("projects")
-      .doc(rowId)
-      .delete()
-      .then(() => {
-        let q = query(
-          collection(db, "projects"),
-          where("uid", "==", currentUser.uid),
-          orderBy("createdAt", "desc"),
-          // startAt(prevCursor),
-          limit(LIMIT)
-        );
-        fetch(q);
-
-        console.log("Delete");
-        console.log(pjSize);
-      })
-      .catch((error) => {
-        console.log("Error", error);
-      });
-
-    const copyProjects = Object.assign([], projects);
-
-    const index = projects.findIndex((projects) => projects.id === rowId);
-    //もしもrowIdが6の倍数の時、cursor-1してsetCursorに入れる
-    console.log(index);
-    if (index % 6 == 0) {
-      setCursor((cursor) => cursor - 1);
-    }
-    copyProjects.splice(index, 1);
-    setProjects(copyProjects);
   };
 
   const onClickUpdate = () => {
@@ -120,10 +84,8 @@ const ProjectProvider = ({ children }) => {
     setIsLoading(true);
     fetch(q);
   }, [currentUser.uid]);
-  //ログインユーザーが変わるごとにfetchをして、前のユーザーのデータが残らないようにする
 
   const pjRef = db.collection("projects").where("uid", "==", currentUser.uid);
-  //Collection Reference　コレクションを参照する
 
   pjRef.get().then((querySnapShot) => {
     const pjSize = querySnapShot.docs.length;
@@ -132,11 +94,10 @@ const ProjectProvider = ({ children }) => {
 
   const prevDisabled = cursor === 0;
   const nextDisabled = Object.keys(projects).length < LIMIT || isLastPage;
-  console.log(prevDisabled);
-  console.log(cursor);
+
   const next = () => {
     if (!nextCursor || nextDisabled) return;
-    //もし5番目のpjがfalseもしくはnextDisableがtrueだったら処理を止める
+
     let q = query(
       collection(db, "projects"),
       where("uid", "==", currentUser.uid),
@@ -165,7 +126,7 @@ const ProjectProvider = ({ children }) => {
     );
     fetch(q, () => {
       setCursor((cursor) => cursor - 1);
-      console.log("-------------------");
+
       setIsPastPage(false);
     });
   };
@@ -173,7 +134,7 @@ const ProjectProvider = ({ children }) => {
   return (
     <ProjectContext.Provider
       value={{
-        onClickDelete,
+        // onClickDelete,
         projects,
         isLoading,
         setProjects,
@@ -187,6 +148,11 @@ const ProjectProvider = ({ children }) => {
         isEdit,
         onClickUpdate,
         pjSize,
+        setCursor,
+        setProjects,
+        LIMIT,
+        cursor,
+        fetch,
       }}
     >
       {children}

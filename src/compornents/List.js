@@ -32,6 +32,7 @@ export const List = () => {
     fetch,
   } = useContext(ProjectContext);
   const navigate = useNavigate();
+  console.log(projects);
 
   const onClickDelete = (rowId) => {
     db.collection("projects")

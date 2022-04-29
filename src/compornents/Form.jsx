@@ -206,7 +206,7 @@ export const Form = ({}) => {
         deadlineDate: firebase.firestore.Timestamp.fromDate(
           formState.deadlineDate
         ),
-        // createdAt: firebase.firestore.Timestamp.fromDate(formState.createdAt),
+        createdAt: firebase.firestore.Timestamp.fromDate(formState.createdAt),
       });
       onClickUpdate();
 

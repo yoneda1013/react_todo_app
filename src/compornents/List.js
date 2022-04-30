@@ -32,7 +32,6 @@ export const List = () => {
     fetch,
   } = useContext(ProjectContext);
   const navigate = useNavigate();
-  console.log(projects);
 
   const onClickDelete = (rowId) => {
     db.collection("projects")
@@ -48,7 +47,6 @@ export const List = () => {
         );
 
         fetch(q);
-        console.log("delete内fetch", projects);
       })
       .catch((error) => {
         console.log(error);
@@ -65,7 +63,7 @@ export const List = () => {
     copyProjects.splice(index, 1);
     setProjects(copyProjects);
   };
-  console.log(cursor);
+
   return (
     <>
       <div className="listBtn">

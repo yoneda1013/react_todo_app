@@ -46,9 +46,12 @@ const ProjectProvider = ({ children }) => {
         setNextCursor(nextCursor);
         setPrevCursor(prevCursor);
         setProjects(
-          querySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+          querySnapShot.docs.map((doc) => ({
+            ...doc.data({ serverTimestamps: "estimate" }),
+            id: doc.id,
+          }))
         );
-        console.log("fetch");
+
         setIsLoading(false);
         callback && callback();
       }

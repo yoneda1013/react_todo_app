@@ -42,8 +42,8 @@ export const Form = ({}) => {
 
   let { id } = useParams();
 
-  const targetProject = id && projects.find((v) => v.id === id);
-
+  const targetProject = id && projects.find((p) => p.id === id);
+  //もしidがある場合、let createdAt =
   const [formState, setFormState] = useState(
     id
       ? {
@@ -73,7 +73,7 @@ export const Form = ({}) => {
         }
       : initialFormData
   );
-
+  console.log(formState.createdAt);
   const handleTitleChange = (event) =>
     setFormState((prev) => ({ ...prev, title: event.target.value }));
 
@@ -206,7 +206,10 @@ export const Form = ({}) => {
         deadlineDate: firebase.firestore.Timestamp.fromDate(
           formState.deadlineDate
         ),
-        createdAt: firebase.firestore.Timestamp.fromDate(formState.createdAt),
+        // createdAt: firebase.firestore.Timestamp.fromDate(formState.createdAt),
+        createdAt: formState.createdAt,
+        //getTime() method is called on a value that is not a date object
+        //nullで保存される→オプションで返す？
       });
       onClickUpdate();
 

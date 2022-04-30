@@ -112,7 +112,8 @@ const ProjectProvider = ({ children }) => {
     fetch(q, async () => {
       setCursor((cursor) => cursor + 1);
       const docCheck = await getDocs(query(q, limit(1)));
-      if (!docCheck.size) {
+
+      if (cursor + 2 === pjSize / 5) {
         setIsPastPage(true);
       }
     });
@@ -137,7 +138,6 @@ const ProjectProvider = ({ children }) => {
   return (
     <ProjectContext.Provider
       value={{
-        // onClickDelete,
         projects,
         isLoading,
         setProjects,
@@ -156,6 +156,7 @@ const ProjectProvider = ({ children }) => {
         LIMIT,
         cursor,
         fetch,
+        isLastPage,
       }}
     >
       {children}

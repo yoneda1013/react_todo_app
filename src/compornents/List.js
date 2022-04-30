@@ -24,7 +24,6 @@ export const List = () => {
     prev,
     prevDisabled,
     nextDisabled,
-    pjSize,
     setCursor,
     setProjects,
     LIMIT,
@@ -218,8 +217,8 @@ export const List = () => {
           前の5件を表示する
         </Button>
       )}
-      {/* nextDisabledかつpjSizeが5の倍数の時、表示させない */}
-      {!nextDisabled && !(pjSize % 5 == 0) && (
+
+      {!nextDisabled && (
         <Button
           size="small"
           variant="contained"

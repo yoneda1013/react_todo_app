@@ -9,6 +9,7 @@ import {
   startAfter,
   limitToLast,
   endBefore,
+  startAt,
 } from "firebase/firestore";
 import { AuthContext } from "../auth/AuthProvider";
 import { db } from "../firebase/firebase";
@@ -63,9 +64,24 @@ const ProjectProvider = ({ children }) => {
       collection(db, "projects"),
       where("uid", "==", currentUser.uid),
       orderBy("createdAt", "desc"),
+      startAt(prevCursor),
       limit(LIMIT)
     );
+
     fetch(q);
+    console.log("onClickUpdate-------------");
+  };
+  const onClickAddFetch = () => {
+    let q = query(
+      collection(db, "projects"),
+      where("uid", "==", currentUser.uid),
+      orderBy("createdAt", "desc"),
+      // startAt(prevCursor),
+      limit(LIMIT)
+    );
+
+    fetch(q);
+    console.log("onClickUpdate-------------");
   };
 
   useEffect(() => {
@@ -113,7 +129,7 @@ const ProjectProvider = ({ children }) => {
       setCursor((cursor) => cursor + 1);
       const docCheck = await getDocs(query(q, limit(1)));
 
-      if (cursor + 2 === pjSize / 5) {
+      if (cursor + 2 === pjSize / LIMIT) {
         setIsPastPage(true);
       }
     });
@@ -157,6 +173,7 @@ const ProjectProvider = ({ children }) => {
         cursor,
         fetch,
         isLastPage,
+        onClickAddFetch,
       }}
     >
       {children}

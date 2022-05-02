@@ -29,6 +29,7 @@ export const List = () => {
     LIMIT,
     cursor,
     fetch,
+    pjSize,
   } = useContext(ProjectContext);
   const navigate = useNavigate();
 
@@ -55,9 +56,11 @@ export const List = () => {
 
     const index = projects.findIndex((projects) => projects.id === rowId);
 
-    if (index % 6 == 0) {
+    if (pjSize % 6 == 0) {
       setCursor((cursor) => cursor - 1);
     }
+    //ここの条件分岐が間違ってる
+    console.log(pjSize % 6 == 0);
     console.log(cursor);
     copyProjects.splice(index, 1);
     setProjects(copyProjects);
@@ -218,7 +221,7 @@ export const List = () => {
         </Button>
       )}
 
-      {!nextDisabled && (
+      {!nextDisabled && !(pjSize % LIMIT == 0) && (
         <Button
           size="small"
           variant="contained"

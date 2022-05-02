@@ -59,9 +59,7 @@ export const List = () => {
     if (pjSize % 6 == 0) {
       setCursor((cursor) => cursor - 1);
     }
-    //ここの条件分岐が間違ってる
-    console.log(pjSize % 6 == 0);
-    console.log(cursor);
+    setCursor(0);
     copyProjects.splice(index, 1);
     setProjects(copyProjects);
   };
@@ -220,8 +218,8 @@ export const List = () => {
           前の5件を表示する
         </Button>
       )}
-
-      {!nextDisabled && !(pjSize % LIMIT == 0) && (
+      {/* pjSizeが !(pjSize % LIMIT == 0) &&*/}
+      {!nextDisabled && (
         <Button
           size="small"
           variant="contained"

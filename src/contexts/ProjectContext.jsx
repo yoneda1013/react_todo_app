@@ -110,6 +110,7 @@ const ProjectProvider = ({ children }) => {
     const pjSize = querySnapShot.docs.length;
     setPjSize(pjSize);
   });
+  //isLastPageがfalse
 
   const prevDisabled = cursor === 0;
   const nextDisabled = Object.keys(projects).length < LIMIT || isLastPage;
@@ -174,6 +175,7 @@ const ProjectProvider = ({ children }) => {
         fetch,
         isLastPage,
         onClickAddFetch,
+        setPrevCursor,
       }}
     >
       {children}

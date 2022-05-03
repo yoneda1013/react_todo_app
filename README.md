@@ -1,3 +1,27 @@
+# アプリ名：入稿時チェックアプリ
+
+## 説明
+新人デザイナーや、普段紙ものを扱うことが少ないデザイナー向けに、入稿時の注意点をメモし、管理できるアプリを作成しました。
+入稿時のデータ形式をメモできると同時に、入稿前のチェックも一緒にできるようにformの画面を工夫しました。
+
+## 使い方
+タイトル部分に案件名を入れ、チェックリスト内のinputには案件、予定している印刷所ごとのデータ形式を入力します。
+入稿前にはcheckboxにチェックを入れることで、データ形式など入稿時のチェック漏れを防ぎます。
+
+## 機能
+・ログイン、新規登録機能
+・firebaseにデータを保存、またそのデータを変更、削除
+・firebaseのクエリを使用したページネーション
+・ゲストログイン機能
+
+## 構築、インストール方法
+
+
+## ライセンス
+MIT 
+
+## 作者
+YONEDA MANAE
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

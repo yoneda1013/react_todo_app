@@ -69,7 +69,6 @@ const ProjectProvider = ({ children }) => {
     );
 
     fetch(q);
-    console.log("onClickUpdate-------------");
   };
   const onClickAddFetch = () => {
     let q = query(
@@ -81,7 +80,6 @@ const ProjectProvider = ({ children }) => {
     );
 
     fetch(q);
-    console.log("onClickUpdate-------------");
   };
 
   useEffect(() => {
@@ -110,7 +108,6 @@ const ProjectProvider = ({ children }) => {
     const pjSize = querySnapShot.docs.length;
     setPjSize(pjSize);
   });
-  //isLastPageがfalse
 
   const prevDisabled = cursor === 0;
   const nextDisabled = Object.keys(projects).length < LIMIT || isLastPage;
@@ -128,8 +125,7 @@ const ProjectProvider = ({ children }) => {
 
     fetch(q, async () => {
       setCursor((cursor) => cursor + 1);
-      const docCheck = await getDocs(query(q, limit(1)));
-
+      // const docCheck = await getDocs(query(q, limit(1)));
       if (cursor + 2 === pjSize / LIMIT) {
         setIsPastPage(true);
       }

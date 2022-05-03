@@ -27,7 +27,7 @@ export const List = () => {
     setCursor,
     setProjects,
     LIMIT,
-    cursor,
+
     fetch,
     pjSize,
   } = useContext(ProjectContext);
@@ -218,7 +218,7 @@ export const List = () => {
           前の5件を表示する
         </Button>
       )}
-      {/* pjSizeが !(pjSize % LIMIT == 0) &&*/}
+
       {!nextDisabled && (
         <Button
           size="small"

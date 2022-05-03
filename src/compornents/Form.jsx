@@ -2,18 +2,6 @@ import React, { useContext, useState } from "react";
 import DatePicker from "react-datepicker";
 import firebase from "firebase/compat/app";
 
-import {
-  collection,
-  query,
-  orderBy,
-  limit,
-  where,
-  getDocs,
-  startAfter,
-  limitToLast,
-  endBefore,
-  startAt,
-} from "firebase/firestore";
 import { SaveBtn } from "./SaveBtn";
 import { Title } from "./Title";
 import { db } from "../firebase/firebase";
@@ -223,7 +211,6 @@ export const Form = ({}) => {
       });
 
       if (isEdit) {
-        console.log("更新成功");
         onClickUpdate();
         const index = projects.findIndex((p) => p.id === id);
         //paramsでとってきたidを持つobjの位置 pはprojects
@@ -244,7 +231,6 @@ export const Form = ({}) => {
           return projects;
         });
       } else {
-        console.log("新規追加成功");
         onClickAddFetch();
         const copyProjects = [...projects];
 

@@ -109,8 +109,13 @@ const ProjectProvider = ({ children }) => {
     setPjSize(pjSize);
   });
 
+  // if (pjSize == LIMIT) {
+  //   const isLastPage = true;
+  //   setIsPastPage(isLastPage);
+  // }
   const prevDisabled = cursor === 0;
-  const nextDisabled = Object.keys(projects).length < LIMIT || isLastPage;
+  const nextDisabled =
+    Object.keys(projects).length < LIMIT || isLastPage || pjSize === LIMIT;
 
   const next = () => {
     if (!nextCursor || nextDisabled) return;
@@ -165,10 +170,10 @@ const ProjectProvider = ({ children }) => {
         onClickUpdate,
         pjSize,
         setCursor,
-        setProjects,
+
         LIMIT,
         cursor,
-        fetch,
+
         isLastPage,
         onClickAddFetch,
         setPrevCursor,

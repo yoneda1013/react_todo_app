@@ -35,7 +35,7 @@ const initialFormData = {
   createdAt: firebase.firestore.FieldValue.serverTimestamp(),
 };
 
-export const Form = ({}) => {
+export const Form = () => {
   const { currentUser } = useContext(AuthContext);
   const { projects, setProjects, isEdit, onClickUpdate, onClickAddFetch } =
     useContext(ProjectContext);
@@ -85,7 +85,7 @@ export const Form = ({}) => {
 
   const handleCmykTextChange = (event) => {
     let cmykTextHasError = false;
-    if (event.target.value != "RGB" && event.target.value != "CMYK") {
+    if (event.target.value !== "RGB" && event.target.value !== "CMYK") {
       cmykTextHasError = true;
     } else {
       cmykTextHasError = false;
@@ -109,7 +109,7 @@ export const Form = ({}) => {
 
   const handleTonboTextChange = (event) => {
     let tonboTextHasError = false;
-    if (event.target.value != "アリ" && event.target.value != "ナシ") {
+    if (event.target.value !== "アリ" && event.target.value !== "ナシ") {
       tonboTextHasError = true;
     } else {
       tonboTextHasError = false;
@@ -131,9 +131,9 @@ export const Form = ({}) => {
   const handleDataTypeTextChange = (event) => {
     let dataTypeTextHasError = false;
     if (
-      event.target.value != "ai" &&
-      event.target.value != "PDF" &&
-      event.target.value != "psd"
+      event.target.value !== "ai" &&
+      event.target.value !== "PDF" &&
+      event.target.value !== "psd"
     ) {
       dataTypeTextHasError = true;
     } else {
@@ -154,7 +154,7 @@ export const Form = ({}) => {
 
   const handleImgTypeTextChange = (event) => {
     let imgTypeTextHasError = false;
-    if (event.target.value != "リンク" && event.target.value != "埋め込み") {
+    if (event.target.value !== "リンク" && event.target.value !== "埋め込み") {
       imgTypeTextHasError = true;
     } else {
       imgTypeTextHasError = false;

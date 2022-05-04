@@ -27,7 +27,7 @@ export const List = () => {
     setCursor,
     setProjects,
     LIMIT,
-
+    cursor,
     fetch,
     pjSize,
   } = useContext(ProjectContext);
@@ -56,10 +56,11 @@ export const List = () => {
 
     const index = projects.findIndex((projects) => projects.id === rowId);
 
-    if (pjSize % 6 == 0) {
+    if (pjSize % 6 === 0) {
       setCursor((cursor) => cursor - 1);
     }
     setCursor(0);
+    console.log(cursor);
     copyProjects.splice(index, 1);
     setProjects(copyProjects);
   };

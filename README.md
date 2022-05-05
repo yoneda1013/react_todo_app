@@ -5,13 +5,17 @@
 入稿時のデータ形式をメモできると同時に、入稿前のチェックも一緒にできるようにformの画面を工夫しました。
 
 ## 使い方
-![入力画面](https://user-images.githubusercontent.com/90192979/166429382-c0bab6e5-e23a-4bcd-a9eb-c3fdbbbb67ef.png)
+<img src = "https://user-images.githubusercontent.com/90192979/166429382-c0bab6e5-e23a-4bcd-a9eb-c3fdbbbb67ef.png" width = "500px">
 <br>タイトル部分に案件名を入れ、チェックリスト内のinputには案件、予定している印刷所ごとのデータ形式を入力します。
 入稿前にはcheckboxにチェックを入れることで、データ形式など入稿時のチェック漏れを防ぎます。
-<br><br>一覧からプロジェクトのリストも確認ができ、削除もこの画面で行います。
-![一覧](https://user-images.githubusercontent.com/90192979/166439002-e314cbf3-8308-45a7-804e-bf90e7ee5b13.png)
-<br><br>ログイン、新規登録を行うことも可能です。
-![ログイン画面](https://user-images.githubusercontent.com/90192979/166876008-de2cf2d0-f3a3-4ac1-915b-0dc553ef8716.png)
+<br>一覧からプロジェクトのリストも確認ができ、削除もこの画面で行います。
+<img src = "https://user-images.githubusercontent.com/90192979/166439002-e314cbf3-8308-45a7-804e-bf90e7ee5b13.png" width = "500px">
+<br>ログイン、新規登録を行うことも可能です。<br>
+<img src = "https://user-images.githubusercontent.com/90192979/166876008-de2cf2d0-f3a3-4ac1-915b-0dc553ef8716.png" width = "500px">
+<br>
+内容編集時<br>
+![編集](https://user-images.githubusercontent.com/90192979/166878563-6e18b2c3-b834-45fb-94c1-29b4edf52e02.gif)
+<br><br>
 ## 機能
 ・ログイン、新規登録機能<br>
 ・firebaseにデータを保存、またそのデータを変更、削除<br>

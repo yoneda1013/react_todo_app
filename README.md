@@ -10,7 +10,8 @@
 入稿前にはcheckboxにチェックを入れることで、データ形式など入稿時のチェック漏れを防ぎます。
 <br><br>一覧からプロジェクトのリストも確認ができ、削除もこの画面で行います。
 ![一覧](https://user-images.githubusercontent.com/90192979/166439002-e314cbf3-8308-45a7-804e-bf90e7ee5b13.png)
-
+<br><br>ログイン、新規登録を行うことも可能です。
+![ログイン画面](https://user-images.githubusercontent.com/90192979/166876008-de2cf2d0-f3a3-4ac1-915b-0dc553ef8716.png)
 ## 機能
 ・ログイン、新規登録機能<br>
 ・firebaseにデータを保存、またそのデータを変更、削除<br>

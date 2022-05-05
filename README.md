@@ -12,10 +12,12 @@
 <img src = "https://user-images.githubusercontent.com/90192979/166439002-e314cbf3-8308-45a7-804e-bf90e7ee5b13.png" width = "500px">
 <br><br>ログイン、新規登録を行うことも可能です。<br>
 <img src = "https://user-images.githubusercontent.com/90192979/166876008-de2cf2d0-f3a3-4ac1-915b-0dc553ef8716.png" width = "500px">
-
-<br>内容編集時<br>
+<br><br>新規作成時<br>
+<img src = "https://user-images.githubusercontent.com/90192979/166885231-a2cae805-b5b8-42de-9223-e9703f77e5e2.gif" width = "500px">
+<br><br>内容編集時<br>
 <img src = "https://user-images.githubusercontent.com/90192979/166882255-49b0769a-7aa4-41ab-80ba-c4f5a300f810.gif" width = "500px">
 <br><br>
+
 ## 機能
 ・ログイン、新規登録機能<br>
 ・firebaseにデータを保存、またそのデータを変更、削除<br>

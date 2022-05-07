@@ -227,7 +227,7 @@ export const Form = () => {
               formState.createdAt
             ),
           };
-
+          console.log("編集", projects);
           return projects;
         });
       } else {
@@ -244,8 +244,8 @@ export const Form = () => {
         };
 
         copyProjects.unshift(copyFormState);
-
         setProjects(copyProjects);
+        console.log("新規追加", projects);
       }
     }
   };

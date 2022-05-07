@@ -43,7 +43,6 @@ const ProjectProvider = ({ children }) => {
       if (isMountedRef.current) {
         const nextCursor = querySnapShot.docs[querySnapShot.docs.length - 1];
         const prevCursor = querySnapShot.docs[0];
-
         setNextCursor(nextCursor);
         setPrevCursor(prevCursor);
         setProjects(
@@ -52,7 +51,6 @@ const ProjectProvider = ({ children }) => {
             id: doc.id,
           }))
         );
-
         setIsLoading(false);
         callback && callback();
       }
@@ -64,7 +62,7 @@ const ProjectProvider = ({ children }) => {
       collection(db, "projects"),
       where("uid", "==", currentUser.uid),
       orderBy("createdAt", "desc"),
-      startAt(prevCursor),
+      // startAt(prevCursor),
       limit(LIMIT)
     );
 
@@ -109,10 +107,6 @@ const ProjectProvider = ({ children }) => {
     setPjSize(pjSize);
   });
 
-  // if (pjSize == LIMIT) {
-  //   const isLastPage = true;
-  //   setIsPastPage(isLastPage);
-  // }
   const prevDisabled = cursor === 0;
   const nextDisabled =
     Object.keys(projects).length < LIMIT || isLastPage || pjSize === LIMIT;
@@ -170,10 +164,8 @@ const ProjectProvider = ({ children }) => {
         onClickUpdate,
         pjSize,
         setCursor,
-
         LIMIT,
         cursor,
-
         isLastPage,
         onClickAddFetch,
         setPrevCursor,

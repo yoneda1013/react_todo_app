@@ -60,7 +60,7 @@ export const List = () => {
       setCursor((cursor) => cursor - 1);
     }
     setCursor(0);
-    console.log(cursor);
+
     copyProjects.splice(index, 1);
     setProjects(copyProjects);
   };

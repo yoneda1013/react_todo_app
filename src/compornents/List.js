@@ -48,9 +48,7 @@ export const List = () => {
 
         fetch(q);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
 
     const copyProjects = Object.assign([], projects);
 

@@ -17,6 +17,12 @@ const SignUpButton = styled(Button)({
   },
 });
 
+// const AuthWrapper = styled.div`
+//   height: 100vh;
+//   padding-top: 10vh;
+//   background: #e8e7e7;
+// `;
+
 const SignUp = ({ history }) => {
   const { signup } = useContext(AuthContext);
 

@@ -8,6 +8,7 @@ import { db } from "../firebase/firebase";
 import { AuthContext } from "../auth/AuthProvider";
 import { ProjectContext } from "../contexts/ProjectContext";
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
 
 const initialFormData = {
   title: "",
@@ -253,15 +254,15 @@ export const Form = () => {
     <>
       <Title title={formState.title} onChangeTitle={handleTitleChange} />
 
-      <div className="deadline">
-        <label>入稿締切</label>
+      <DeadlineWrapper>
+        <DeadlineLabel>入稿締切</DeadlineLabel>
         <DatePicker
           className="DatePicker"
           value={formState.deadlineDate}
           selected={formState.deadlineDate}
           onChange={handleDatePickerChange}
         />
-      </div>
+      </DeadlineWrapper>
       <div className="itemList">
         <div className="checkList">
           <h2>入稿前チェックリスト</h2>
@@ -411,3 +412,11 @@ export const Form = () => {
     </>
   );
 };
+
+const DeadlineWrapper = styled.div`
+  margin: 3.5vh 15% 0 15%;
+  display: flex;
+`;
+const DeadlineLabel = styled.label`
+  width: 7%;
+`;

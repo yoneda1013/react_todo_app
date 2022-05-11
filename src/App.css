@@ -119,15 +119,6 @@ input[type="text"]:focus {
   outline: none;
 }
 
-/* Deadline */
-/* .deadline {
-  margin: 3.5vh 15% 0 15%;
-  display: flex;
-} */
-/* .deadline label {
-  width: 7%;
-} */
-
 .DatePicker {
   justify-content: center;
   margin: 0 auto;

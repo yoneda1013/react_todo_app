@@ -32,27 +32,6 @@ h2 {
 }
 
 /* Auth */
-.wrapper {
-  height: 100vh;
-  padding-top: 10vh;
-  background: #e8e7e7;
-}
-
-.auth-container {
-  display: flex;
-  flex-direction: column;
-  padding: 5vh;
-  margin: 10em 0;
-  width: 40vh;
-  color: #2c2c2f;
-  background: #ffffff;
-  margin: 0 auto;
-}
-
-.auth-container h1 {
-  text-align: center;
-  font-size: var(--font--size--h1);
-}
 
 .auth-container p {
   text-align: center;

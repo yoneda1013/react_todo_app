@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { AuthContext } from "./AuthProvider";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
-import { styled } from "@material-ui/core/styles";
+import styled from "styled-components";
 
 const LoginButton = styled(Button)({
   background: "#3636B3",
@@ -16,6 +16,34 @@ const LoginButton = styled(Button)({
     backgroundColor: "#000066",
   },
 });
+
+const Wrapper = styled.div`
+  height: 100vh;
+  padding-top: 10vh;
+  background: #e8e7e7;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 5vh;
+  margin: 10em 0;
+  width: 40vh;
+  color: #2c2c2f;
+  background: #ffffff;
+  margin: 0 auto;
+`;
+
+const Title = styled.h1`
+  text-align: center;
+  font-size: var(--font--size--h1);
+`;
+
+const Text = styled.p`
+  text-align: center;
+  font-size: var(--font--size--p);
+  margin: 1.5vh 0 1vh 0;
+`;
 
 const Login = ({ history }) => {
   const { login } = useContext(AuthContext);
@@ -31,14 +59,14 @@ const Login = ({ history }) => {
   };
 
   return (
-    <div className="wrapper">
-      <div className="auth-container">
-        <h1>LOGIN</h1>
-        <p>
+    <Wrapper>
+      <Container>
+        <Title>LOGIN</Title>
+        <Text>
           登録したアドレス、
           <br />
           パスワードを入力してください。
-        </p>
+        </Text>
         <form onSubmit={handleSubmit}>
           <div className="auth-form">
             <span>Email</span>
@@ -60,8 +88,8 @@ const Login = ({ history }) => {
         <Button onClick={OnClickGuestButton}>
           ゲストユーザーとしてログイン
         </Button>
-      </div>
-    </div>
+      </Container>
+    </Wrapper>
   );
 };
 

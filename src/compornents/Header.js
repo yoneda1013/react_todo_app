@@ -1,12 +1,13 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 export const Header = () => {
   return (
     <>
-      <div className="headerList">
-        <div className="headerBtn">
+      <Wrapper>
+        <Box>
           <Button
             size="small"
             variant="contained"
@@ -27,10 +28,27 @@ export const Header = () => {
           >
             一覧へ
           </Button>
-        </div>
+        </Box>
 
-        <h1>入稿要件管理表</h1>
-      </div>
+        <Title>入稿要件管理表</Title>
+      </Wrapper>
     </>
   );
 };
+
+const Wrapper = styled.div`
+  background: -moz-linear-gradient(bottom, #a4a4e5, #fff);
+  background: -webkit-linear-gradient(bottom, #a4a4e5, #fff);
+  background: linear-gradient(to top, #a4a4e5, 80%, #fff);
+`;
+
+const Title = styled.h1`
+  text-align: center;
+  font-size: var(--font--size--h1);
+  padding-bottom: 1.5vh;
+  color: #ffffff;
+`;
+
+const Box = styled.div`
+  padding: 10vh 0 0 10vh;
+`;

@@ -27,7 +27,6 @@ export const List = () => {
     setCursor,
     setProjects,
     LIMIT,
-    cursor,
     fetch,
     pjSize,
   } = useContext(ProjectContext);

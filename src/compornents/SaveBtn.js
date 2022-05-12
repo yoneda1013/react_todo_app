@@ -1,9 +1,10 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
+import styled from "styled-components";
 
 export const SaveBtn = ({ onClickAdd, children }) => {
   return (
-    <div className="saveBtnContainer">
+    <Wrapper>
       <Button
         size="small"
         variant="contained"
@@ -21,6 +22,13 @@ export const SaveBtn = ({ onClickAdd, children }) => {
       >
         {children}
       </Button>
-    </div>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  text-align: right;
+  padding-right: 20px;
+  margin-top: 2vh;
+  margin-right: 10%;
+`;

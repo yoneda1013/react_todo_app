@@ -8,7 +8,7 @@ export const Header = () => {
     <>
       <Wrapper>
         <Box>
-          <Button
+          <StyledButton
             size="small"
             variant="contained"
             component={Link}
@@ -27,7 +27,7 @@ export const Header = () => {
             }}
           >
             一覧へ
-          </Button>
+          </StyledButton>
         </Box>
 
         <Title>入稿要件管理表</Title>
@@ -51,4 +51,17 @@ const Title = styled.h1`
 
 const Box = styled.div`
   padding: 10vh 0 0 10vh;
+`;
+
+const StyledButton = styled(Button)`
+  border: 0;
+  border-radius: 3;
+  margin: 5px;
+  fontsize: 11px;
+  padding: 10px;
+  color: #3636b3;
+  background: #ffffff;
+  &:hover: {
+    background-color: #000066;
+  }
 `;

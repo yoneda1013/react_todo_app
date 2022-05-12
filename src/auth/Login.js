@@ -4,18 +4,18 @@ import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import styled from "styled-components";
 
-const LoginButton = styled(Button)({
-  background: "#3636B3",
-  fontSize: "1.8rem",
-  border: 0,
-  borderRadius: 3,
-  color: "white",
-  padding: "10px 40px",
-  marginTop: "30px",
+const LoginButton = styled(Button)`
+  background: #3636B3;
+  &&& {font-size: 1.8rem;}
+  //MUIのCCSSに上書きしたい際は&&&{}
+  border: 0;
+  border-radius: 3;
+  color: white;
+  padding: 10px 40px;
+  marginTop: 30px;
   "&:hover": {
-    backgroundColor: "#000066",
-  },
-});
+    backgroundColor: #000066;
+  },`;
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -43,6 +43,13 @@ const Text = styled.p`
   text-align: center;
   font-size: var(--font--size--p);
   margin: 1.5vh 0 1vh 0;
+`;
+
+const Form = styled.form`
+  text-align: left;
+  padding-top: 5vh;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Login = ({ history }) => {

@@ -258,14 +258,13 @@ export const Form = () => {
         <DeadlineLabel>入稿締切</DeadlineLabel>
         <DeadlineContent>
           <DatePicker
-            // className="DatePicker"
             value={formState.deadlineDate}
             selected={formState.deadlineDate}
             onChange={handleDatePickerChange}
           />
         </DeadlineContent>
       </DeadlineWrapper>
-      <div className="itemList">
+      <Wrapper>
         <div className="checkList">
           <h2>入稿前チェックリスト</h2>
           <ul>
@@ -291,9 +290,7 @@ export const Form = () => {
                 </div>
               </div>
               {formState.cmykTextTouched && formState.cmykTextHasError && (
-                <div className="errorMessage">
-                  <span>カラーモードを入力してください</span>
-                </div>
+                <Error>カラーモードを入力してください</Error>
               )}
             </li>
 
@@ -318,9 +315,7 @@ export const Form = () => {
                 </div>
               </div>
               {formState.tonboTextTouched && formState.tonboTextHasError && (
-                <div className="errorMessage">
-                  <span>トンボの有無を入力してください</span>
-                </div>
+                <Error>トンボの有無を入力してください</Error>
               )}
             </li>
 
@@ -344,11 +339,10 @@ export const Form = () => {
                   />
                 </div>
               </div>
-              {formState.dataTypeTextTouched && formState.dataTypeTextHasError && (
-                <div className="errorMessage">
-                  <span>指定の拡張子を入力してください</span>
-                </div>
-              )}
+              {formState.dataTypeTextTouched &&
+                formState.dataTypeTextHasError && (
+                  <Error>指定の拡張子を入力してください</Error>
+                )}
             </li>
 
             <li>
@@ -372,11 +366,10 @@ export const Form = () => {
                   />
                 </div>
               </div>
-              {formState.imgTypeTextTouched && formState.imgTypeTextHasError && (
-                <div className="errorMessage">
-                  <span>画像の扱いを入力してください</span>
-                </div>
-              )}
+              {formState.imgTypeTextTouched &&
+                formState.imgTypeTextHasError && (
+                  <Error>画像の扱いを入力してください</Error>
+                )}
             </li>
 
             <li>
@@ -403,12 +396,10 @@ export const Form = () => {
             onBlur={urlTextTypeHandler}
           />
           {formState.urlTextTouched && formState.urlTextHasError && (
-            <div className="errorMessage">
-              <span>正しいURLを入力してください</span>
-            </div>
+            <Error>正しいURLを入力してください</Error>
           )}
         </div>
-      </div>
+      </Wrapper>
 
       <SaveBtn onClickAdd={onClickAdd}>{isEdit ? "変更保存" : "保存"}</SaveBtn>
     </>
@@ -428,4 +419,21 @@ const DeadlineContent = styled.div`
   background-color: var(--cl--gray);
   padding: 1vh;
   font-size: var(--font--size--p);
+`;
+
+const Error = styled.span`
+  font-size: 1rem;
+  margin-right: 0;
+  text-align: right;
+  display: block;
+  color: red;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 4vh 15% 0 15%;
+  @media screen and (max-width: 740px) {
+    display: block;
+  } ;
 `;

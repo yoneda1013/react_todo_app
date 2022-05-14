@@ -41,18 +41,19 @@ h2 {
 } */
 
 /* Form */
-.errorMessage span {
+/* .errorMessage span {
   font-size: 1rem;
   margin-right: 0;
   text-align: right;
   display: block;
   color: red;
-}
-.itemList {
+} */
+/* .itemList {
   display: flex;
   justify-content: space-between;
   margin: 4vh 15% 0 15%;
-}
+} */
+
 .checkList {
   width: 40%;
 }
@@ -139,9 +140,9 @@ span {
 }
 
 @media screen and (max-width: 740px) {
-  .itemList {
+  /* .itemList {
     display: block;
-  }
+  } */
   .checkList {
     width: 100%;
   }

@@ -7,7 +7,7 @@ export const Header = () => {
   return (
     <>
       <Wrapper>
-        <Box>
+        <div css="padding: 10vh 0 0 10vh;">
           <StyledButton
             size="small"
             variant="contained"
@@ -28,7 +28,7 @@ export const Header = () => {
           >
             一覧へ
           </StyledButton>
-        </Box>
+        </div>
 
         <Title>入稿要件管理表</Title>
       </Wrapper>

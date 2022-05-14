@@ -40,14 +40,6 @@ h2 {
   outline: none;
 } */
 
-.DatePicker {
-  justify-content: center;
-  margin: 0 auto;
-  background-color: var(--cl--gray);
-  padding: 1vh;
-  font-size: var(--font--size--p);
-}
-
 /* Form */
 .errorMessage span {
   font-size: 1rem;
@@ -112,45 +104,6 @@ label,
 span {
   margin: 0 1vh;
   font-size: var(--font--size--p);
-}
-
-/* list */
-.listRow th {
-  font-size: var(--font--size--p);
-}
-.listBody td {
-  font-size: var(--font--size--p);
-}
-
-/* 一覧ページ */
-
-.listBtn {
-  background: -moz-linear-gradient(bottom, #a4a4e5, #fff);
-  background: -webkit-linear-gradient(bottom, #a4a4e5, #fff);
-  background: linear-gradient(to top, #a4a4e5, 70%, #fff);
-  padding: 4vh 4vh 0;
-}
-
-.pagination {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 2vh;
-  gap: 20px 6px;
-}
-
-.page-item,
-.page-link {
-  display: inline-flex;
-  align-items: center;
-  border-radius: 30px;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 1.2rem;
-  height: 35px;
-  width: 35px;
-  background: var(--cl--lightblue);
-  color: #ffffff;
 }
 
 /* responsive */

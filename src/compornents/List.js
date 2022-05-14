@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { ProjectContext } from "../contexts/ProjectContext";
 
 import { AuthContext } from "../auth/AuthProvider";
+import styled from "styled-components";
 
 export const List = () => {
   const { currentUser } = useContext(AuthContext);
@@ -64,7 +65,7 @@ export const List = () => {
 
   return (
     <>
-      <div className="listBtn">
+      <ButtonBox>
         <Button
           size="small"
           variant="contained"
@@ -100,20 +101,18 @@ export const List = () => {
         >
           Sign Out
         </Button>
-      </div>
+      </ButtonBox>
       <TableContainer>
         <Table>
           <TableHead>
-            <TableRow
-              className="listRow"
-              style={{ background: "#A4A4E5", color: "#ffffff" }}
-            >
+            <TableRow style={{ background: "#A4A4E5", color: "#ffffff" }}>
               <TableCell
                 style={{
                   background: "#A4A4E5",
                   color: "#ffffff",
                   fontWeight: "bold",
                   textAlign: "center",
+                  fontSize: "var(--font--size--p)",
                 }}
               >
                 案件名
@@ -140,7 +139,7 @@ export const List = () => {
               </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody className="listBody">
+          <TableBody style={{ fontSize: "var(--font--size--p)" }}>
             {Object.values(projects).map((row, index) => (
               <TableRow key={index}>
                 <TableCell style={{ textAlign: "center", fontSize: "1.5rem" }}>
@@ -239,3 +238,10 @@ export const List = () => {
     </>
   );
 };
+
+const ButtonBox = styled.div`
+  background: -moz-linear-gradient(bottom, #a4a4e5, #fff);
+  background: -webkit-linear-gradient(bottom, #a4a4e5, #fff);
+  background: linear-gradient(to top, #a4a4e5, 70%, #fff);
+  padding: 4vh 4vh 0;
+`;

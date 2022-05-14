@@ -256,12 +256,14 @@ export const Form = () => {
 
       <DeadlineWrapper>
         <DeadlineLabel>入稿締切</DeadlineLabel>
-        <DatePicker
-          className="DatePicker"
-          value={formState.deadlineDate}
-          selected={formState.deadlineDate}
-          onChange={handleDatePickerChange}
-        />
+        <DeadlineContent>
+          <DatePicker
+            // className="DatePicker"
+            value={formState.deadlineDate}
+            selected={formState.deadlineDate}
+            onChange={handleDatePickerChange}
+          />
+        </DeadlineContent>
       </DeadlineWrapper>
       <div className="itemList">
         <div className="checkList">
@@ -419,4 +421,11 @@ const DeadlineWrapper = styled.div`
 `;
 const DeadlineLabel = styled.label`
   width: 7%;
+`;
+
+const DeadlineContent = styled.div`
+  justify-content: center;
+  background-color: var(--cl--gray);
+  padding: 1vh;
+  font-size: var(--font--size--p);
 `;

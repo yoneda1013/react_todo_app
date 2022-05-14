@@ -5,17 +5,18 @@ import Button from "@material-ui/core/Button";
 import styled from "styled-components";
 
 const LoginButton = styled(Button)`
-  background: #3636B3;
-  &&& {font-size: 1.8rem;}
+  &&& {
+    padding: 10px 40px;
+    margintop: 30px;
+    font-size: 1.8rem;
+    background: #3636b3;
+    color: white;
+    :hover& {
+      background-color: #000066;
+    }
+  }
   //MUIのCCSSに上書きしたい際は&&&{}
-  border: 0;
-  border-radius: 3;
-  color: white;
-  padding: 10px 40px;
-  marginTop: 30px;
-  "&:hover": {
-    backgroundColor: #000066;
-  },`;
+`;
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -45,11 +46,23 @@ const Text = styled.p`
   margin: 1.5vh 0 1vh 0;
 `;
 
-const Form = styled.form`
+const Form = styled.div`
   text-align: left;
   padding-top: 5vh;
   display: flex;
   flex-direction: column;
+`;
+
+const Input = styled.input`
+  height: 4vh;
+  margin-top: 1vh;
+  padding: 0.5vh;
+  background-color: var(--cl--gray);
+`;
+
+const ButtonBox = styled.div`
+  text-align: center;
+  padding: 5vh 0;
 `;
 
 const Login = ({ history }) => {
@@ -75,22 +88,22 @@ const Login = ({ history }) => {
           パスワードを入力してください。
         </Text>
         <form onSubmit={handleSubmit}>
-          <div className="auth-form">
+          <Form>
             <span>Email</span>
-            <input name="email" type="email" placeholder="email@gmail.com" />
-          </div>
-          <div className="auth-form">
+            <Input name="email" type="email" placeholder="email@gmail.com" />
+          </Form>
+          <Form>
             <span>Password</span>
-            <input name="password" type="password" placeholder="Password" />
-          </div>
-          <div className="auth-btn">
+            <Input name="password" type="password" placeholder="Password" />
+          </Form>
+          <ButtonBox>
             <LoginButton variant="outlined" disableElevation type="submit">
               LOG IN
             </LoginButton>
-          </div>
+          </ButtonBox>
         </form>
         <Link to="/signup" className="auth-link">
-          SignUp
+          <Text>SignUp</Text>
         </Link>
         <Button onClick={OnClickGuestButton}>
           ゲストユーザーとしてログイン

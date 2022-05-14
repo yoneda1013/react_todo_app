@@ -33,35 +33,6 @@ h2 {
 
 /* Auth */
 
-.auth-container p {
-  text-align: center;
-  font-size: var(--font--size--p);
-  margin: 1.5vh 0 1vh 0;
-}
-
-.auth-form {
-  text-align: left;
-  padding-top: 5vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.auth-form input {
-  height: 4vh;
-  margin-top: 1vh;
-  padding: 0.5vh;
-  background-color: var(--cl--gray);
-}
-
-.auth-btn {
-  text-align: center;
-  padding: 5vh 0;
-}
-
-.auth-link {
-  text-align: center;
-}
-
 /* Main */
 /* Title */
 /* input[type="text"]:focus {

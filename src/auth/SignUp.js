@@ -4,18 +4,19 @@ import { AuthContext } from "./AuthProvider";
 import Button from "@material-ui/core/Button";
 import styled from "styled-components";
 
-const SignUpButton = styled(Button)({
-  background: "#3636B3",
-  fontSize: "1.8rem",
-  border: 0,
-  borderRadius: 3,
-  color: "white",
-  padding: "10px 40px",
-  marginTop: "30px",
-  "&:hover": {
-    backgroundColor: "#000066",
-  },
-});
+const SignUpButton = styled(Button)`
+  &&& {
+    padding: 10px 40px;
+    margintop: 30px;
+    font-size: 1.8rem;
+    background: #3636b3;
+    color: white;
+    :hover& {
+      background-color: #000066;
+    }
+  }
+  //MUIのCCSSに上書きしたい際は&&&{}
+`;
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -45,6 +46,25 @@ const Text = styled.p`
   margin: 1.5vh 0 1vh 0;
 `;
 
+const Form = styled.div`
+  text-align: left;
+  padding-top: 5vh;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Input = styled.input`
+  height: 4vh;
+  margin-top: 1vh;
+  padding: 0.5vh;
+  background-color: var(--cl--gray);
+`;
+
+const ButtonBox = styled.div`
+  text-align: center;
+  padding: 5vh 0;
+`;
+
 const SignUp = ({ history }) => {
   const { signup } = useContext(AuthContext);
 
@@ -64,20 +84,20 @@ const SignUp = ({ history }) => {
           必要事項を入力してください。
         </Text>
         <form onSubmit={handleSubmit}>
-          <div className="auth-form">
+          <Form>
             <span>E-mail</span>
-            <input name="email" type="email" placeholder="email@gmail.com" />
-          </div>
-          <div className="auth-form">
+            <Input name="email" type="email" placeholder="email@gmail.com" />
+          </Form>
+          <Form>
             <span>Password</span>
-            <input name="password" type="password" placeholder="Password" />
-          </div>
-          <div className="auth-btn">
+            <Input name="password" type="password" placeholder="Password" />
+          </Form>
+          <ButtonBox>
             <SignUpButton type="submit">SIGN UP</SignUpButton>
-          </div>
+          </ButtonBox>
         </form>
         <Link to="/login" className="auth-link">
-          SignInへ戻る
+          <Text>SignInへ戻る</Text>
         </Link>
       </Container>
     </Wrapper>

@@ -269,7 +269,7 @@ export const Form = () => {
           <h2>入稿前チェックリスト</h2>
           <ul>
             <li>
-              <div className="checkListItem">
+              <ListItem>
                 <label className="checkBox">
                   <input
                     type="checkbox"
@@ -288,14 +288,14 @@ export const Form = () => {
                     onBlur={blurCmykHandler}
                   />
                 </div>
-              </div>
+              </ListItem>
               {formState.cmykTextTouched && formState.cmykTextHasError && (
                 <Error>カラーモードを入力してください</Error>
               )}
             </li>
 
             <li>
-              <div className="checkListItem">
+              <ListItem>
                 <label className="checkBox">
                   <input
                     type="checkbox"
@@ -313,14 +313,14 @@ export const Form = () => {
                     onBlur={blurTonboHandler}
                   />
                 </div>
-              </div>
+              </ListItem>
               {formState.tonboTextTouched && formState.tonboTextHasError && (
                 <Error>トンボの有無を入力してください</Error>
               )}
             </li>
 
             <li>
-              <div className="checkListItem">
+              <ListItem>
                 <label className="checkBox">
                   <input
                     type="checkbox"
@@ -338,7 +338,7 @@ export const Form = () => {
                     onBlur={blurDataTypeHandler}
                   />
                 </div>
-              </div>
+              </ListItem>
               {formState.dataTypeTextTouched &&
                 formState.dataTypeTextHasError && (
                   <Error>指定の拡張子を入力してください</Error>
@@ -346,7 +346,7 @@ export const Form = () => {
             </li>
 
             <li>
-              <div className="checkListItem">
+              <ListItem>
                 <label className="checkBox">
                   <input
                     type="checkbox"
@@ -365,7 +365,7 @@ export const Form = () => {
                     onBlur={blurImgTypeHandler}
                   />
                 </div>
-              </div>
+              </ListItem>
               {formState.imgTypeTextTouched &&
                 formState.imgTypeTextHasError && (
                   <Error>画像の扱いを入力してください</Error>
@@ -435,5 +435,16 @@ const Wrapper = styled.div`
   margin: 4vh 15% 0 15%;
   @media screen and (max-width: 740px) {
     display: block;
+  } ;
+`;
+
+const ListItem = styled.div`
+  margin-bottom: 0.1vh;
+  height: 3vh;
+  display: flex;
+  justify-content: space-between;
+  @media screen and (max-width: 1040px) {
+    display: block;
+    margin-bottom: 3vh;
   } ;
 `;

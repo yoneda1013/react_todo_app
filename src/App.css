@@ -31,16 +31,10 @@ h2 {
   --cl--lightblue: #a4a4e5;
 }
 
-.checkList {
-  width: 40%;
-}
 .checkList ul {
   padding: 0;
 }
 
-.checkList li {
-  height: 7vh;
-}
 .checkList label {
   display: inline-block;
 }
@@ -81,16 +75,6 @@ span {
 
 /* responsive */
 @media screen and (max-width: 1040px) {
-  .checkList li {
-    height: 8vh;
-  }
-  .checkBox {
-    width: 100%;
-  }
-  .checkList li:last-child {
-    margin-bottom: 0;
-    height: 2vh;
-  }
   .checkListInput {
     margin-bottom: 1vh;
     width: 100%;
@@ -108,9 +92,6 @@ span {
 }
 
 @media screen and (max-width: 740px) {
-  .checkList {
-    width: 100%;
-  }
   .checkListInput input {
     margin-right: 0;
   }
@@ -118,12 +99,7 @@ span {
     display: flex;
     margin-bottom: 0.1vh;
   }
-  .checkList {
-    margin-bottom: 5vh;
-  }
-  .checkList li {
-    height: 6vh;
-  }
+
   .url {
     width: 100%;
     margin-bottom: 1vh;

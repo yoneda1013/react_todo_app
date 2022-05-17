@@ -8,7 +8,7 @@ import { db } from "../firebase/firebase";
 import { AuthContext } from "../auth/AuthProvider";
 import { ProjectContext } from "../contexts/ProjectContext";
 import { useParams } from "react-router-dom";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 const initialFormData = {
   title: "",
@@ -265,19 +265,26 @@ export const Form = () => {
         </DeadlineContent>
       </DeadlineWrapper>
       <Wrapper>
-        <div className="checkList">
+        <div
+          css="width: 40%;  
+          @media screen and (max-width: 740px) {
+              width:100%;
+              margin-bottom: 5vh;
+            } ;"
+          className="checkList"
+        >
           <h2>入稿前チェックリスト</h2>
-          <ul>
-            <li>
+          <ul css="padding: 0;">
+            <List>
               <ListItem>
-                <label className="checkBox">
+                <Label>
                   <input
                     type="checkbox"
                     checked={formState.cmykBool}
                     onChange={handleCmykCheckChange}
                   />
                   <span>カラーモード</span>
-                </label>
+                </Label>
 
                 <div className="checkListInput Input">
                   <input
@@ -292,18 +299,18 @@ export const Form = () => {
               {formState.cmykTextTouched && formState.cmykTextHasError && (
                 <Error>カラーモードを入力してください</Error>
               )}
-            </li>
+            </List>
 
-            <li>
+            <List>
               <ListItem>
-                <label className="checkBox">
+                <Label>
                   <input
                     type="checkbox"
                     checked={formState.tonboBool}
                     onChange={handleTonboCheckChange}
                   />
                   <span>トンボ形式</span>
-                </label>
+                </Label>
                 <div className="checkListInput Input">
                   <input
                     type="text"
@@ -317,18 +324,18 @@ export const Form = () => {
               {formState.tonboTextTouched && formState.tonboTextHasError && (
                 <Error>トンボの有無を入力してください</Error>
               )}
-            </li>
+            </List>
 
-            <li>
+            <List>
               <ListItem>
-                <label className="checkBox">
+                <Label>
                   <input
                     type="checkbox"
                     checked={formState.dataTypeBool}
                     onChange={handleDataTypeChange}
                   />
                   <span>データ形式</span>
-                </label>
+                </Label>
                 <div className="checkListInput Input">
                   <input
                     type="text"
@@ -343,11 +350,11 @@ export const Form = () => {
                 formState.dataTypeTextHasError && (
                   <Error>指定の拡張子を入力してください</Error>
                 )}
-            </li>
+            </List>
 
-            <li>
+            <List>
               <ListItem>
-                <label className="checkBox">
+                <Label>
                   <input
                     type="checkbox"
                     checked={formState.imgTypeBool}
@@ -355,7 +362,7 @@ export const Form = () => {
                   />
 
                   <span>画像</span>
-                </label>
+                </Label>
                 <div className="checkListInput Input">
                   <input
                     type="text"
@@ -370,9 +377,9 @@ export const Form = () => {
                 formState.imgTypeTextHasError && (
                   <Error>画像の扱いを入力してください</Error>
                 )}
-            </li>
+            </List>
 
-            <li>
+            <List>
               <label>
                 <input
                   type="checkbox"
@@ -382,7 +389,7 @@ export const Form = () => {
 
                 <span>孤立点</span>
               </label>
-            </li>
+            </List>
           </ul>
         </div>
 
@@ -438,6 +445,19 @@ const Wrapper = styled.div`
   } ;
 `;
 
+const List = styled.li`
+  height: 7vh;
+  @media screen and (max-width: 1040px) {
+    height: 8vh;
+    :last-child {
+      margin-bottom: 0;
+      height: 2vh;
+    }
+  @media screen and (max-width: 740px) {
+    height: 6vh;
+  } ;
+`;
+
 const ListItem = styled.div`
   margin-bottom: 0.1vh;
   height: 3vh;
@@ -446,5 +466,12 @@ const ListItem = styled.div`
   @media screen and (max-width: 1040px) {
     display: block;
     margin-bottom: 3vh;
+  } ;
+`;
+
+const Label = styled.label`
+  display: inline-block;
+  @media screen and (max-width: 1040px) {
+    width: 100%;
   } ;
 `;

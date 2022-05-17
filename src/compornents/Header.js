@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 export const Header = () => {
   return (
@@ -47,10 +47,6 @@ const Title = styled.h1`
   font-size: var(--font--size--h1);
   padding-bottom: 1.5vh;
   color: #ffffff;
-`;
-
-const Box = styled.div`
-  padding: 10vh 0 0 10vh;
 `;
 
 const StyledButton = styled(Button)`

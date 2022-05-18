@@ -38,15 +38,7 @@ h2 {
 .checkList label {
   display: inline-block;
 }
-.url {
-  width: 50%;
-}
-.url textarea {
-  height: 25vh;
-  width: 100%;
-  background-color: var(--cl--gray);
-  padding: 2vh;
-}
+
 .checkListInput {
   display: inline-block;
 }
@@ -100,13 +92,6 @@ span {
     margin-bottom: 0.1vh;
   }
 
-  .url {
-    width: 100%;
-    margin-bottom: 1vh;
-  }
-  .url textarea {
-    height: 10vh;
-  }
   .titleInput {
     margin-bottom: 0;
   }

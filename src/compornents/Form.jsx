@@ -393,9 +393,16 @@ export const Form = () => {
           </ul>
         </div>
 
-        <div className="url Input">
+        <div
+          css="width: 50%;
+        @media screen and (max-width: 740px) {
+          width: 100%;
+          margin-bottom: 1vh;
+        };
+        "
+        >
           <h2>入稿所URL（50字以内）</h2>
-          <textarea
+          <Textarea
             type="text"
             placeholder="URL"
             value={formState.urlText}
@@ -473,5 +480,15 @@ const Label = styled.label`
   display: inline-block;
   @media screen and (max-width: 1040px) {
     width: 100%;
+  } ;
+`;
+
+const Textarea = styled.textarea`
+  height: 25vh;
+  width: 100%;
+  background-color: var(--cl--gray);
+  padding: 2vh;
+  @media screen and (max-width: 740px) {
+    height: 10vh;
   } ;
 `;

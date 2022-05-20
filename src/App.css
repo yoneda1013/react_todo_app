@@ -39,26 +39,6 @@ h2 {
   display: inline-block;
 }
 
-.checkListInput {
-  display: inline-block;
-}
-.checkListInput input {
-  font-size: var(--font--size--p);
-  box-sizing: border-box;
-  padding: 0.5vh;
-  transition: 0.3s;
-  letter-spacing: 1px;
-  background-color: var(--cl--gray);
-  width: 100%;
-  margin-left: 2vh;
-  height: 22px;
-}
-
-.checkListInput input[type="text"]:focus {
-  border-bottom: 2px solid #000066;
-  outline: none;
-}
-
 label,
 span {
   margin: 0 1vh;
@@ -67,13 +47,6 @@ span {
 
 /* responsive */
 @media screen and (max-width: 1040px) {
-  .checkListInput {
-    margin-bottom: 1vh;
-    width: 100%;
-  }
-  .checkListInput input {
-    margin-left: 0;
-  }
   .SaveBtnContainer {
     margin-top: 0;
   }
@@ -84,9 +57,6 @@ span {
 }
 
 @media screen and (max-width: 740px) {
-  .checkListInput input {
-    margin-right: 0;
-  }
   .checkListItem {
     display: flex;
     margin-bottom: 0.1vh;

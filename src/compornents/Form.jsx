@@ -286,8 +286,14 @@ export const Form = () => {
                   <span>カラーモード</span>
                 </Label>
 
-                <div className="checkListInput Input">
-                  <input
+                <div
+                  css="display: inline-block;
+                  @media screen and (max-width: 1040px){
+                  margin-bottom: 1vh;
+                  width: 100%;
+                }"
+                >
+                  <Input
                     type="text"
                     placeholder="RGB/CMYK"
                     value={formState.cmykText}
@@ -311,8 +317,14 @@ export const Form = () => {
                   />
                   <span>トンボ形式</span>
                 </Label>
-                <div className="checkListInput Input">
-                  <input
+                <div
+                  css="display: inline-block;
+                  @media screen and (max-width: 1040px){
+                  margin-bottom: 1vh;
+                  width: 100%;
+                }"
+                >
+                  <Input
                     type="text"
                     placeholder="アリ / ナシ"
                     value={formState.tonboText}
@@ -336,8 +348,14 @@ export const Form = () => {
                   />
                   <span>データ形式</span>
                 </Label>
-                <div className="checkListInput Input">
-                  <input
+                <div
+                  css="display: inline-block;
+                  @media screen and (max-width: 1040px){
+                  margin-bottom: 1vh;
+                  width: 100%;
+                }"
+                >
+                  <Input
                     type="text"
                     placeholder="ai / PDF / psd"
                     value={formState.dataTypeText}
@@ -363,8 +381,14 @@ export const Form = () => {
 
                   <span>画像</span>
                 </Label>
-                <div className="checkListInput Input">
-                  <input
+                <div
+                  css="display: inline-block;
+                  @media screen and (max-width: 1040px){
+                  margin-bottom: 1vh;
+                  width: 100%;
+                }"
+                >
+                  <Input
                     type="text"
                     placeholder="リンク / 埋め込み"
                     value={formState.imgTypeText}
@@ -490,5 +514,27 @@ const Textarea = styled.textarea`
   padding: 2vh;
   @media screen and (max-width: 740px) {
     height: 10vh;
+  } ;
+`;
+
+const Input = styled.input`
+  font-size: var(--font--size--p);
+  box-sizing: border-box;
+  padding: 0.5vh;
+  transition: 0.3s;
+  letter-spacing: 1px;
+  background-color: var(--cl--gray);
+  width: 100%;
+  margin-left: 2vh;
+  height: 22px;
+  :focus {
+    border-bottom: 2px solid #000066;
+    outline: none;
+  }
+  @media screen and (max-width: 1040px) {
+    margin-left: 0;
+  }
+  @media screen and (max-width: 740px) {
+    margin-left: 0;
   } ;
 `;

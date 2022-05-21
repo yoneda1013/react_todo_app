@@ -31,38 +31,8 @@ h2 {
   --cl--lightblue: #a4a4e5;
 }
 
-.checkList ul {
-  padding: 0;
-}
-
-.checkList label {
-  display: inline-block;
-}
-
 label,
 span {
   margin: 0 1vh;
   font-size: var(--font--size--p);
-}
-
-/* responsive */
-@media screen and (max-width: 1040px) {
-  .SaveBtnContainer {
-    margin-top: 0;
-  }
-  .deadline {
-    margin-top: 0;
-    display: block;
-  }
-}
-
-@media screen and (max-width: 740px) {
-  .checkListItem {
-    display: flex;
-    margin-bottom: 0.1vh;
-  }
-
-  .titleInput {
-    margin-bottom: 0;
-  }
 }

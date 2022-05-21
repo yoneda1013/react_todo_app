@@ -37,4 +37,7 @@ const Input = styled.input`
     border-bottom: 2px solid #000066;
     outline: none;
   }
+  @media screen and (max-width: 740px) {
+    margin-bottom: 0;
+  }
 `;

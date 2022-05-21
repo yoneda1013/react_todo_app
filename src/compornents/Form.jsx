@@ -271,7 +271,6 @@ export const Form = () => {
               width:100%;
               margin-bottom: 5vh;
             } ;"
-          className="checkList"
         >
           <h2>入稿前チェックリスト</h2>
           <ul css="padding: 0;">

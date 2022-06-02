@@ -1,11 +1,11 @@
 import "./App.css";
-import { Home } from "./compornents/Home";
-import { Edit } from "./compornents/Edit";
+import { Home } from "./component/Home";
+import { Edit } from "./component/Edit";
 import { AuthProvider } from "./auth/AuthProvider";
 import { Login } from "./auth/Login";
 import SignUp from "./auth/SignUp";
 import { PrivateRoute } from "./auth/PrivateRoute";
-import { List } from "./compornents/List";
+import { List } from "./component/List";
 import { Route, Routes } from "react-router-dom";
 
 export const App = () => {

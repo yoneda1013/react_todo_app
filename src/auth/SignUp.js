@@ -97,7 +97,7 @@ const SignUp = ({ history }) => {
           </ButtonBox>
         </form>
         <Link to="/login" className="auth-link">
-          <Text>SignInへ戻る</Text>
+          <Text>LogInへ戻る</Text>
         </Link>
       </Container>
     </Wrapper>

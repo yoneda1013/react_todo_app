@@ -20,16 +20,16 @@ const LoginButton = styled(Button)`
 
 const Wrapper = styled.div`
   height: 100vh;
-  padding-top: 10vh;
+  padding-top: 100px;
   background: #e8e7e7;
 `;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 5vh;
+  padding: 40px;
   margin: 10em 0;
-  width: 40vh;
+  width: 350px;
   color: #2c2c2f;
   background: #ffffff;
   margin: 0 auto;
@@ -43,26 +43,26 @@ const Title = styled.h1`
 const Text = styled.p`
   text-align: center;
   font-size: var(--font--size--p);
-  margin: 1.5vh 0 1vh 0;
+  margin: 10px 0 7px 0;
 `;
 
 const Form = styled.div`
   text-align: left;
-  padding-top: 5vh;
+  padding-top: 40px;
   display: flex;
   flex-direction: column;
 `;
 
 const Input = styled.input`
-  height: 4vh;
-  margin-top: 1vh;
-  padding: 0.5vh;
+  height: 30px;
+  margin-top: 10px;
+  padding: 5px;
   background-color: var(--cl--gray);
 `;
 
 const ButtonBox = styled.div`
   text-align: center;
-  padding: 5vh 0;
+  padding: 40px 0;
 `;
 
 const Login = ({ history }) => {

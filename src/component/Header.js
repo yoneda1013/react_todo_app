@@ -7,7 +7,7 @@ export const Header = () => {
   return (
     <>
       <Wrapper>
-        <div css="padding: 10vh 0 0 10vh;">
+        <div css="padding: 40px 0 0 60px;">
           <StyledButton
             size="small"
             variant="contained"
@@ -45,7 +45,7 @@ const Wrapper = styled.div`
 const Title = styled.h1`
   text-align: center;
   font-size: var(--font--size--h1);
-  padding-bottom: 1.5vh;
+  padding-bottom: 30px;
   color: #ffffff;
 `;
 

@@ -70,9 +70,9 @@ export const List = () => {
           size="small"
           variant="contained"
           style={{
-            margin: "2vh",
+            margin: "15px",
             fontSize: "14px",
-            padding: "0.5vh",
+            padding: "5px",
             color: "#3636B3",
             background: "#FFFFFF",
             "&:hover": {
@@ -88,9 +88,9 @@ export const List = () => {
           size="small"
           variant="contained"
           style={{
-            margin: "2vh",
+            margin: "15px",
             fontSize: "14px",
-            padding: "0.5vh",
+            padding: "5px",
             color: "#3636B3",
             background: "#FFFFFF",
             "&:hover": {
@@ -152,7 +152,7 @@ export const List = () => {
                     style={{
                       margin: "5px",
                       fontSize: "12px",
-                      padding: "0.3vh",
+                      padding: "3px",
                       color: "#FFFFFF",
                       background: "#3636B3",
                       "&:hover": {
@@ -173,7 +173,7 @@ export const List = () => {
                     style={{
                       margin: "5px",
                       fontSize: "12px",
-                      padding: "0.3vh",
+                      padding: "3px",
                       color: "#FFFFFF",
                       background: "#3636B3",
                       "&:hover": {
@@ -201,9 +201,9 @@ export const List = () => {
           size="small"
           variant="contained"
           style={{
-            margin: "2vh",
+            margin: "10px",
             fontSize: "14px",
-            padding: "0.5vh",
+            padding: "5px",
             color: "#3636B3",
             background: "#FFFFFF",
             "&:hover": {
@@ -221,9 +221,9 @@ export const List = () => {
           size="small"
           variant="contained"
           style={{
-            margin: "2vh",
+            margin: "10px",
             fontSize: "14px",
-            padding: "0.5vh",
+            padding: "5px",
             color: "#3636B3",
             background: "#FFFFFF",
             "&:hover": {
@@ -243,5 +243,5 @@ const ButtonBox = styled.div`
   background: -moz-linear-gradient(bottom, #a4a4e5, #fff);
   background: -webkit-linear-gradient(bottom, #a4a4e5, #fff);
   background: linear-gradient(to top, #a4a4e5, 70%, #fff);
-  padding: 4vh 4vh 0;
+  padding: 20px 20px 0;
 `;

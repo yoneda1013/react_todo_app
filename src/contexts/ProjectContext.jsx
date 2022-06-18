@@ -52,7 +52,7 @@ const ProjectProvider = ({ children }) => {
           }))
         );
         setIsLoading(false);
-        const docCheck = getDocs(
+        const docCheck = await getDocs(
           query(
             collection(db, "projects"),
             where("uid", "==", currentUser.uid),

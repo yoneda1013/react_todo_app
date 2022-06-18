@@ -52,6 +52,19 @@ const ProjectProvider = ({ children }) => {
           }))
         );
         setIsLoading(false);
+        const docCheck = getDocs(
+          query(
+            collection(db, "projects"),
+            where("uid", "==", currentUser.uid),
+            orderBy("createdAt", "desc"),
+            startAfter(nextCursor),
+            limit(1)
+          )
+        );
+        if (!docCheck.size) {
+          setIsPastPage(true);
+        }
+        console.log(isLastPage);
         callback && callback();
       }
     });

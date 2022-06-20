@@ -39,7 +39,7 @@ const ProjectProvider = ({ children }) => {
   //DOMツリーにDOMノードが追加されているか
 
   const fetch = (q, callback) => {
-    getDocs(q).then((querySnapShot) => {
+    getDocs(q).then(async (querySnapShot) => {
       if (isMountedRef.current) {
         const nextCursor = querySnapShot.docs[querySnapShot.docs.length - 1];
         const prevCursor = querySnapShot.docs[0];
@@ -63,8 +63,9 @@ const ProjectProvider = ({ children }) => {
         );
         if (!docCheck.size) {
           setIsPastPage(true);
+          console.log(docCheck.size);
         }
-        console.log(isLastPage);
+        console.log(docCheck.size);
         callback && callback();
       }
     });

@@ -26,7 +26,7 @@ export const Title = ({ title, onChangeTitle }) => {
 
 const Input = styled.input`
   width: 70%;
-  margin: 3vh 15%;
+  margin: 30px 15%;
   font-size: 1.8rem;
   box-sizing: border-box;
   padding: 0.6em;

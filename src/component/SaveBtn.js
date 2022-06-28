@@ -29,6 +29,6 @@ export const SaveBtn = ({ onClickAdd, children }) => {
 const Wrapper = styled.div`
   text-align: right;
   padding-right: 20px;
-  margin-top: 2vh;
+  margin-top: 20px;
   margin-right: 10%;
 `;

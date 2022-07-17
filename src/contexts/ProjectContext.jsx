@@ -23,13 +23,10 @@ const LIMIT = 5;
 const ProjectProvider = ({ children }) => {
   const [projects, setProjects] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  //fetchでprojectsに値が入っているか否か
   const [cursor, setCursor] = useState(0);
-  //ページ数
   const [nextCursor, setNextCursor] = useState(undefined);
   const [prevCursor, setPrevCursor] = useState(undefined);
   const [isLastPage, setIsPastPage] = useState(false);
-  const [pjSize, setPjSize] = useState(0);
 
   let { id } = useParams();
   const isEdit = id !== undefined;
@@ -63,9 +60,8 @@ const ProjectProvider = ({ children }) => {
         );
         if (!docCheck.size) {
           setIsPastPage(true);
-          console.log(docCheck.size);
         }
-        console.log(docCheck.size);
+
         callback && callback();
       }
     });
@@ -79,10 +75,11 @@ const ProjectProvider = ({ children }) => {
       // startAt(prevCursor),
       limit(LIMIT)
     );
-
     fetch(q);
   };
+
   const onClickAddFetch = () => {
+    console.log(isLastPage);
     let q = query(
       collection(db, "projects"),
       where("uid", "==", currentUser.uid),
@@ -114,16 +111,8 @@ const ProjectProvider = ({ children }) => {
     fetch(q);
   }, [currentUser.uid]);
 
-  const pjRef = db.collection("projects").where("uid", "==", currentUser.uid);
-
-  pjRef.get().then((querySnapShot) => {
-    const pjSize = querySnapShot.docs.length;
-    setPjSize(pjSize);
-  });
-
   const prevDisabled = cursor === 0;
-  const nextDisabled =
-    Object.keys(projects).length < LIMIT || isLastPage || pjSize === LIMIT;
+  const nextDisabled = Object.keys(projects).length < LIMIT || isLastPage;
 
   const next = () => {
     if (!nextCursor || nextDisabled) return;
@@ -138,8 +127,7 @@ const ProjectProvider = ({ children }) => {
 
     fetch(q, async () => {
       setCursor((cursor) => cursor + 1);
-      // const docCheck = await getDocs(query(q, limit(1)));
-      if (cursor + 2 === pjSize / LIMIT) {
+      if (isLastPage) {
         setIsPastPage(true);
       }
     });
@@ -176,13 +164,13 @@ const ProjectProvider = ({ children }) => {
         prevCursor,
         isEdit,
         onClickUpdate,
-        pjSize,
         setCursor,
         LIMIT,
         cursor,
         isLastPage,
         onClickAddFetch,
         setPrevCursor,
+        setIsPastPage,
       }}
     >
       {children}

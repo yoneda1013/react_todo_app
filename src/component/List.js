@@ -29,7 +29,8 @@ export const List = () => {
     setProjects,
     LIMIT,
     fetch,
-    pjSize,
+    setIsPastPage,
+    isLastPage,
   } = useContext(ProjectContext);
   const navigate = useNavigate();
 
@@ -53,11 +54,13 @@ export const List = () => {
     const copyProjects = Object.assign([], projects);
 
     const index = projects.findIndex((projects) => projects.id === rowId);
-
-    if (pjSize % 6 === 0) {
+    if (index === 0 && isLastPage) {
       setCursor((cursor) => cursor - 1);
     }
     setCursor(0);
+    if (isLastPage) {
+      setIsPastPage(false);
+    }
 
     copyProjects.splice(index, 1);
     setProjects(copyProjects);

@@ -253,7 +253,6 @@ export const Form = () => {
   return (
     <>
       <Title title={formState.title} onChangeTitle={handleTitleChange} />
-
       <DeadlineWrapper>
         <DeadlineLabel>入稿締切</DeadlineLabel>
         <DeadlineContent>

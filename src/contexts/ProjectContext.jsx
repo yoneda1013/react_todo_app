@@ -9,11 +9,9 @@ import {
   startAfter,
   limitToLast,
   endBefore,
-  startAt,
 } from "firebase/firestore";
 import { AuthContext } from "../auth/AuthProvider";
 import { db } from "../firebase/firebase";
-
 import { useParams } from "react-router-dom";
 
 const ProjectContext = React.createContext();
@@ -23,9 +21,7 @@ const LIMIT = 5;
 const ProjectProvider = ({ children }) => {
   const [projects, setProjects] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  //fetchでprojectsに値が入っているか否か
   const [cursor, setCursor] = useState(0);
-  //ページ数
   const [nextCursor, setNextCursor] = useState(undefined);
   const [prevCursor, setPrevCursor] = useState(undefined);
   const [isLastPage, setIsPastPage] = useState(false);
@@ -52,19 +48,6 @@ const ProjectProvider = ({ children }) => {
           }))
         );
         setIsLoading(false);
-        const docCheck = await getDocs(
-          query(
-            collection(db, "projects"),
-            where("uid", "==", currentUser.uid),
-            orderBy("createdAt", "desc"),
-            startAfter(nextCursor),
-            limit(1)
-          )
-        );
-        if (!docCheck.size) {
-          setIsPastPage(true);
-        }
-        console.log(isLastPage);
         callback && callback();
       }
     });
@@ -137,7 +120,6 @@ const ProjectProvider = ({ children }) => {
 
     fetch(q, async () => {
       setCursor((cursor) => cursor + 1);
-      // const docCheck = await getDocs(query(q, limit(1)));
       if (cursor + 2 === pjSize / LIMIT) {
         setIsPastPage(true);
       }

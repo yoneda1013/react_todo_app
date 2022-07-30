@@ -2,8 +2,8 @@ import React, { useContext, useState } from "react";
 import DatePicker from "react-datepicker";
 import firebase from "firebase/compat/app";
 
-import { SaveBtn } from "./SaveBtn";
-import { Title } from "./Title";
+import { SaveBtn } from "./element/SaveBtn";
+import { Title } from "./element/Title";
 import { db } from "../firebase/firebase";
 import { AuthContext } from "../auth/AuthProvider";
 import { ProjectContext } from "../contexts/ProjectContext";
@@ -214,7 +214,7 @@ export const Form = () => {
       if (isEdit) {
         onClickUpdate();
         const index = projects.findIndex((p) => p.id === id);
-        //paramsでとってきたidを持つobjの位置 pはprojects
+
         setProjects((prev) => {
           const projects = [...prev];
 
